@@ -1,0 +1,57 @@
+<div class="bg-gray-100 p-6 rounded-lg shadow-md">
+  <!-- Barra de pesquisa -->
+  <div class="flex  items-center mb-4">
+    <h2 class="border border-gray-300 rounded-lg p-2 bg-gray-50 text-xl font-bold mr-4">Pacotes: 127</h2>
+    <div class="flex items-center flex-grow">
+      <input
+        type="text"
+        placeholder="Pesquisar"
+        class="border border-gray-300 rounded-lg p-2 w-64"
+      />
+        <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
+            </svg>
+        </button>
+        <button class="bg-gray-800 text-white p-2 rounded-lg ml-auto">
+            <span class="material-icons">Adicionar Pacote</span>
+        </button>
+    </div>
+  </div>
+
+  <!-- Tabela de usuários -->
+  <table class="w-full border-collapse bg-white rounded-lg shadow-md">
+    <thead>
+      <tr class="bg-gray-200 text-left">
+        <th class="p-4">Id do Pacote</th>
+        <th class="p-4">Destino</th>
+        <th class="p-4">Nome do pacote</th>
+        <th class="p-4">Valor por pessoa</th>
+        <th class="p-4">País</th>
+        <th class="p-4">Última Alteração</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="hover:bg-gray-100">
+        <td class="p-4">#0000001</td>
+        <td class="p-4">Ricardo Nunes</td>
+        <td class="p-4">Visite o Cristo Redentor</td>
+        <td class="p-4">R$ 4.200,00</td>
+        <td class="p-4">Brasil</td>
+        <td class="p-4">04 de Jan 2024</td>
+      </tr>
+      <tr class="hover:bg-gray-100">
+        <td class="p-4">#0000002</td>
+        <td class="p-4">Amoedo Pascolino</td>
+        <td class="p-4">Visite o Cristo Redentor</td>
+        <td class="p-4">R$ 4.200,00</td>
+        <td class="p-4">Brasil</td>
+        <td class="p-4">04 de Jan 2024</td>
+      </tr>
+      <!-- Adicione mais linhas conforme necessário -->
+    </tbody>
+  </table>
+
+  <!-- Componente de paginação -->
+  <app-pagination-component></app-pagination-component>
+</div>
