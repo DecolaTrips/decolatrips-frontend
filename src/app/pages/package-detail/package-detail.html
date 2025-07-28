@@ -1,0 +1,57 @@
+
+<header
+  class="min-h-screen w-full bg-primary flex items-center justify-center"
+>
+  <div class="text-center">
+    <p class="text-white text-2xl">Destino</p>
+    <h1 class="text-white text-6xl">Egito</h1>
+  </div>
+</header>
+
+
+<main>
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-6">
+      <h2 class="text-2xl font-bold">Descrição</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <p>Explore os mistérios do Egito: caminhe por templos milenares, contemple as Pirâmides de Gizé ao pôr do sol e navegue pelo Rio Nilo entre monumentos históricos. Descubra mercados vibrantes, tumbas no Vale dos Reis e os impressionantes templos de Luxor e Abu Simbel. No Cairo, tradição e história se encontram em museus e arquitetura marcantes. Uma viagem única para quem busca cultura, história e experiências inesquecíveis.</p>
+  </section>
+  <section class="container mx-auto p-4">
+    <div class="flex items-center mb-8">
+      <h2 class="text-2xl font-bold">Destaques da Viagem</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <div class="flex flex-col gap-4">
+      <app-package-highlight-card></app-package-highlight-card>
+      <app-package-highlight-card></app-package-highlight-card>
+      <app-package-highlight-card></app-package-highlight-card>
+    </div>
+  </section>
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-4">
+      <h2 class="text-2xl font-bold">Informações Adicionais</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <ul class="list-disc gap-4 flex flex-col">
+      <li><app-info-card title="O que esta incluso"></app-info-card></li>
+      <li><app-info-card title="Requisitos"></app-info-card></li>
+      <li><app-info-card title="Clima e despesas"></app-info-card></li>
+      <li><app-info-card title="Datas e preços"></app-info-card></li>
+    </ul>
+  </section>
+  <section class="container mx-auto p-4">
+    <div class="w-full h-32 flex border border-gray-400 items-center justify-center hover:cursor-pointer hover:bg-gray-200">
+      Clique aqui para baixar o itinerario da viagem
+    </div>
+  </section>
+  <section class="container mx-auto p-4">
+    <div class="embed-map-fixed mx-auto"><div class="embed-map-container"><iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=800&height=400&hl=en&q=cairo&t=&z=14&ie=UTF8&iwloc=B&output=embed"></iframe><a href="https://map-embed.org" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:10px;overflow:hidden">google maps generator</a><a href="https://heygames.org" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:10px;overflow:hidden">HeyGames</a><a href="https://cartoongames.io" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:10px;overflow:hidden">Cartoon Games</a></div><style>.embed-map-fixed{position:relative;text-align:right;width:800px;height:400px;}.embed-map-container{overflow:hidden;background:none!important;width:800px;height:400px;}.embed-map-frame{width:800px!important;height:400px!important;}</style></div>
+  </section>
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-4">
+      <h2 class="text-2xl font-bold">Avaliações dos viajantes</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+  </section>
+</main>
