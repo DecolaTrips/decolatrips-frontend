@@ -1,3 +1,13 @@
-<div class="bg-[#FFF] p-4 rounded-lg border border-gray-300">
-  <p class="">{{ title }}</p>
+<div class="bg-[#FFF] p-4 rounded-lg border border-gray-300 hover:cursor-pointer" (click)="toggle()">
+  <p>{{ title }}</p>
+
+  <div
+    class="transition-all duration-200 ease-in-out"
+    [ngClass]="{
+      'max-h-96 opacity-100 py-4': active,
+      'max-h-0 opacity-0 py-0': !active
+    }"
+  >
+    <p class="text-xs">{{ description }}</p>
+  </div>
 </div>

@@ -1,8 +1,9 @@
 
 <header
-  class="min-h-screen w-full bg-primary flex items-center justify-center"
+  class="min-h-screen w-full flex items-center justify-center"
+  [ngStyle]="{ 'background-image': 'url(' + imageUrl + ')', 'background-size': 'cover', 'background-position': 'top' }"
 >
-  <div class="text-center">
+  <div class="relative z-10 text-center">
     <p class="text-white text-2xl">Destino</p>
     <h1 class="text-white text-6xl">Egito</h1>
   </div>
@@ -23,9 +24,20 @@
       <hr class="flex-1 border-gray-300 mx-4 0">
     </div>
     <div class="flex flex-col gap-4">
-      <app-package-highlight-card></app-package-highlight-card>
-      <app-package-highlight-card></app-package-highlight-card>
-      <app-package-highlight-card></app-package-highlight-card>
+      <app-swiper-container>
+        <swiper-slide>
+          <app-package-highlight-card></app-package-highlight-card>
+        </swiper-slide>
+        <swiper-slide>
+          <app-package-highlight-card></app-package-highlight-card>
+        </swiper-slide>
+        <swiper-slide>
+          <app-package-highlight-card></app-package-highlight-card>
+        </swiper-slide>
+        <swiper-slide>
+          <app-package-highlight-card></app-package-highlight-card>
+        </swiper-slide>
+      </app-swiper-container>
     </div>
   </section>
   <section class="container mx-auto p-4">
@@ -54,7 +66,7 @@
       <hr class="flex-1 border-gray-300 mx-4 0">
     </div>
     <app-rating>
-      
+
     </app-rating>
   </section>
 </main>
