@@ -1,25 +1,47 @@
-<div class="bg-gray-100 p-6 rounded-lg shadow-md">
+<div class="bg-gray-100 p-6 rounded-lg shadow-md h-screen">
   <!-- Barra de pesquisa -->
-  <div class="flex  items-center mb-4">
-    <h2 class="border border-gray-300 rounded-lg p-2 bg-gray-50 text-xl font-bold mr-4">Pacotes: 127</h2>
-    <div class="flex items-center flex-grow">
+  <div class="flex items-center justify-between mb-4">
+    <!-- Filtro e título -->
+    <div class="flex items-center space-x-4">
+      <app-filter-component></app-filter-component>
+      <h2 class="border border-gray-300 rounded-lg p-2 pl-4 pr-4 bg-gray-50 text-lg">Pacotes: <span>127</span></h2>
+
+         <!-- Campo de pesquisa com lupa -->
+    <div class="flex items-center">
       <input
         type="text"
         placeholder="Pesquisar"
         class="border border-gray-300 rounded-lg p-2 w-64"
       />
-        <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
-            </svg>
-        </button>
-        <button class="bg-gray-800 text-white p-2 rounded-lg ml-auto">
-            <span class="material-icons">Adicionar Pacote</span>
-        </button>
+    <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
+        </svg>
+    </button>
     </div>
+
+    </div>
+    <div class="flex justify-end space-x-4 mb-4">
+      <!-- Botão para abrir o calendário -->
+      <button class="bg-black text-white w-12 h-12 rounded-lg flex items-center justify-center hover:bg-gray-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10m-12 4h14m-14 4h14M3 10h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </button>
+
+      <!-- Botão para adicionar pacote -->
+      <button class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800">
+        <span class="text-white font-medium">Adicionar Pacote</span>
+      </button>
+    </div>
+
   </div>
 
-  <!-- Tabela de usuários -->
+
+
+
+  <!-- Tabela de pacotes -->
   <table class="w-full border-collapse bg-white rounded-lg shadow-md">
     <thead>
       <tr class="bg-gray-200 text-left">
