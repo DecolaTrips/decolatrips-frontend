@@ -1,20 +1,20 @@
 <div class="min-h-screen flex">
-  <!-- lado esquerdo - imagem -->
-  <div class="flex w-1/2 relative" style="background-image: url('https://thearrivalstore.com/wp-content/uploads/2016/10/iStock_74131929_LARGE.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <!-- lado esquerdo - imagem  -->
+  <div class="hidden md:flex w-1/2 relative" style="background-image: url('https://thearrivalstore.com/wp-content/uploads/2016/10/iStock_74131929_LARGE.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
   </div>
 
-  <!-- lado direito - formulario -->
-  <div class="w-1/2 flex items-center justify-center bg-gray-50 p-8">
-    <div class="w-full max-w-md">
+  <!-- lado direito - formulario  -->
+  <div class="w-full md:w-1/2 flex items-start justify-center bg-gray-50 p-8 overflow-y-auto">
+    <div class="w-full max-w-md min-h-full flex flex-col justify-center py-4">
       <!-- Logo -->
-      <div class="text-center mb-8">
+      <div class="text-center mb-2">
         <div class="flex items-center justify-center mb-4">
-          <img src="images/decola-trips-logo.png" alt="Decola Trips Logo" class="h-16 w-auto">
+          <img src="images/decola-trips-logo.png" alt="Decola Trips Logo" class="h-24 w-auto">
         </div>
       </div>
 
       <!-- titulo -->
-      <h2 class="text-center text-xl font-semibold text-gray-700 mb-8">
+      <h2 class="text-center text-xl font-semibold text-gray-700 mb-6">
         Seja bem vindo(a)
       </h2>
 
@@ -25,7 +25,7 @@
       </app-register-form>
 
       <!-- link para login -->
-      <p class="mt-8 text-center text-sm text-gray-600">
+      <p class="mt-6 text-center text-sm text-gray-600">
         Já possui login?
         <a routerLink="/login" class="font-semibold text-orange-600 hover:text-orange-500 ml-1">
           Entrar

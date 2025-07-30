@@ -15,6 +15,7 @@ export class RegisterFormComponent {
   @Output() submitForm = new EventEmitter<any>();
 
   registerForm: FormGroup;
+  formSubmitted = false;
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
@@ -37,6 +38,7 @@ export class RegisterFormComponent {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     if (this.registerForm.valid) {
       const { confirmPassword, ...formData } = this.registerForm.value;
       this.submitForm.emit(formData);
@@ -54,19 +56,19 @@ export class RegisterFormComponent {
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.registerForm.get(fieldName);
-    return !!(field && field.invalid && field.touched);
+    return !!(field && field.invalid && this.formSubmitted);
   }
 
   hasPasswordMismatch(): boolean {
     return !!(this.registerForm.errors?.['passwordMismatch'] && 
-             this.registerForm.get('confirmPassword')?.touched);
+             this.formSubmitted);
   }
 
   getFieldErrors(fieldName: string): string[] {
     const field = this.registerForm.get(fieldName);
     const errors: string[] = [];
     
-    if (field && field.errors && field.touched) {
+    if (field && field.errors && this.formSubmitted) {
       if (field.errors['required']) {
         const fieldNames: { [key: string]: string } = {
           'fullName': 'Nome completo',

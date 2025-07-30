@@ -16,6 +16,7 @@ export class LoginFormComponent {
   @Output() forgotPassword = new EventEmitter<void>();
 
   loginForm: FormGroup;
+  formSubmitted = false;
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
@@ -25,6 +26,7 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
     if (this.loginForm.valid) {
       this.submitForm.emit(this.loginForm.value);
     } else {
@@ -45,14 +47,14 @@ export class LoginFormComponent {
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.loginForm.get(fieldName);
-    return !!(field && field.invalid && field.touched);
+    return !!(field && field.invalid && this.formSubmitted);
   }
 
   getFieldErrors(fieldName: string): string[] {
     const field = this.loginForm.get(fieldName);
     const errors: string[] = [];
     
-    if (field && field.errors && field.touched) {
+    if (field && field.errors && this.formSubmitted) {
       if (field.errors['required']) {
         errors.push(`${fieldName === 'email' ? 'Email' : 'Senha'} é obrigatório`);
       }
