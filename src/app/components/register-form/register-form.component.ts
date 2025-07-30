@@ -8,76 +8,7 @@ import { FormButtonComponent } from '../form-button/form-button.component';
   selector: 'app-register-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormInputComponent, FormButtonComponent],
-  template: `
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
-      <!-- nome completo -->
-      <div>
-        <app-form-input
-          inputId="fullName"
-          type="text"
-          placeholder="Nome Completo"
-          [formControlName]="'fullName'"
-          [hasError]="isFieldInvalid('fullName')"
-          [errorMessages]="getFieldErrors('fullName')">
-        </app-form-input>
-      </div>
-
-      <!-- email -->
-      <div>
-        <app-form-input
-          inputId="email"
-          type="email"
-          placeholder="Email"
-          [formControlName]="'email'"
-          [hasError]="isFieldInvalid('email')"
-          [errorMessages]="getFieldErrors('email')">
-        </app-form-input>
-      </div>
-
-      <!-- CPF/passaporte -->
-      <div>
-        <app-form-input
-          inputId="cpfPassport"
-          type="text"
-          placeholder="CPF/Passaporte"
-          [formControlName]="'cpfPassport'"
-          [hasError]="isFieldInvalid('cpfPassport')"
-          [errorMessages]="getFieldErrors('cpfPassport')">
-        </app-form-input>
-      </div>
-
-      <!-- senha -->
-      <div>
-        <app-form-input
-          inputId="password"
-          type="password"
-          placeholder="Senha"
-          [formControlName]="'password'"
-          [hasError]="isFieldInvalid('password')"
-          [errorMessages]="getFieldErrors('password')">
-        </app-form-input>
-      </div>
-
-      <!-- confirmar senha -->
-      <div>
-        <app-form-input
-          inputId="confirmPassword"
-          type="password"
-          placeholder="Confirme sua senha"
-          [formControlName]="'confirmPassword'"
-          [hasError]="isFieldInvalid('confirmPassword') || hasPasswordMismatch()"
-          [errorMessages]="getFieldErrors('confirmPassword')">
-        </app-form-input>
-      </div>
-
-      <!-- botão de registro -->
-      <app-form-button
-        text="Criar conta"
-        loadingText="Criando conta..."
-        [isLoading]="isLoading">
-      </app-form-button>
-    </form>
-  `
+  templateUrl: './register-form.component.html'
 })
 export class RegisterFormComponent {
   @Input() isLoading = false;

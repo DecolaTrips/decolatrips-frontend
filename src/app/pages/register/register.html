@@ -1,5 +1,5 @@
 <div class="min-h-screen flex">
-  <!-- lado esquerdo - Imagem -->
+  <!-- lado esquerdo - imagem -->
   <div class="flex w-1/2 relative" style="background-image: url('https://thearrivalstore.com/wp-content/uploads/2016/10/iStock_74131929_LARGE.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
   </div>
 
@@ -14,17 +14,9 @@
       </div>
 
       <!-- titulo -->
-      <h2 class="text-center text-xl font-semibold text-gray-700 mb-6">
+      <h2 class="text-center text-xl font-semibold text-gray-700 mb-8">
         Seja bem vindo(a)
       </h2>
-
-      <!-- link para login (se já tem conta) -->
-      <div class="text-center mb-6">
-        <span class="text-sm text-gray-600">Já possui login?</span>
-        <a routerLink="/login" class="text-sm text-orange-600 hover:text-orange-500 ml-1 underline">
-          Entrar
-        </a>
-      </div>
 
       <!-- formulario -->
       <app-register-form
@@ -32,6 +24,13 @@
         (submitForm)="onSubmitForm($event)">
       </app-register-form>
 
+      <!-- link para login -->
+      <p class="mt-8 text-center text-sm text-gray-600">
+        Já possui login?
+        <a routerLink="/login" class="font-semibold text-orange-600 hover:text-orange-500 ml-1">
+          Entrar
+        </a>
+      </p>
     </div>
   </div>
 </div>

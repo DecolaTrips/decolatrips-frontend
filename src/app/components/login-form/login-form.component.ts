@@ -8,51 +8,7 @@ import { FormButtonComponent } from '../form-button/form-button.component';
   selector: 'app-login-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormInputComponent, FormButtonComponent],
-  template: `
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <!-- email -->
-      <div>
-        <app-form-input
-          inputId="email"
-          type="email"
-          placeholder="Email"
-          [formControlName]="'email'"
-          [hasError]="isFieldInvalid('email')"
-          [errorMessages]="getFieldErrors('email')">
-        </app-form-input>
-      </div>
-
-      <!-- senha -->
-      <div>
-        <app-form-input
-          inputId="password"
-          type="password"
-          placeholder="Senha"
-          [formControlName]="'password'"
-          [hasError]="isFieldInvalid('password')"
-          [errorMessages]="getFieldErrors('password')">
-        </app-form-input>
-      </div>
-
-      <!-- link esqueceu senha -->
-      <div class="text-right">
-        <button
-          type="button"
-          (click)="onForgotPassword()"
-          class="text-sm text-blue-600 hover:text-blue-500 underline"
-        >
-          Esqueceu sua senha?
-        </button>
-      </div>
-
-      <!-- botão de login -->
-      <app-form-button
-        text="Entrar"
-        loadingText="Entrando..."
-        [isLoading]="isLoading">
-      </app-form-button>
-    </form>
-  `
+  templateUrl: '../login-form/login-form.component.html'
 })
 export class LoginFormComponent {
   @Input() isLoading = false;
