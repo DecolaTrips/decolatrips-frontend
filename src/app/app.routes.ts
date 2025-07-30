@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
+import { Categorias } from './pages/categorias/categorias';
 import { DestinosInternacionais } from './pages/destinos-internacionais/destinos-internacionais';
 import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais';
 import { EmAlta } from './pages/em-alta/em-alta';
