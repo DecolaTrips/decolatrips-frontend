@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-em-alta',
   imports: [Navbar],
-  templateUrl: './home.html',
-  styleUrl: './home.css'
+  templateUrl: './em-alta.html',
+  styleUrl: './em-alta.css'
 })
-export class Home {
+export class EmAlta {
 
 }
