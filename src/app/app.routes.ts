@@ -16,10 +16,6 @@ export const routes: Routes = [
         component: Home
     },
     {
-        path: "categorias",
-        component: Categorias
-    },
-    {
         path: "destinos/internacionais",
         component: DestinosInternacionais
     },
