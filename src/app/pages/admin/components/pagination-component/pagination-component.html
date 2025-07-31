@@ -1,18 +1,51 @@
-<div class="flex justify-center items-center mt-4 space-x-2">
+<div class="flex justify-center items-center mt-4 space-x-2" *ngIf="totalPages > 0">
   <!-- Botão anterior -->
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+  <button 
+    [disabled]="currentPage === 0"
+    (click)="onPreviousClick()"
+    [class]="currentPage === 0 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-800 hover:bg-gray-100'"
+    class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center">
     <span class="material-icons">chevron_left</span>
   </button>
 
-  <!-- Botões de página -->
-  <button class="bg-black text-white w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center">1</button>
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">2</button>
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">3</button>
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">...</button>
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">42</button>
+  <!-- Página atual (sempre visível) -->
+  <button 
+    class="bg-black text-white w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center">
+    {{ currentPage + 1 }}
+  </button>
+
+  <!-- Próximas 2 páginas (se existirem) -->
+  <button 
+    *ngFor="let page of visiblePages"
+    (click)="onPageClick(page)"
+    [disabled]="totalPages <= 1"
+    [class]="totalPages <= 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-800 hover:bg-gray-100'"
+    class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center">
+    {{ page }}
+  </button>
+
+  <!-- Reticências (se necessário) -->
+  <button 
+    *ngIf="showEllipsis"
+    class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center cursor-default"
+    disabled>
+    ...
+  </button>
+
+  <!-- Última página (se necessário) -->
+  <button 
+    *ngIf="showLastPage"
+    (click)="onLastPageClick()"
+    class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+    {{ totalPages }}
+  </button>
 
   <!-- Botão próximo -->
-  <button class="bg-white text-gray-800 w-10 h-10 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+  <button 
+    [disabled]="currentPage >= totalPages - 1"
+    (click)="onNextClick()"
+    [class]="currentPage >= totalPages - 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-800 hover:bg-gray-100'"
+    class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center">
     <span class="material-icons">chevron_right</span>
   </button>
 </div>
