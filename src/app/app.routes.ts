@@ -6,6 +6,7 @@ import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais
 import { EmAlta } from './pages/em-alta/em-alta';
 import { CheckoutComponent } from './pages/checkout-page/checkout.component';
 import { DadosPessoaisComponent } from './pages/dados-pessoais/dados-pessoais.component';
+import { MyPackagesComponent } from './pages/my-packages-page/my-packages.component';
 
 export const routes: Routes = [
     {
@@ -40,5 +41,9 @@ export const routes: Routes = [
     {
         path: "dados-pessoais",
         component: DadosPessoaisComponent
+    },
+    {
+        path: "meus-pacotes",
+        component: MyPackagesComponent
     }
 ];
