@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
@@ -16,7 +16,8 @@ export class LoginComponent {
   isLoading = false;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   onSubmitForm(formData: any) {
@@ -39,6 +40,6 @@ export class LoginComponent {
   }
 
   onForgotPassword() {
-    alert('Funcionalidade de recuperação de senha será implementada em breve!');
+    this.router.navigate(['/forgot-password']);
   }
 }
