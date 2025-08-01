@@ -5,6 +5,8 @@ import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais
 import { EmAlta } from './pages/em-alta/em-alta';
 import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
+import { LoginComponent } from './pages/login/login';
+import { RegisterComponent } from './pages/register/register';
 
 export const routes: Routes = [
     {
@@ -35,5 +37,13 @@ export const routes: Routes = [
     {
         path: "sobrenos",
         component: Sobrenos
+    },
+    {
+        path: "login",
+        component: LoginComponent
+    },
+    {
+        path: "register",
+        component: RegisterComponent
     }
 ];
