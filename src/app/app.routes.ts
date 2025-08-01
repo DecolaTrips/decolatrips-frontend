@@ -5,6 +5,7 @@ import { DestinosInternacionais } from './pages/destinos-internacionais/destinos
 import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais';
 import { EmAlta } from './pages/em-alta/em-alta';
 import { CheckoutComponent } from './pages/checkout-page/checkout.component';
+import { DadosPessoaisComponent } from './pages/dados-pessoais/dados-pessoais.component';
 
 export const routes: Routes = [
     {
@@ -35,5 +36,9 @@ export const routes: Routes = [
     {
         path: "checkout",
         component: CheckoutComponent
+    },
+    {
+        path: "dados-pessoais",
+        component: DadosPessoaisComponent
     }
 ];
