@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { Categorias } from './pages/categorias/categorias';
 import { DestinosInternacionais } from './pages/destinos-internacionais/destinos-internacionais';
 import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais';
 import { EmAlta } from './pages/em-alta/em-alta';
+import { Faqs } from './pages/faqs/faqs';
+import { Sobrenos } from './pages/sobrenos/sobrenos';
 
 export const routes: Routes = [
     {
@@ -26,5 +27,13 @@ export const routes: Routes = [
     {
         path: "emalta",
         component: EmAlta
+    },
+    {
+        path: "faqs",
+        component: Faqs
+    },
+    {
+        path: "sobrenos",
+        component: Sobrenos
     }
 ];
