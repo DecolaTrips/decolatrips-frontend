@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <!-- Botão Voltar -->
+    <div class="mb-8">
+      <a 
+        href="/home"
+        class="inline-flex items-center text-primary hover:text-primary-600 transition duration-200">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Voltar para a Página Inicial
+      </a>
+    </div>
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
+        Perguntas Frequentes
+      </h1>
+      <p class="text-xl text-gray-600">
+        Encontre respostas para as dúvidas mais comuns sobre nossos pacotes de viagem.
+      </p>
+    </div>
+
+    <!-- FAQs -->
+    <div class="space-y-4">
+      <div *ngFor="let faq of faqs; let i = index" 
+           class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200"
+           [class.border-l-4]="faq.open"
+           [class.border-primary]="faq.open">
+        <button 
+          (click)="toggleFAQ(i)"
+          class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center"
+          [class.bg-primary-50]="faq.open">
+          <span class="text-lg font-medium text-gray-900">{{ faq.question }}</span>
+          <svg 
+            class="w-5 h-5 text-primary transition-transform duration-200"
+            [class.transform.rotate-180]="faq.open"
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        
+        <div 
+          *ngIf="faq.open"
+          class="px-6 pb-4 text-gray-600">
+          {{ faq.answer }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Ainda com dúvidas? -->
+    <div class="mt-16 bg-primary-50 rounded-lg p-6 text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-3">Ainda com dúvidas?</h2>
+      <p class="text-gray-700 mb-4">Nossa equipe está pronta para te ajudar a planejar a viagem dos seus sonhos!</p>
+      <p class="text-gray-700 mb-4">Entre em contato pelo email: decolatrips&#64;gmail.com</p>
+    </div>
+  </div>
+</div>
