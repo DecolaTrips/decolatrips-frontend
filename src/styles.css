@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
-route::before {
+:root {
     --color-primary: #FA8015;
     --color-primary-light: #FEEAD9;
     --color-primary-dark: #c1620f;
