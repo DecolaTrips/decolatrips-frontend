@@ -1,12 +1,39 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login';
-import { RegisterComponent } from './pages/register/register';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password';
+import { Home } from './pages/home/home';
+import { DestinosInternacionais } from './pages/destinos-internacionais/destinos-internacionais';
+import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais';
+import { EmAlta } from './pages/em-alta/em-alta';
+import { Faqs } from './pages/faqs/faqs';
+import { Sobrenos } from './pages/sobrenos/sobrenos';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '**', redirectTo: '/login' }
+    {
+        path: "",
+        redirectTo: "home",
+        pathMatch: "full"
+    },
+    {
+        path: "home",
+        component: Home
+    },
+    {
+        path: "destinos/internacionais",
+        component: DestinosInternacionais
+    },
+    {
+        path: "destinos/nacionais",
+        component: DestinosNacionais
+    },
+    {
+        path: "emalta",
+        component: EmAlta
+    },
+    {
+        path: "faqs",
+        component: Faqs
+    },
+    {
+        path: "sobrenos",
+        component: Sobrenos
+    }
 ];

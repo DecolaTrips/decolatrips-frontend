@@ -1,0 +1,31 @@
+<div class="min-h-screen flex flex-col" style="background-image: url('fundo_porto.png');">
+    <app-navbar></app-navbar>
+    
+    <div class="flex-1">
+        <br />
+        <div class="w-full flex justify-center px-4">
+            <div class="max-w-3xl mt-12 mb-2 py-2 rounded-lg">
+                <h1 class="text-white text-5xl font-semibold text-center">Encontre seu pacote de viagem</h1>
+            </div>
+        </div>
+        <app-searchbar></app-searchbar>
+    </div>
+    
+    <div class="bg-white w-full py-8 mt-25">
+        <h1 class="text-3xl font-bold ml-25">Melhores pacotes para você!</h1>
+        <div class="grid grid-cols-4 gap-5 ml-20 mr-29 mt-3 items-center ">
+            <app-package-card photoCover="cards/egito.png" title="Gizé, Egito" price="21.000" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/bali.png" title="Bali, Indonésia" price="7.624" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/paris.png" title="Paris, França" price="17.624" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/patagonia.png" title="Patagonia, Argentina" price="15.566" days="7" nights="6"></app-package-card>
+        </div>
+        <div class="grid grid-cols-4 gap-5 ml-20 mr-29 mt-3 items-center ">
+            <app-package-card photoCover="cards/porto.jpg" title="Porto de Galinhas, Brasil" price=7.200 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/florenca.png" title="Florença, Itália" price=17.000 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/toquio.png" title="Tóquio, Japão" price=20.000 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/rio.png" title="Rio de Janeiro, Brasil" price=4.250 days="7" nights="6"></app-package-card>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>
