@@ -1,0 +1,28 @@
+<div class="bg-white border border-gray-200 shadow-md rounded-xl w-full flex flex-col">
+  <div class="relative">
+    <!-- Badge -->
+    <div class="bg-primary w-fit h-6 absolute top-0 right-0 rounded-tr-lg rounded-bl-2xl flex items-center justify-center gap-x-1 pl-4 pr-3">
+      <p class="text-xs text-white">{{days}} dias</p>
+      <p class="text-xs text-white">/</p>
+      <p class="text-xs text-white">{{nights}} noites</p>
+    </div>
+  </div>
+
+  <img src="{{photoCover}}" alt="package cover" class="rounded-t-xl h-48 object-cover">
+
+  <!-- Conteúdo -->
+  <div class="flex flex-col justify-between flex-grow p-4 border-t border-gray-100">
+    <div>
+      <h1 class="text-xl font-bold">{{title}}</h1>
+      <p class="mt-3 text-sm">a partir de</p>
+      <div class="flex items-center">
+        <h3 class="mt-1 text-3xl font-bold">R${{price}}</h3>
+        <p class="text-sm ml-auto mt-3">por pessoa</p>
+      </div>
+    </div>
+
+    <button class="w-full border border-primary py-1 mt-4 h-8 rounded-lg text-primary hover:bg-primary hover:cursor-pointer hover:text-white transition">
+      Ver Pacote
+    </button>
+  </div>
+</div>

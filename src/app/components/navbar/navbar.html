@@ -1,0 +1,107 @@
+<nav class="md:top-3 absolute md:bg-transparent z-50 w-screen h-screen md:w-full md:h-fit"
+  [class]="isMobileMenuOpen ? 'bg-white scrollbar-hide' : 'bg-transparent'">
+  <div class="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8">
+
+    <div class="flex h-16 items-center justify-between">
+
+      <div class="flex justify-between items-center w-full md:hidden">
+        <img src="logo_preto_mini.png" alt="" class="h-8 w-auto md:hidden" style="height: 24px;" />
+
+        <!-- Mobile menu button-->
+        <button type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen"
+          aria-controls="mobile-menu"
+          class="relative inline-flex items-center justify-center rounded-md p-2 hover:bg-[#ffffff29] focus:ring-2  focus:outline-hidden focus:ring-inset"
+          [class]="isMobileMenuOpen ? ' text-black' : 'text-white'">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <!-- Icon when menu is closed -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" [class]="isMobileMenuOpen ? 'hidden size-6' : 'block md:hidden size-6'">
+            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <!-- Icon when menu is open -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" [class]="isMobileMenuOpen ? 'block size-6' : 'hidden size-6'">
+            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+
+      </div>
+      <!-- Logo à esquerda - agora oculta em mobile sempre -->
+      <div class="hidden md:flex shrink-0 items-center">
+        <a href="/home">
+          <img src="logo_branco.png" alt="Decola Trips" class="h-8 w-auto" style="max-width: 94px; height: auto;" />
+        </a>
+      </div>
+      <!-- Menu centralizado -->
+      <div class="hidden md:flex justify-center absolute w-full left-1/2 transform -translate-x-1/2">
+        <div class="w-3xl"></div>
+        <div class="w-full max-w-3xl">
+          <div class="flex justify-between gap-1">
+            <div>
+              <a href="/emalta"
+                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
+                Em Alta
+              </a>
+            </div>
+            <div>
+              <a href="/destinos/nacionais"
+                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
+                Destinos Nacionais
+              </a>
+            </div>
+            <div>
+              <a href="/destinos/internacionais"
+                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
+                Destinos Internacionais
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="w-3xl"></div>
+      </div>
+      <!-- Login à direita -->
+      <div class="hidden md:flex items-center">
+        <a href="#"
+          class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
+          Entre ou Cadastre-se
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu, show/hide based on menu state -->
+  <div id="mobile-menu" [class]="isMobileMenuOpen ? 'md:hidden' : 'hidden md:hidden'">
+
+    <div class="space-y-1 px-2 pt-2 pb-3 text-black">
+
+      <a href="/home" (click)="closeMobileMenu()" aria-current="page"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
+        Página Inicial
+      </a>
+
+      <a href="/emalta" (click)="closeMobileMenu()" aria-current="page"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
+        Em Alta
+      </a>
+      <a href="/categorias" (click)="closeMobileMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary hover:text-white">
+        Categorias
+      </a>
+      <a href="/destinos/nacionais" (click)="closeMobileMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
+        Destinos Nacionais
+      </a>
+      <a href="/destinos/internacionais" (click)="closeMobileMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
+        Destinos Internacionais
+      </a>
+      <!-- Mobile login button -->
+      <div class="pt-4 pb-3 border-t border-gray-200">
+        <a href="#" (click)="closeMobileMenu()"
+          class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
+          Entre ou Cadastre-se
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

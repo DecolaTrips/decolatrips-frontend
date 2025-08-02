@@ -1,6 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+
+@layer utilities {
+  @media (max-width: 920px) {
+    .package-list-responsive-grid-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    .package-list-responsive-grid-col {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+
+}
+
 @theme {
   --color-primary: #FA8015;
   --color-primary-light: #FEEAD9;

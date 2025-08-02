@@ -1,3 +1,26 @@
-<div class="flex justify-center items-center h-screen">
-  <h1 class="bg-primary p-4 rounded-sm">DecolaTrips</h1>
+<app-navbar></app-navbar>
+<div class="min-h-[500px] flex flex-col justify-center items-center" style="background-image: url('fundo_porto.png'); background-size: cover; background-position: center;">
+    <div class="flex flex-col gap-8 w-full max-w-3xl mt-20 p-6">
+      <h1 class="text-white text-4xl md:text-6xl font-semibold text-left">Encontre seu pacote de viagem</h1>
+      <app-searchbar></app-searchbar>
+    </div>
+</div>
+<div>
+    <div class="flex flex-col bg-white w-full p-8 items-center">
+      <div class="flex flex-col gap-6 w-fit">
+        <h1 class="text-3xl font-bold">Melhores pacotes para você!</h1>
+        <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
+            <app-package-card photoCover="cards/egito.png" title="Gizé, Egito" price="21.000" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/bali.png" title="Bali, Indonésia" price="7.624" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/paris.png" title="Paris, França" price="17.624" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/patagonia.png" title="Patagonia, Argentina" price="15.566" days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/porto.jpg" title="Porto de Galinhas, Brasil" price=7.200 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/florenca.png" title="Florença, Itália" price=17.000 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/toquio.png" title="Tóquio, Japão" price=20.000 days="7" nights="6"></app-package-card>
+            <app-package-card photoCover="cards/rio.png" title="Rio de Janeiro, Brasil" price=4.250 days="7" nights="6"></app-package-card>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
 </div>
