@@ -16,12 +16,12 @@ export class PackageCard {
 
   @Input()
   price: string = "";
-  
+
   @Input()
-  days: string = "";
-  
+  days: string = "2";
+
   @Input()
-  nights: string = "";
+  nights: string = (Number(this.days) - 1).toString();
 
   constructor() {  }
 
