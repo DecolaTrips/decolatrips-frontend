@@ -8,6 +8,11 @@
       'max-h-0 opacity-0 py-0': !active
     }"
   >
-    <p class="text-xs">{{ description }}</p>
+    <p class="text-sm" [ngClass]="{
+      'block': active,
+      'hidden': !active
+    }">
+      <ng-content></ng-content>
+    </p>
   </div>
 </div>

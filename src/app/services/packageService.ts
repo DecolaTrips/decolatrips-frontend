@@ -5,13 +5,17 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class Package {
+export class PackageService {
   private apiUrl = 'http://localhost:8080/api/travel-packages'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
   getPackageById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getAllPackages(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/detailed`);
   }
 }
 

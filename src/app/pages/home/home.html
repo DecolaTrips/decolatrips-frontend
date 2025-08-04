@@ -10,14 +10,11 @@
       <div class="flex flex-col gap-6 w-fit">
         <h1 class="text-3xl font-bold">Melhores pacotes para você!</h1>
         <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
-            <app-package-card photoCover="cards/egito.png" title="Gizé, Egito" price="21.000" days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/bali.png" title="Bali, Indonésia" price="7.624" days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/paris.png" title="Paris, França" price="17.624" days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/patagonia.png" title="Patagonia, Argentina" price="15.566" days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/porto.jpg" title="Porto de Galinhas, Brasil" price=7.200 days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/florenca.png" title="Florença, Itália" price=17.000 days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/toquio.png" title="Tóquio, Japão" price=20.000 days="7" nights="6"></app-package-card>
-            <app-package-card photoCover="cards/rio.png" title="Rio de Janeiro, Brasil" price=4.250 days="7" nights="6"></app-package-card>
+            @for (item of item.content; track $index) {
+              @if (item.images && item.images.length > 0) {
+                <app-package-card [photoCover]="item.images[0].urlImg" [title]="item.title" [price]="item.valorBase" [days]="item.durationDays"></app-package-card>
+              }
+            }
         </div>
       </div>
     </div>

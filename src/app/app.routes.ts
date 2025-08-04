@@ -13,5 +13,6 @@ export const routes: Routes = [
   { path: "categorias", component: Categorias },
   { path: "destinos/internacionais", component: DestinosInternacionais },
   { path: "destinos/nacionais", component: DestinosNacionais },
-  { path: "emalta", component: EmAlta }
+  { path: "emalta", component: EmAlta },
+  { path: "404", component: Home } // Assuming you want to redirect to Home on 404
 ];

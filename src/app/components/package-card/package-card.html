@@ -1,4 +1,6 @@
-<div class="bg-white border border-gray-200 shadow-md rounded-xl w-full flex flex-col">
+<div
+  class="bg-white border border-gray-200 shadow-md rounded-xl w-full flex flex-col"
+>
   <div class="relative">
     <!-- Badge -->
     <div class="bg-primary w-fit h-6 absolute top-0 right-0 rounded-tr-lg rounded-bl-2xl flex items-center justify-center gap-x-1 pl-4 pr-3">
@@ -21,7 +23,10 @@
       </div>
     </div>
 
-    <button class="w-full border border-primary py-1 mt-4 h-8 rounded-lg text-primary hover:bg-primary hover:cursor-pointer hover:text-white transition">
+    <button
+      class="w-full border border-primary py-1 mt-4 h-8 rounded-lg text-primary hover:bg-primary hover:cursor-pointer hover:text-white transition"
+      [routerLink]="['/package', travelPackage.id]"
+    >
       Ver Pacote
     </button>
   </div>
