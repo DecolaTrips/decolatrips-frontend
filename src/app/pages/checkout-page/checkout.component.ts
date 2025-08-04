@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 // Components
 import { TravelerFormComponent } from '../../components/traveler-form/traveler-form.component';
 import { OtherTravelersComponent } from '../../components/other-travelers/other-travelers.component';
 import { SpecialRequestComponent } from '../../components/special-request/special-request.component';
 import { BookingSummaryComponent } from '../../components/booking-summary/booking-summary.component';
-import { PaymentMethodsComponent } from '../../components/payment-methods/payment-methods.component';
 import { NavbarComponent } from '../../shared/components/navbar-t2/navbar.component';
 import { Footer } from '../../components/footer/footer';
 import { MercadopagoPaymentComponent } from '../../components/mercadopago-payment.component/mercadopago-payment.component';
@@ -30,7 +30,6 @@ import { IBookingValues } from '../../models/booking-values.interface';
     OtherTravelersComponent,
     SpecialRequestComponent,
     BookingSummaryComponent,
-    PaymentMethodsComponent,
     NavbarComponent,
     MercadopagoPaymentComponent,
     Footer
@@ -46,6 +45,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   readonly isProcessingBooking = signal<boolean>(false);
   readonly showBrick = signal<boolean>(true);
   readonly paymentAmount = signal<number>(19698);
+  readonly travelersSetFromSearch = signal<boolean>(false); // Track if travelers were set from URL params
+  readonly bookingSearchData = signal<any>(null); // Store search data for booking summary
 
   // Base booking values
   readonly baseValues: IBookingValues = {
@@ -57,11 +58,92 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   constructor(
     readonly checkoutService: CheckoutService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.loadPaymentMethods();
+    this.initializeFromUrlParams();
+  }
+
+  private initializeFromUrlParams(): void {
+    this.route.queryParams.subscribe(params => {
+      const adults = parseInt(params['adults']) || 1;
+      const children = parseInt(params['children']) || 0;
+      const destination = params['destination'] || '';
+      
+      // Check if we have search parameters - if so, disable add/remove
+      const hasSearchParams = params['adults'] || params['children'];
+      this.travelersSetFromSearch.set(!!hasSearchParams);
+      
+      // Calculate how many additional travelers we need
+      // Total travelers = adults + children
+      // We already have 1 main traveler (adult), so other travelers = total - 1
+      const totalTravelers = adults + children;
+      const otherTravelersCount = Math.max(0, totalTravelers - 1);
+      
+      console.log('URL Params:', { adults, children, destination, totalTravelers, otherTravelersCount, hasSearchParams });
+      
+      // Get package information
+      const packageTitle = params['packageTitle'];
+      const packagePrice = params['packagePrice'];
+      
+      // Store search data for booking summary API calls
+      if (hasSearchParams || packageTitle) {
+        const searchData = {
+          destination: destination,
+          adults: adults,
+          children: children,
+          packageId: params['packageId'],
+          packageTitle: packageTitle || destination,
+          departureDate: params['departureDate'],
+          returnDate: params['returnDate']
+        };
+        this.bookingSearchData.set(searchData);
+      }
+      
+      // Initialize other travelers based on the search parameters
+      if (otherTravelersCount > 0) {
+        this.initializeOtherTravelers(adults, children);
+      }
+      
+      if (packageTitle) {
+        console.log('Selected package:', { packageTitle, packagePrice });
+      }
+    });
+  }
+
+  private initializeOtherTravelers(adults: number, children: number): void {
+    const travelers: ITraveler[] = [];
+    let travelerId = Date.now();
+    
+    // Add additional adults (adults - 1, since we already have 1 main adult traveler)
+    const additionalAdults = Math.max(0, adults - 1);
+    for (let i = 0; i < additionalAdults; i++) {
+      travelers.push({
+        id: travelerId++,
+        name: '',
+        email: '',
+        document: '',
+        phone: '',
+        type: 'adult' // We can add this property to distinguish
+      } as ITraveler);
+    }
+    
+    // Add children
+    for (let i = 0; i < children; i++) {
+      travelers.push({
+        id: travelerId++,
+        name: '',
+        email: '',
+        document: '',
+        phone: '',
+        type: 'child' // We can add this property to distinguish
+      } as ITraveler);
+    }
+    
+    this.checkoutService.updateOtherTravelers(travelers);
   }
 
   ngOnDestroy(): void {
@@ -94,6 +176,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   onSpecialRequestChange(request: string): void {
     this.checkoutService.updateSpecialRequest(request);
+  }
+
+  onPricingUpdated(pricing: any): void {
+    // Handle updated pricing from API
+    console.log('Pricing updated from API:', pricing);
+    // You can update the paymentAmount or other relevant signals here
+    this.paymentAmount.set(pricing.finalTotal);
   }
 
   onProceedToPayment(method: IPaymentMethod): void {

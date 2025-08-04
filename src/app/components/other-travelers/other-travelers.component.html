@@ -4,8 +4,9 @@
           <!-- Traveler Header -->
           <div class="flex flex-col gap-2 mb-4">
             <div class="flex items-center justify-between">
-              <h4 class="font-semibold m-0" style="color: var(--color-text-primary);">Adulto {{ i + 2 | number:'2.0' }}</h4>
+              <h4 class="font-semibold m-0" style="color: var(--color-text-primary);">{{ getTravelerLabel(traveler, i) }}</h4>
               <button 
+                *ngIf="allowAddRemove"
                 class="text-red-500 hover:text-red-700 text-sm"
                 (click)="removeTraveler(i)"
                 type="button">
@@ -68,7 +69,10 @@
         </div>
         
         <!-- Add New Traveler Card -->
-        <div class="traveler-card add-card border-dashed cursor-pointer flex items-center justify-center min-h-[120px] p-6 transition-colors duration-200" (click)="addTraveler()">
+        <div 
+          *ngIf="allowAddRemove"
+          class="traveler-card add-card border-dashed cursor-pointer flex items-center justify-center min-h-[120px] p-6 transition-colors duration-200" 
+          (click)="addTraveler()">
           <div class="text-center" style="color: var(--color-text-secondary);">
             <span class="text-4xl block mb-2">+</span>
             <p class="m-0 font-medium">Adicionar viajante</p>

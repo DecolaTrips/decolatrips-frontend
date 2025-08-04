@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-package-card',
@@ -23,6 +25,25 @@ export class PackageCard {
   @Input()
   nights: string = "";
 
-  constructor() {  }
+  constructor(
+    private router: Router,
+    private searchService: SearchService
+  ) {}
 
+  onViewPackage() {
+    const currentSearch = this.searchService.getCurrentSearchData();
+    
+    // Navigate to checkout with current search parameters and package info
+    this.router.navigate(['/checkout'], {
+      queryParams: {
+        adults: currentSearch.adults,
+        children: currentSearch.children,
+        destination: this.title,
+        packageTitle: this.title,
+        packagePrice: this.price,
+        packageDays: this.days,
+        packageNights: this.nights
+      }
+    });
+  }
 }

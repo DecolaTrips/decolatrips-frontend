@@ -26,6 +26,7 @@
             <!-- outros viajantes -->
             <app-other-travelers
               [travelers]="checkoutService.otherTravelers()"
+              [allowAddRemove]="!travelersSetFromSearch()"
               (travelersChange)="onOtherTravelersChange($event)"
             ></app-other-travelers>
 
@@ -65,7 +66,10 @@
             [travelers]="checkoutService.totalTravelers()"
             [isFormValid]="checkoutService.isFormValid()"
             [isProcessing]="isProcessingBooking()"
+            [searchData]="bookingSearchData()"
+            [autoRefresh]="true"
             (finalizeBookingRequest)="onFinalizeBooking()"
+            (pricingUpdated)="onPricingUpdated($event)"
           ></app-booking-summary>
         </div>
       </div>
