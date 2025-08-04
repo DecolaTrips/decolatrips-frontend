@@ -7,6 +7,7 @@ import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,7 @@ export const routes: Routes = [
     },
     {
         path: "home",
+        //component: Home, canActivate: [authGuard]
         component: Home
     },
     {
