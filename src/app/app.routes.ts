@@ -6,6 +6,7 @@ import { Packages } from './pages/admin/sidebar/packages/packages';
 import { Finance } from './pages/admin/sidebar/finance/finance';
 import { Users } from './pages/admin/sidebar/users/users';
 import { Reviews } from './pages/admin/sidebar/reviews/reviews';
+import { TravelPackageForm } from './pages/travel-package-form/travel-package-form';
 
 
 
@@ -17,9 +18,22 @@ export const routes: Routes = [
     children: [
       { path: "dashboard", component: Dashboard },
       { path: "packages", component: Packages },
+      { path: "packages/create", loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) },
+
+      { 
+        path: "packages/create/:id", 
+        loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) 
+      },
+       
       { path: "finance", component: Finance },
       { path: "users", component: Users },
       { path: "reviews", component: Reviews },
-    ],
-  },
+      
+      { path: '', redirectTo: '/packages', pathMatch: 'full' }
+      
+  
+      
+
+    ]
+  }
 ];

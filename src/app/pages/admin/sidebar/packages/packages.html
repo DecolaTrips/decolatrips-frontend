@@ -1,28 +1,24 @@
-<div class="bg-gray-100 p-6 rounded-lg shadow-md h-screen">
-  <!-- Barra de pesquisa -->
+<div class="bg-gray-100 p-6 rounded-lg shadow-md h-screen flex flex-col">
+  <!-- Barra superior com filtro, título, pesquisa e botões -->
   <div class="flex items-center justify-between mb-4">
-    <!-- Filtro e título -->
     <div class="flex items-center space-x-4">
       <app-filter-component></app-filter-component>
       <h2 class="border border-gray-300 rounded-lg p-2 pl-4 pr-4 bg-gray-50 text-lg">Pacotes: <span>127</span></h2>
 
-         <!-- Campo de pesquisa com lupa -->
-    <div class="flex items-center">
-      <input
-        type="text"
-        placeholder="Pesquisar"
-        class="border border-gray-300 rounded-lg p-2 w-64"
-      />
-    <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
-        </svg>
-    </button>
+      <!-- Campo de pesquisa -->
+      <div class="flex items-center">
+        <input type="text" placeholder="Pesquisar" class="border border-gray-300 rounded-lg p-2 w-64" />
+        <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
+          </svg>
+        </button>
+      </div>
     </div>
 
-    </div>
-    <div class="flex justify-end space-x-4 mb-4">
-      <!-- Botão para abrir o calendário -->
+    <div class="flex space-x-4">
+      <!-- Botão calendário -->
       <button class="bg-black text-white w-12 h-12 rounded-lg flex items-center justify-center hover:bg-gray-800">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -30,18 +26,18 @@
         </svg>
       </button>
 
-      <!-- Botão para adicionar pacote -->
-      <button class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800">
-        <span class="text-white font-medium">Adicionar Pacote</span>
-      </button>
+      <!-- Botão adicionar pacote -->
+      <button
+    (click)="goToCreate()"
+      class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800"
+    >
+      <span class="text-white font-medium">Adicionar Pacote</span>
+    </button>
     </div>
-
   </div>
 
-
-
-
-  <!-- Tabela de pacotes -->
+ <!-- Tabela de pacotes -->
+<div class="overflow-auto">
   <table class="w-full border-collapse bg-white rounded-lg shadow-md">
     <thead>
       <tr class="bg-gray-200 text-left">
@@ -51,29 +47,43 @@
         <th class="p-4">Valor por pessoa</th>
         <th class="p-4">País</th>
         <th class="p-4">Última Alteração</th>
+        <th class="p-4">Ações</th> <!-- NOVO -->
       </tr>
     </thead>
     <tbody>
-      <tr class="hover:bg-gray-100">
-        <td class="p-4">#0000001</td>
-        <td class="p-4">Ricardo Nunes</td>
-        <td class="p-4">Visite o Cristo Redentor</td>
-        <td class="p-4">R$ 4.200,00</td>
-        <td class="p-4">Brasil</td>
-        <td class="p-4">04 de Jan 2024</td>
+      <tr *ngFor="let pacote of packages" class="hover:bg-gray-100">
+        <td class="p-4">#{{ pacote.id }}</td>
+        <td class="p-4">{{ pacote.place }}</td>
+        <td class="p-4">{{ pacote.title }}</td>
+        <td class="p-4">R$ {{ pacote.valorBase | number:'1.2-2' }}</td>
+        <td class="p-4">{{ pacote.country }}</td>
+        <td class="p-4">{{ pacote.updatedAt ? (pacote.updatedAt | date: 'dd/MM/yyyy') : '-' }}</td>
+        
+        <!-- Botões -->
+        <td class="p-4 flex space-x-2">
+          <button
+            (click)="editPackage(pacote.id)"
+            class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded-md transition"
+          >
+            Editar
+          </button>
+          <button
+            (click)="deletePackage(pacote.id)"
+            class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800"
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
-      <tr class="hover:bg-gray-100">
-        <td class="p-4">#0000002</td>
-        <td class="p-4">Amoedo Pascolino</td>
-        <td class="p-4">Visite o Cristo Redentor</td>
-        <td class="p-4">R$ 4.200,00</td>
-        <td class="p-4">Brasil</td>
-        <td class="p-4">04 de Jan 2024</td>
-      </tr>
-      <!-- Adicione mais linhas conforme necessário -->
     </tbody>
   </table>
+</div>
 
-  <!-- Componente de paginação -->
-  <app-pagination-component></app-pagination-component>
+  <!-- Paginação -->
+ <div class="pagination">
+  <app-pagination-component
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="onPageChange($event)">
+  </app-pagination-component>
 </div>
