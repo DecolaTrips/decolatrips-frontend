@@ -1,0 +1,40 @@
+/* pra previnir o zoom no layout */
+.min-h-screen {
+  min-height: 100vh !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+
+/* pra não quebrar o layout */
+.w-1\/2:last-child {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.space-y-6 > div {
+  min-height: 90px; 
+}
+
+/* pra previnir o zoom da imagem de fundo */
+@media screen and (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
+  
+  body {
+    zoom: 1 !important;
+    -webkit-transform: scale(1) !important;
+    transform: scale(1) !important;
+    overflow-x: hidden;
+  }
+  
+  .min-h-screen {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+}
