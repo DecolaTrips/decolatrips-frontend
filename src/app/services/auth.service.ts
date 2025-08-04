@@ -10,16 +10,16 @@ import { AuthResponse } from '../interfaces/auth-response';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = "http://localhost:8080/api/auth/login"
+  baseUrl: string = "http://localhost:8080/api/auth"
 
   login(user: User): Observable<AuthResponse> {
-      return this.http.post<AuthResponse>(this.baseUrl, user);
+      const rota: string = "login";
+      return this.http.post<AuthResponse>(`${this.baseUrl}/${rota}`, user);
     }
 
-  register(user: RegisterUser): Observable<boolean> {
-    // simulação chamada de API
-    console.log('Register attempt:', user);
-    return of(true);
+  register(user: RegisterUser): Observable<any> {
+    const rota: string = "register";
+    return this.http.post<any>(`${this.baseUrl}/${rota}`, user);
   }
 
   forgotPassword(email: string): Observable<boolean> {
