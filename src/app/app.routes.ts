@@ -5,6 +5,9 @@ import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais
 import { EmAlta } from './pages/em-alta/em-alta';
 import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
+import { Terms } from './pages/terms/terms';
+import { FraudPrevention } from './pages/fraud-prevention/fraud-prevention';
+import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 
 export const routes: Routes = [
     {
@@ -35,5 +38,17 @@ export const routes: Routes = [
     {
         path: "sobrenos",
         component: Sobrenos
+    },
+    {
+        path: "terms",
+        component: Terms
+    },
+    {
+        path: "fraud-prevention",
+        component: FraudPrevention
+    },
+    {
+        path: "privacy-policy",
+        component: PrivacyPolicy
     }
 ];
