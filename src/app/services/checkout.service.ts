@@ -8,10 +8,10 @@ import { IBookingValues } from '../models/booking-values.interface';
 })
 export class CheckoutService {
   finalizeBooking() {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
   updatePaymentMethod(methodId: string) {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
   private _mainTraveler = signal<ITraveler>({
     id: 0,
@@ -23,38 +23,34 @@ export class CheckoutService {
 
   private _otherTravelers = signal<ITraveler[]>([]);
   private _specialRequest = signal<string>('');
-  private _selectedPaymentMethod = signal<string>('');
   private _appliedDiscount = signal<number>(0);
 
   // Computed signals
   readonly mainTraveler = this._mainTraveler.asReadonly();
   readonly otherTravelers = this._otherTravelers.asReadonly();
   readonly specialRequest = this._specialRequest.asReadonly();
-  readonly selectedPaymentMethod = this._selectedPaymentMethod.asReadonly();
   readonly appliedDiscount = this._appliedDiscount.asReadonly();
 
   readonly totalTravelers = computed(() => 1 + this._otherTravelers().length);
-  
+
   readonly isMainTravelerValid = computed(() => {
     const traveler = this._mainTraveler();
-    return !!(traveler.name.trim() && 
-              traveler.email.trim() && 
-              traveler.document.trim() && 
-              traveler.phone?.trim());
+    return !!(traveler.name.trim() &&
+      traveler.email.trim() &&
+      traveler.document.trim() &&
+      traveler.phone?.trim());
   });
 
   readonly areOtherTravelersValid = computed(() => {
-    return this._otherTravelers().every(traveler => 
-      traveler.name.trim() && 
-      traveler.email.trim() && 
+    return this._otherTravelers().every(traveler =>
+      traveler.name.trim() &&
+      traveler.email.trim() &&
       traveler.document.trim()
     );
   });
 
-  readonly isFormValid = computed(() => 
-    this.isMainTravelerValid() && 
-    this.areOtherTravelersValid() && 
-    !!this._selectedPaymentMethod()
+  readonly isFormValid = computed(() =>
+    this.isMainTravelerValid()
   );
 
   // metodos para atualizar o estado
@@ -70,26 +66,21 @@ export class CheckoutService {
     this._specialRequest.set(request);
   }
 
-  updateSelectedPaymentMethod(method: string): void {
-    this._selectedPaymentMethod.set(method);
-  }
-
   updateAppliedDiscount(discount: number): void {
     this._appliedDiscount.set(discount);
   }
 
   // metodo para criar o booking final
   createBooking(baseValues: IBookingValues): IBooking {
-    const subtotal = baseValues.passagemIda + 
-                    baseValues.passagemVolta + 
-                    baseValues.hotel + 
-                    baseValues.taxas;
+    const subtotal = baseValues.passagemIda +
+      baseValues.passagemVolta +
+      baseValues.hotel +
+      baseValues.taxas;
 
     return {
       mainTraveler: this._mainTraveler(),
       otherTravelers: this._otherTravelers(),
       specialRequest: this._specialRequest(),
-      paymentMethod: this._selectedPaymentMethod(),
       appliedDiscount: this._appliedDiscount(),
       totalAmount: Math.max(0, subtotal - this._appliedDiscount())
     };
@@ -106,7 +97,6 @@ export class CheckoutService {
     });
     this._otherTravelers.set([]);
     this._specialRequest.set('');
-    this._selectedPaymentMethod.set('');
     this._appliedDiscount.set(0);
   }
 }

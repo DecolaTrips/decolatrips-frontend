@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay, map } from 'rxjs';
 import { IPaymentMethod } from '../models/payment-method.interface';
 import { IBooking } from '../models/booking.interface';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,7 @@ export class PaymentService {
     return of(this.paymentMethods).pipe(delay(300));
   }
 
-  processPayment(booking: IBooking, paymentMethod: IPaymentMethod): Observable<{ success: boolean; transactionId?: string; error?: string }> {
+  processPayment(booking: IBooking): Observable<{ success: boolean; transactionId?: string; error?: string }> {
     // simula processamento de pagamento
     return of(null).pipe(
       delay(2000),

@@ -36,11 +36,23 @@
             ></app-special-request>
 
             <!-- métodos de pagamento -->
-            <app-payment-methods
+            <!-- <app-payment-methods
               [selectedPaymentMethod]="checkoutService.selectedPaymentMethod()"
               (paymentMethodChange)="onPaymentMethodChange($event)"
               (continuePayment)="onContinuePayment()"
-            ></app-payment-methods>
+            ></app-payment-methods> -->
+
+            <!-- <app-mercadopago-payment [amount]="10000"></app-mercadopago-payment> -->
+
+            <!-- Mercado Pago Payment Brick -->
+            <div>
+              <app-mercadopago-payment 
+                [amount]="paymentAmount()"
+                [traveler]="checkoutService.mainTraveler()"
+                (paymentSuccess)="onPaymentSuccess($event)"
+                (paymentError)="onPaymentError($event)">
+              </app-mercadopago-payment>
+            </div>
           </div>
         </div>
 
