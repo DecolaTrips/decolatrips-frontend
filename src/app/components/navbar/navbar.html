@@ -34,38 +34,44 @@
         </a>
       </div>
       <!-- Menu centralizado -->
-      <div class="hidden md:flex justify-center absolute w-full left-1/2 transform -translate-x-1/2">
-        <div class="w-3xl"></div>
-        <div class="w-full max-w-3xl">
-          <div class="flex justify-between gap-1">
-            <div>
-              <a href="/emalta"
-                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
-                Em Alta
-              </a>
-            </div>
-            <div>
-              <a href="/destinos/nacionais"
-                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
-                Destinos Nacionais
-              </a>
-            </div>
-            <div>
-              <a href="/destinos/internacionais"
-                class="text-sm lg:text-base rounded-md px-2 py-2 flex items-center space-x-2 hover:bg-[#ffffff29] font-medium text-white whitespace-nowrap">
-                Destinos Internacionais
-              </a>
-            </div>
+      <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
+        <div class="flex space-x-8">
+          <div>
+            <a href="/emalta" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
+              Em Alta
+            </a>
+          </div>
+          <div
+            class="rounded-md py-1 px-3 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
+            <select class="text-white px-2 py-1 rounded-md bg-transparent">
+              <option class="text-black bg-white">Categorias</option>
+              <option value="aventura" class="text-black bg-white">Aventura</option>
+              <option value="praia" class="text-black bg-white">Praia</option>
+              <option value="cultura" class="text-black bg-white">Cultura</option>
+              <option value="gastronomia" class="text-black bg-white">Gastronomia</option>
+            </select>
+          </div>
+          <div>
+            <a href="/destinos/nacionais" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
+              Destinos Nacionais
+            </a>
+          </div>
+          <div>
+            <a href="/destinos/internacionais" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
+              Destinos Internacionais
+            </a>
           </div>
         </div>
         <div class="w-3xl"></div>
       </div>
       <!-- Login à direita -->
-      <div class="hidden md:flex items-center">
-        <a href="#"
-          class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
-          Entre ou Cadastre-se
-        </a>
+      <div class="flex items-center">
+        <div class="hidden md:flex items-center">
+          <a routerLink="/login"
+            class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
+            Entre ou Cadastre-se
+          </a>
+        </div>
       </div>
     </div>
   </div>

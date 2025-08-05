@@ -19,9 +19,9 @@ export class RegisterFormComponent {
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      username: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      cpfPassport: ['', [Validators.required, Validators.minLength(11)]],
+      cpf: ['', [Validators.required, Validators.minLength(11)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
@@ -40,8 +40,9 @@ export class RegisterFormComponent {
   onSubmit() {
     this.formSubmitted = true;
     if (this.registerForm.valid) {
-      const { confirmPassword, ...formData } = this.registerForm.value;
-      this.submitForm.emit(formData);
+      //const { confirmPassword, ...formData } = this.registerForm.value;
+      this.submitForm.emit(this.registerForm.value);
+      //this.submitForm.emit(formData);
     } else {
       this.markFormGroupTouched();
     }
@@ -71,9 +72,9 @@ export class RegisterFormComponent {
     if (field && field.errors && this.formSubmitted) {
       if (field.errors['required']) {
         const fieldNames: { [key: string]: string } = {
-          'fullName': 'Nome completo',
+          'username': 'Nome de usuário',
           'email': 'Email',
-          'cpfPassport': 'CPF/Passaporte',
+          'cpf': 'CPF',
           'password': 'Senha',
           'confirmPassword': 'Confirmação de senha'
         };
@@ -85,10 +86,10 @@ export class RegisterFormComponent {
       if (field.errors['minlength']) {
         if (fieldName === 'password') {
           errors.push('Senha deve ter pelo menos 6 caracteres');
-        } else if (fieldName === 'cpfPassport') {
-          errors.push('CPF/Passaporte deve ter pelo menos 11 caracteres');
-        } else if (fieldName === 'fullName') {
-          errors.push('Nome deve ter pelo menos 2 caracteres');
+        } else if (fieldName === 'cpf') {
+          errors.push('CPF deve ter pelo menos 11 caracteres');
+        } else if (fieldName === 'username') {
+          errors.push('Nome de usuário deve ter pelo menos 2 caracteres');
         }
       }
     }

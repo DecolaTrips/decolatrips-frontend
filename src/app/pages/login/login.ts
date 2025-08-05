@@ -16,21 +16,31 @@ export class LoginComponent {
   isLoading = false;
 
   constructor(
-    private authService: AuthService,
+    private service: AuthService,
     private router: Router
   ) {}
 
+  // redirecionar apos login
+  //adicionar logica condicional para pagina de admin ou usuario
+  changePageWithLogin() : void {
+    this.router.navigate(['/home']);
+  }
+
+
   onSubmitForm(formData: any) {
     this.isLoading = true;
-    const user: User = formData;
     
-    this.authService.login(user).subscribe({
-      next: (success) => {
+    const loginData = {
+      email: formData.email,
+      password: formData.password
+    };
+    
+    this.service.login(loginData).subscribe({
+      next: (response ) => {
         this.isLoading = false;
-        if (success) {
-          console.log('Login successful');
-          // redirecionar para dashboard ou pag principal
-        }
+        localStorage.setItem("jwt", response.token);
+        localStorage.setItem("email", loginData.email);
+        this.changePageWithLogin();
       },
       error: (error) => {
         this.isLoading = false;

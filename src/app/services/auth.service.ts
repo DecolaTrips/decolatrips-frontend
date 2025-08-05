@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User, RegisterUser } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { AuthResponse } from '../interfaces/auth-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+  baseUrl: string = "http://localhost:8080/api/auth"
 
-  login(user: User): Observable<boolean> {
-    // simulação chamada de API
-    console.log('Login attempt:', user);
-    return of(true);
-  }
+  login(user: User): Observable<AuthResponse> {
+      const rota: string = "login";
+      return this.http.post<AuthResponse>(`${this.baseUrl}/${rota}`, user);
+    }
 
-  register(user: RegisterUser): Observable<boolean> {
-    // simulação chamada de API
-    console.log('Register attempt:', user);
-    return of(true);
+  register(user: RegisterUser): Observable<any> {
+    const rota: string = "register";
+    return this.http.post<any>(`${this.baseUrl}/${rota}`, user);
   }
 
   forgotPassword(email: string): Observable<boolean> {

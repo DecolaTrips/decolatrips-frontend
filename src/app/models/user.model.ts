@@ -4,7 +4,7 @@ export interface User {
 }
 
 export interface RegisterUser extends User {
-  fullName: string;
-  cpfPassport: string;
+  username: string;
+  cpf: string;
   confirmPassword: string;
 }

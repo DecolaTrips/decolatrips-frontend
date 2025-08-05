@@ -18,6 +18,7 @@ import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
