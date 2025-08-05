@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
+import { PackageDetail } from './pages/package-detail/package-detail';
+import { Categorias } from './pages/categorias/categorias';
 import { Admin } from './pages/admin/admin/admin';
 import { Dashboard } from './pages/admin/sidebar/dashboard/dashboard';
 import { Packages } from './pages/admin/sidebar/packages/packages';
@@ -16,49 +18,32 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 
 export const routes: Routes = [
-    { path:"", redirectTo:"home", pathMatch: "full"},
-    { path: "home", component: Home },
-    { path: "admin",component: Admin, 
-      children: [
-        { path: "dashboard", component: Dashboard },
-        { path: "packages", component: Packages },
-        { path: "packages/create", loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) },
-        { 
-          path: "packages/create/:id", 
-          loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) 
-        },
-        { path: "finance", component: Finance },
-        { path: "users", component: Users },
-        { path: "reviews", component: Reviews },
-        { path: '', redirectTo: '/packages', pathMatch: 'full' }
-      ]   
-    },
-    {
-        path: "destinos/internacionais",
-        component: DestinosInternacionais
-    },
-    {
-        path: "destinos/nacionais",
-        component: DestinosNacionais
-    },
-    {
-        path: "emalta",
-        component: EmAlta
-    },
-    {
-        path: "faqs",
-        component: Faqs
-    },
-    {
-        path: "sobrenos",
-        component: Sobrenos
-    },
-    {
-        path: "login",
-        component: LoginComponent
-    },
-    {
-        path: "register",
-        component: RegisterComponent
-    }
+  { path:"", redirectTo:"home", pathMatch: "full"},
+  { path: "home", component: Home },
+  { path: "package/:id", component: PackageDetail },
+  { path: "categorias", component: Categorias },
+  { path: "404", component: Home } // Assuming you want to redirect to Home on 404
+  { path: "home", component: Home },
+  { path: "admin",component: Admin, 
+    children: [
+      { path: "dashboard", component: Dashboard },
+      { path: "packages", component: Packages },
+      { path: "packages/create", loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) },
+      { 
+        path: "packages/create/:id", 
+        loadComponent: () => import('./pages/travel-package-form/travel-package-form').then(m => m.TravelPackageForm) 
+      },
+      { path: "finance", component: Finance },
+      { path: "users", component: Users },
+      { path: "reviews", component: Reviews },
+      { path: '', redirectTo: '/packages', pathMatch: 'full' }
+    ]   
+  },
+  { path: "destinos/internacionais", component: DestinosInternacionais },
+  { path: "destinos/nacionais", component: DestinosNacionais },
+  { path: "emalta", component: EmAlta },
+  { path: "faqs", component: Faqs },
+  { path: "sobrenos", component: Sobrenos},
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent }
 ];
