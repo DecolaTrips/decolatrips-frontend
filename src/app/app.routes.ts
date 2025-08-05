@@ -9,6 +9,8 @@ import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password';
 
 export const routes: Routes = [
     {
@@ -55,5 +57,13 @@ export const routes: Routes = [
     {
         path: "register",
         component: RegisterComponent
+    },
+    {
+        path: "forgot-password",
+        component: ForgotPasswordComponent
+    },
+    {
+        path: "reset-password",
+        component: ResetPasswordComponent
     }
 ];

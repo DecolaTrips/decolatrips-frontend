@@ -26,4 +26,19 @@ export class AuthService {
     console.log('Forgot password for:', email);
     return of(true);
   }
+
+  // usar quando implementar a api
+  
+  // validateResetToken(token: string): Observable<{valid: boolean, message?: string}> {
+  //   // API call to validate reset token
+  //   return this.http.post<{valid: boolean, message?: string}>(`${this.apiUrl}/auth/validate-reset-token`, { token });
+  // }
+
+  // resetPassword(token: string, newPassword: string): Observable<{success: boolean, message?: string}> {
+  //   // API call to reset password
+  //   return this.http.post<{success: boolean, message?: string}>(`${this.apiUrl}/auth/reset-password`, { 
+  //     token, 
+  //     newPassword 
+  //   });
+  // }
 }
