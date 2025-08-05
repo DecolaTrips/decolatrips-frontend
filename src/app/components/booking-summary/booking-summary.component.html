@@ -1,0 +1,138 @@
+ <div class="bg-white shadow-sm rounded-lg p-6 sticky top-4">
+      <!-- header -->
+      <div class="flex justify-center mb-6 pb-4 border-b">
+        <div class="flex items-center">
+          <img 
+            src="logo_preto.png" 
+            alt="Decola Trips" 
+            class="h-16 w-auto"
+          />
+        </div>
+      </div>
+
+      <!-- informacao de voo -->
+      <div class="mb-6">
+        <div class="flex items-center mb-3">
+          <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-gray-800">
+              <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-700">Aero Rio de Janeiro</span>
+              <span class="text-xs text-gray-500">⇄</span>
+              <span class="text-sm text-gray-700">Aero Egito</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Ida: 10/08/2025</div>
+          </div>
+        </div>
+        
+        <div class="flex items-center">
+          <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-gray-800">
+              <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-700">Aero Rio de Janeiro</span>
+              <span class="text-xs text-gray-500">⇄</span>
+              <span class="text-sm text-gray-700">Aero Egito</span>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Volta: 20/08/2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- informacao hotel -->
+      <div class="mb-6">
+        <div class="flex items-center">
+          <div class="flex-1">
+            <span class="text-sm text-gray-700">Serenity Alma Heights</span>
+            <span class="text-gray-400 ml-2">›</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- preços -->
+      <div class="border-t pt-4">
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600">Passagem ida</span>
+            <span class="text-gray-900">R$ {{ baseValues.passagemIda | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Passagem volta</span>
+            <span class="text-gray-900">R$ {{ baseValues.passagemVolta | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Valor do Hotel</span>
+            <span class="text-gray-900">R$ {{ baseValues.hotel | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Taxas e impostos</span>
+            <span class="text-gray-900">R$ {{ baseValues.taxas | number:'1.2-2' }}</span>
+          </div>
+          
+
+        <!-- cupom -->
+        <div class="mt-4 pt-4 border-t">
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              [(ngModel)]="couponCode"
+              placeholder="Digite o código do cupom"
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+            <button
+              (click)="applyCoupon()"
+              [disabled]="!couponCode || isApplying"
+              class="px-4 py-2 bg-orange-500 text-white text-sm rounded-md hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isApplying ? 'Aplicando...' : 'Aplicar' }}
+            </button>
+          </div>
+          
+          <div *ngIf="couponMessage" 
+               class="mt-2 p-2 rounded text-xs"
+               [class.bg-green-50]="couponMessage.success"
+               [class.text-green-600]="couponMessage.success"
+               [class.bg-red-50]="!couponMessage.success"
+               [class.text-red-600]="!couponMessage.success">
+            {{ couponMessage.text }}
+          </div>
+        </div>
+
+        <!-- total -->
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold text-gray-900">Total:</span>
+            <span class="text-xl font-bold text-gray-900">R$ {{ getTotal() | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <!-- button -->
+        <button
+          (click)="finalizeBooking()"
+          [disabled]="isProcessing"
+          class="w-full mt-6 px-4 py-3 bg-orange-500 text-white font-semibold rounded-md hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {{ isProcessing ? 'Processando...' : 'Finalizar Reserva' }}
+        </button>
+
+        <!-- validacao do form -->
+        <div *ngIf="!isFormValid && !isProcessing" class="mt-2 text-xs text-amber-600 text-center flex items-center justify-center gap-1">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+          </svg>
+          Complete os dados do formulário para finalizar
+        </div>
+
+        <button 
+          class="mt-4 text-xs text-gray-500 hover:text-gray-700 underline cursor-pointer transition-colors duration-200"
+          (click)="showCancellationPolicy()">
+          Política de cancelamento quartos
+        </button>
+      </div>
+    </div>

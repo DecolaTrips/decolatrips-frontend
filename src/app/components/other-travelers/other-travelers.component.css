@@ -1,0 +1,23 @@
+.traveler-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-sm);
+      background: var(--color-surface);
+    }
+    
+    .traveler-card:hover {
+      border-color: var(--color-text-muted);
+    }
+    
+    .btn-fill {
+      background-color: var(--color-primary);
+      border-radius: var(--border-radius-sm);
+    }
+    
+    .btn-fill:hover {
+      background-color: var(--color-primary-dark);
+    }
+    
+    .add-card:hover {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-light);
+    }

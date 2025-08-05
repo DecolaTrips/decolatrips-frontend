@@ -1,0 +1,22 @@
+.form-group {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.btn-fill {
+  background-color: var(--color-primary);
+  border-radius: var(--border-radius-sm);
+}
+
+.btn-fill:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.form-input {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(250, 128, 21, 0.1);
+}

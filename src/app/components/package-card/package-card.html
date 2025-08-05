@@ -1,19 +1,33 @@
-<div class="bg-white w-full h-95 mt-5 ml-5 border-1 border-gray-200 rounded-lg">
+<div
+  class="bg-white border border-gray-200 shadow-md rounded-xl w-full flex flex-col"
+>
+  <div class="relative">
+    <!-- Badge -->
+    <div class="bg-primary w-fit h-6 absolute top-0 right-0 rounded-tr-lg rounded-bl-2xl flex items-center justify-center gap-x-1 pl-4 pr-3">
+      <p class="text-xs text-white">{{days}} dias</p>
+      <p class="text-xs text-white">/</p>
+      <p class="text-xs text-white">{{nights}} noites</p>
+    </div>
+  </div>
+
+  <img src="{{photoCover}}" alt="package cover" class="rounded-t-xl h-48 object-cover">
+
+  <!-- Conteúdo -->
+  <div class="flex flex-col justify-between flex-grow p-4 border-t border-gray-100">
     <div>
-        <div class="bg-primary w-25 h-6 absolute rounded-lg flex items-center justify-center ">
-            <p class="text-xs text-white">{{days}} dias /</p>
-            <p class="text-xs text-white">&nbsp;{{nights}} noites</p>
-        </div>
-        <img src="{{photoCover}}" alt="package cover" class="rounded-lg h-50 w-full object-cover">
+      <h1 class="text-xl font-bold">{{title}}</h1>
+      <p class="mt-3 text-sm">a partir de</p>
+      <div class="flex items-center">
+        <h3 class="mt-1 text-3xl font-bold">R${{price}}</h3>
+        <p class="text-sm ml-auto mt-3">por pessoa</p>
+      </div>
     </div>
 
-    <h1 class="text-xl font-bold ml-3 mt-3 ">{{title}}</h1>
-    <p class="ml-3 mt-3 text-sm">a partir de</p>
-    <div class="flex items-center">
-        <h3 class="ml-3 mt-1 text-3xl font-bold">R${{price}}</h3>
-        <p class="text-sm ml-2 mt-3">por pessoa</p>
-    </div>
-    <div class="flex items-center justify-center mt-7">
-        <button class="w-58 bg-transparent border-1 border-primary pb-1 pt-1 h-8 rounded-lg text-primary hover:bg-primary hover:text-white">Ver Pacote</button>
-    </div>
+    <button
+      class="w-full border border-primary py-1 mt-4 h-8 rounded-lg text-primary hover:bg-primary hover:cursor-pointer hover:text-white transition"
+      [routerLink]="['/package', travelPackage.id]"
+    >
+      Ver Pacote
+    </button>
+  </div>
 </div>

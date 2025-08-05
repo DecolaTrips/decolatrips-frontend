@@ -1,0 +1,63 @@
+<div class="w-full my-5">
+  <div class="payment-section shadow-sm overflow-hidden">
+    <h3 class="text-lg font-semibold px-5 py-4 m-0 border-b" style="color: var(--color-text-primary); border-color: var(--color-border);">Método de pagamento</h3>
+    
+    <!-- metodos de pagamento -->
+    <div class="flex flex-col">
+      <div *ngFor="let method of paymentMethods" 
+           class="payment-option flex items-center px-5 py-4 cursor-pointer transition-colors duration-200 min-h-[60px]"
+           [class.selected]="selectedPaymentMethod === method.id"
+           (click)="selectPaymentMethod(method.id)">
+        
+        <div class="mr-3.5 w-6 h-6 flex items-center justify-center">
+          <!-- PIX  -->
+          <div *ngIf="method.icon === 'pix'" class="pix-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2M12 4.5L11.4 7.1L8.8 7.5L11.4 7.9L12 10.5L12.6 7.9L15.2 7.5L12.6 7.1L12 4.5Z"/>
+            </svg>
+          </div>
+          
+          <!-- credito -->
+          <div *ngIf="method.icon === 'credit-card'" class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+          </div>
+          
+          <!-- debito -->
+          <div *ngIf="method.icon === 'debit-card'" class="card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+          </div>
+        </div>
+        
+        <span class="flex-1 text-base font-medium" style="color: var(--color-text-primary);">{{ method.name }}</span>
+        
+        <div style="color: var(--color-text-muted);">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- pagamento selecionado -->
+  <div *ngIf="selectedPaymentMethod" class="payment-summary mt-5 p-5">
+    <div class="mb-4">
+      <div class="flex justify-between mb-2.5">
+        <span class="text-sm font-medium" style="color: var(--color-text-secondary);">Método de pagamento:</span>
+        <span class="text-sm font-semibold" style="color: var(--color-text-primary);">{{ getSelectedMethodName() }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="text-base font-semibold" style="color: var(--color-text-primary);">Total:</span>
+        <span class="text-base font-bold" style="color: var(--color-text-primary);">R$ {{ totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</span>
+      </div>
+    </div>
+    
+    <button class="continue-button w-full border-0 text-base font-semibold cursor-pointer transition-colors duration-200 uppercase tracking-wide px-5 py-3.5 text-white" (click)="onContinue()">
+      CONTINUAR
+    </button>
+  </div>
+</div>
