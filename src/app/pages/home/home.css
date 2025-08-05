@@ -1,0 +1,7 @@
+.card-grid-900px {
+  @media (max-width: 900px) {
+    .componente {
+      grid-template-columns: repeat(2, 1fr); /* 2 colunas para telas menores */
+    }
+  }
+}
