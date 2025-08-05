@@ -39,7 +39,6 @@ import { IBookingValues } from '../../models/booking-values.interface';
 export class CheckoutComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  // Signals for local state
   readonly paymentMethods = signal<IPaymentMethod[]>([]);
   readonly paymentDiscount = signal<number>(0);
   readonly isProcessingBooking = signal<boolean>(false);
@@ -48,7 +47,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   readonly travelersSetFromSearch = signal<boolean>(false); // Track if travelers were set from URL params
   readonly bookingSearchData = signal<any>(null); // Store search data for booking summary
 
-  // Base booking values
   readonly baseValues: IBookingValues = {
     passagemIda: 1999.00,
     passagemVolta: 2999.00,
@@ -73,24 +71,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       const children = parseInt(params['children']) || 0;
       const destination = params['destination'] || '';
       
-      // Check if we have search parameters - if so, disable add/remove
-      const hasSearchParams = params['adults'] || params['children'];
-      this.travelersSetFromSearch.set(!!hasSearchParams);
+      this.travelersSetFromSearch.set(true);
       
-      // Calculate how many additional travelers we need
-      // Total travelers = adults + children
-      // We already have 1 main traveler (adult), so other travelers = total - 1
       const totalTravelers = adults + children;
       const otherTravelersCount = Math.max(0, totalTravelers - 1);
       
-      console.log('URL Params:', { adults, children, destination, totalTravelers, otherTravelersCount, hasSearchParams });
+      console.log('URL Params:', { adults, children, destination, totalTravelers, otherTravelersCount });
       
-      // Get package information
       const packageTitle = params['packageTitle'];
       const packagePrice = params['packagePrice'];
       
       // Store search data for booking summary API calls
-      if (hasSearchParams || packageTitle) {
+      if (destination || packageTitle) {
         const searchData = {
           destination: destination,
           adults: adults,
@@ -103,7 +95,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.bookingSearchData.set(searchData);
       }
       
-      // Initialize other travelers based on the search parameters
       if (otherTravelersCount > 0) {
         this.initializeOtherTravelers(adults, children);
       }
@@ -118,7 +109,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const travelers: ITraveler[] = [];
     let travelerId = Date.now();
     
-    // Add additional adults (adults - 1, since we already have 1 main adult traveler)
     const additionalAdults = Math.max(0, adults - 1);
     for (let i = 0; i < additionalAdults; i++) {
       travelers.push({
@@ -127,11 +117,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         email: '',
         document: '',
         phone: '',
-        type: 'adult' // We can add this property to distinguish
+        type: 'adult' 
       } as ITraveler);
     }
     
-    // Add children
     for (let i = 0; i < children; i++) {
       travelers.push({
         id: travelerId++,
@@ -139,7 +128,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         email: '',
         document: '',
         phone: '',
-        type: 'child' // We can add this property to distinguish
+        type: 'child'
       } as ITraveler);
     }
     
@@ -197,14 +186,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   onPaymentError(error: any): void {
     console.error('Erro no pagamento', error);
     this.isProcessingBooking.set(false);
-    // Here you could add user notification logic
   }
 
   onFinalizeBooking(): void {
-    // if (!this.checkoutService.isFormValid()) {
-    //   console.error('Formulário Incompleto', 'Por favor, preencha todos os campos obrigatórios.');
-    //   return;
-    // }
+
 
     this.isProcessingBooking.set(true);
     const booking = this.checkoutService.createBooking(this.baseValues);
