@@ -1,0 +1,46 @@
+.payment-section {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-md);
+}
+
+.payment-option {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.payment-option:last-child {
+  border-bottom: none;
+}
+
+.payment-option:hover {
+  background-color: #f8f9fa;
+}
+
+.payment-option.selected {
+  background-color: var(--color-primary-light);
+}
+
+.pix-icon {
+  color: var(--color-info);
+}
+
+.card-icon {
+  color: var(--color-text-secondary);
+}
+
+.payment-summary {
+  background: var(--color-primary-light);
+  border-radius: var(--border-radius-md);
+}
+
+.continue-button {
+  background-color: var(--color-primary);
+  border-radius: var(--border-radius-sm);
+}
+
+.continue-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.continue-button:active {
+  transform: translateY(1px);
+}

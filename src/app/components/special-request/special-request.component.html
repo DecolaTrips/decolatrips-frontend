@@ -1,0 +1,23 @@
+<div class="special-request border overflow-hidden">
+      <div class="request-header">
+        <button class="expand-btn w-full bg-transparent border-0 p-4 flex justify-between items-center cursor-pointer font-medium transition-colors duration-200" type="button" (click)="toggleExpanded()">
+          <span style="color: var(--color-text-primary);">Solicitação especial</span>
+          <span class="text-xl font-bold" style="color: var(--color-text-primary);">{{ isExpanded ? '−' : '+' }}</span>
+        </button>
+      </div>
+      
+      <div class="p-4" *ngIf="isExpanded">
+        <textarea 
+          [(ngModel)]="request"
+          (ngModelChange)="onRequestChange()"
+          [maxlength]="maxLength"
+          placeholder="Descreva sua solicitação especial..."
+          class="request-textarea w-full p-3 font-inherit text-sm resize-y transition-colors duration-200 focus:outline-none"
+          rows="4">
+        </textarea>
+        
+        <div class="text-right text-xs mt-2" style="color: var(--color-text-secondary);" *ngIf="showCharacterCount">
+          {{ request.length }}/{{ maxLength }} caracteres
+        </div>
+      </div>
+    </div>
