@@ -1,13 +1,23 @@
-<div style="background-image: url('fundo_porto.png'); background-size: cover; height: 100vh;">
-    <app-navbar></app-navbar>
-    <br/>
-    
-    <div class="w-full flex justify-center px-4">
-        <div class="max-w-3xl mt-4 py-2 rounded-lg">
-            <h1 class="text-white text-5xl font-semibold text-center">Encontre seu pacote de viagem</h1>
-        </div>
+<app-navbar></app-navbar>
+<div class="min-h-[500px] flex flex-col justify-center items-center" style="background-image: url('fundo_porto.png'); background-size: cover; background-position: center;">
+    <div class="flex flex-col gap-8 w-full max-w-3xl mt-20 p-6">
+      <h1 class="text-white text-4xl md:text-6xl font-semibold text-left">Encontre seu pacote de viagem</h1>
+      <app-searchbar></app-searchbar>
     </div>
-    
-    <app-searchbar></app-searchbar>
+</div>
+<div>
+    <div class="flex flex-col bg-white w-full p-8 items-center">
+      <div class="flex flex-col gap-6 w-fit">
+        <h1 class="text-3xl font-bold">Melhores pacotes para você!</h1>
+        <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
+            @for (item of item.content; track $index) {
+              @if (item.images && item.images.length > 0) {
+                <app-package-card [photoCover]="item.images[0].urlImg" [title]="item.title" [price]="item.valorBase" [days]="item.durationDays"></app-package-card>
+              }
+            }
+        </div>
+      </div>
+    </div>
+
     <app-footer></app-footer>
 </div>
