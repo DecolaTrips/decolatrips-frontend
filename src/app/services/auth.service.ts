@@ -12,9 +12,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<boolean> {
-    console.log('Login attempt:', user);
-    return of(true);
+  login(user: User): Observable<any> {
+        return this.http.post(`${this.route}/login`, user);
   }
 
   register(user: RegisterUser): Observable<boolean> {
