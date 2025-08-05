@@ -13,6 +13,7 @@ import { DestinosNacionais } from './pages/destinos-nacionais/destinos-nacionais
 import { EmAlta } from './pages/em-alta/em-alta';
 import { CheckoutComponent } from './pages/checkout-page/checkout.component';
 import { DadosPessoaisComponent } from './pages/dados-pessoais/dados-pessoais.component';
+import { MyPackagesComponent } from './pages/my-packages-page/my-packages.component';
 import { Faqs } from './pages/faqs/faqs';
 import { Sobrenos } from './pages/sobrenos/sobrenos';
 import { LoginComponent } from './pages/login/login';
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: "sobrenos", component: Sobrenos },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
+  { path: "meus-pacotes", component: MyPackagesComponent },
   {
     path: "admin",
     component: Admin,
