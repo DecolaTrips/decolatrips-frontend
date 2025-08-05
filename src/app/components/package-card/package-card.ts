@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './package-card.html',
   styleUrl: './package-card.css'
 })
+
 export class PackageCard {
   @Input()
   travelPackage: { id: string } = { id: '1' };
@@ -31,5 +32,7 @@ export class PackageCard {
       this.nights = (Number(this.days) - 1).toString();
     }
   }
+  
+  constructor() {}
 
 }
