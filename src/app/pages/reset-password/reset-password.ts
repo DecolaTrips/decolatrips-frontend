@@ -70,34 +70,27 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     this.isLoading = true;
-    const { password } = formData;
-    
-    // this.authService.resetPassword(this.token, password)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.isLoading = false;
-    //       
-    //       if (response.success) {
-    //         alert('Senha redefinida com sucesso! Você será redirecionado para a página de login.');
-    //         this.router.navigate(['/login']);
-    //       } else {
-    //         this.errorMessage = response.message || 'Erro ao redefinir senha.';
-    //       }
-    //     },
-    //     error: (error) => {
-    //       this.isLoading = false;
-    //       this.errorMessage = 'Erro ao redefinir senha. Tente novamente.';
-    //       console.error('Password reset error:', error);
-    //     }
-    //   });
-    
-    // pra teste - tirar quando colocar a api
-    setTimeout(() => {
+    const { password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+      this.errorMessage = 'As senhas não coincidem.';
       this.isLoading = false;
-      alert('Senha redefinida com sucesso! Você será redirecionado para a página de login.');
-      this.router.navigate(['/login']);
-      console.log('Password reset successful for token:', this.token);
-    }, 2000);
+      return;
+    }
+
+    this.authService.resetPassword(this.token, password, confirmPassword)
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          console.log('Senha redefinida com sucesso.');
+          this.router.navigate(['/login']);
+        },
+        error: err => {
+          this.isLoading = false;
+          this.errorMessage = 'Erro ao redefinir senha. Tente novamente.';
+          console.error('Reset password error:', err);
+        }
+      });
   }
 
   onBackToLogin() {

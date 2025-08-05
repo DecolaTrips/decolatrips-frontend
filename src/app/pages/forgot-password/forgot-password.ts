@@ -16,20 +16,22 @@ export class ForgotPasswordComponent {
 
   constructor(
     private authService: AuthService
-  ) {}
+  ) { }
 
   onSubmitForm(formData: any) {
     this.isLoading = true;
     const email = formData.email;
-    
-    // por enquanto simulacao da api 
-    setTimeout(() => {
-      this.isLoading = false;
-      // For demonstration purposes, show a more detailed message with the reset link
-      const resetLink = `${window.location.origin}/reset-password?token=sample-token-123`;
-      alert(`Link de recuperação enviado para: ${email}\n\nPara fins de demonstração, você pode acessar diretamente:\n${resetLink}`);
-      console.log('Password reset email sent to:', email);
-      console.log('Reset link:', resetLink);
-    }, 2000);
+
+    this.authService.forgotPassword(email)
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          console.log('Email de redefinição enviado com sucesso.');
+        },
+        error: err => {
+          this.isLoading = false;
+          console.error('Erro ao enviar email de redefinição:', err);
+        }
+      });
   }
 }
