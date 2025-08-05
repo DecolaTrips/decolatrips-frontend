@@ -19,6 +19,9 @@ import { Sobrenos } from './pages/sobrenos/sobrenos';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
+import { Terms } from './pages/terms/terms';
+import { FraudPrevention } from './pages/fraud-prevention/fraud-prevention';
+import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -35,6 +38,9 @@ export const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "meus-pacotes", component: MyPackagesComponent },
+  { path: "terms", component: Terms },
+  { path: "fraud-prevention", component: FraudPrevention },
+  { path: "privacy-policy", component: PrivacyPolicy },
   {
     path: "admin",
     component: Admin,
@@ -63,4 +69,5 @@ export const routes: Routes = [
   },
   { path: "404", component: Home }, // Redireciona para Home no 404 (ajuste conforme necessário)
   { path: "**", redirectTo: "404" }, // Wildcard para rotas não encontradas
+
 ];
