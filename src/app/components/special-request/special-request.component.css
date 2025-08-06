@@ -1,0 +1,23 @@
+.special-request {
+  border-color: var(--color-border);
+  border-radius: var(--border-radius-md);
+}
+
+.request-header {
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.expand-btn:hover {
+  background-color: var(--color-border);
+}
+
+.request-textarea {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+}
+
+.request-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(250, 128, 21, 0.1);
+}

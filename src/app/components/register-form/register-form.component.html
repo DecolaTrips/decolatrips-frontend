@@ -2,12 +2,12 @@
       <!-- nome completo -->
       <div>
         <app-form-input
-          inputId="fullName"
+          inputId="username"
           type="text"
-          placeholder="Nome Completo"
-          [formControlName]="'fullName'"
-          [hasError]="isFieldInvalid('fullName')"
-          [errorMessages]="getFieldErrors('fullName')">
+          placeholder="Nome de Usuário"
+          [formControlName]="'username'"
+          [hasError]="isFieldInvalid('username')"
+          [errorMessages]="getFieldErrors('username')">
         </app-form-input>
       </div>
 
@@ -26,12 +26,12 @@
       <!-- CPF/passaporte -->
       <div>
         <app-form-input
-          inputId="cpfPassport"
+          inputId="cpf"
           type="text"
           placeholder="CPF/Passaporte"
-          [formControlName]="'cpfPassport'"
-          [hasError]="isFieldInvalid('cpfPassport')"
-          [errorMessages]="getFieldErrors('cpfPassport')">
+          [formControlName]="'cpf'"
+          [hasError]="isFieldInvalid('cpf')"
+          [errorMessages]="getFieldErrors('cpf')">
         </app-form-input>
       </div>
 

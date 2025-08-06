@@ -1,0 +1,102 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Botão Voltar -->
+    <div class="mb-8">
+      <a 
+        href="/home"
+        class="inline-flex items-center text-primary hover:underline transition duration-200">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Voltar para a página inicial
+      </a>
+    </div>
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
+        Prevenção a Fraudes
+      </h1>
+      <p class="text-xl text-gray-600">
+        Sua segurança é nossa prioridade na Decola Trips
+      </p>
+      <div class="mt-4 border-t-2 border-primary w-24 mx-auto"></div>
+    </div>
+
+    <!-- Alerta Importante -->
+    <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-12 rounded-r-lg">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-lg font-medium text-red-800">Atenção: Golpes com nosso nome</h3>
+          <div class="mt-2 text-red-700">
+            <p>
+              <span class="font-semibold">Nunca fazemos vendas por WhatsApp não autorizado ou redes sociais. Nunca cobramos taxa após a realização da viagem</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sinais de Alerta -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">!</span>
+        Sinais de Alerta
+      </h2>
+      
+      <div class="grid gap-6 md:grid-cols-2">
+        <div *ngFor="let sign of warningSigns" class="border-l-4 border-primary pl-4 py-2">
+          <div class="flex items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">{{sign.title}}</h3>
+              <p class="text-gray-600">{{sign.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- O que fazer se for vítima -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        Se você foi vítima de fraude
+      </h2>
+      
+      <div class="prose prose-lg text-gray-600">
+        <ol class="list-decimal pl-6 space-y-3">
+          <li>Registre um Boletim de Ocorrência na delegacia mais próxima ou online</li>
+          <li>Entre em contato imediatamente com seu banco ou operadora de cartão</li>
+          <li>Comunique a Decola Trips pelos canais oficiais</li>
+          <li>Altere suas senhas de acesso caso tenha compartilhado dados</li>
+          <li>Denuncie ao <a href="https://www.gov.br/mj/pt-br/assuntos/denuncie" target="_blank" class="text-primary-600 hover:underline">Ministério da Justiça</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Canais Oficiais -->
+    <div class="bg-gray-100 rounded-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        Canais Oficiais Decola Trips
+      </h2>
+      
+      <div class="grid gap-6 md:grid-cols-2">
+        <div *ngFor="let channel of contactChannels" class="bg-white p-4 rounded-lg shadow-sm text-center">
+          <div class="text-3xl mb-2">{{channel.icon}}</div>
+          <h3 class="font-medium text-gray-900">{{channel.name}}</h3>
+          <p class="text-primary font-semibold">{{channel.value}}</p>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-gray-600">Horário de atendimento: Segunda a Sexta, das 8h às 20h</p>
+        <p class="text-gray-600">Sábados e feriados: 9h às 14h</p>
+      </div>
+    </div>
+  </div>
+</div>
