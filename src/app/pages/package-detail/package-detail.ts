@@ -7,11 +7,12 @@ import { SwiperContainer } from '../../components/swiper-container/swiper-contai
 import { PackageService } from '../../services/packageService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapsComponent } from '../../components/google-maps/google-maps';
+import { Navbar } from "../../components/navbar/navbar";
 
 @Component({
   selector: 'app-package-detail',
   standalone: true,
-  imports: [CommonModule, InfoCard, PackageHighlightCard, Rating, SwiperContainer, GoogleMapsComponent],
+  imports: [CommonModule, InfoCard, PackageHighlightCard, Rating, SwiperContainer, GoogleMapsComponent, Navbar],
   templateUrl: './package-detail.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
