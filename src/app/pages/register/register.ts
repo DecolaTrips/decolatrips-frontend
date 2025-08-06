@@ -18,22 +18,26 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
+
+  goToHome() {
+    this.router.navigate(['/home']); // ou ['/'] se sua home for a rota raiz
+  }
 
   onSubmitForm(formData: any) {
     this.isLoading = true;
     console.log('Dados do formulário:', formData);
     const registerUser: RegisterUser = formData;
     console.log('Dados formatados:', registerUser);
-    
+
     this.authService.register(registerUser).subscribe({
       next: (response) => {
         this.isLoading = false;
-        
+
         console.log('Registration successful', response);
         alert('Conta criada com sucesso! Faça login para continuar.');
-        this.router.navigate(['/home']);
-        
+        this.router.navigate(['/login']);
+
       },
       error: (error) => {
         this.isLoading = false;

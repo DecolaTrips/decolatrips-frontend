@@ -18,25 +18,29 @@ export class LoginComponent {
   constructor(
     private service: AuthService,
     private router: Router
-  ) {}
+  ) { }
+
+  goToHome() {
+    this.router.navigate(['/home']); // ou ['/'] se sua home for a rota raiz
+  }
 
   // redirecionar apos login
   //adicionar logica condicional para pagina de admin ou usuario
-  changePageWithLogin() : void {
+  changePageWithLogin(): void {
     this.router.navigate(['/home']);
   }
 
 
   onSubmitForm(formData: any) {
     this.isLoading = true;
-    
+
     const loginData = {
       email: formData.email,
       password: formData.password
     };
-    
+
     this.service.login(loginData).subscribe({
-      next: (response ) => {
+      next: (response) => {
         this.isLoading = false;
         localStorage.setItem("jwt", response.token);
         localStorage.setItem("email", loginData.email);

@@ -22,6 +22,8 @@ import { authGuard } from './guards/auth-guard';
 import { Terms } from './pages/terms/terms';
 import { FraudPrevention } from './pages/fraud-prevention/fraud-prevention';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password';
 
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -37,6 +39,8 @@ export const routes: Routes = [
   { path: "sobrenos", component: Sobrenos },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
+  { path: "reset-password", component: ResetPasswordComponent },
   { path: "meus-pacotes", component: MyPackagesComponent },
   { path: "terms", component: Terms },
   { path: "fraud-prevention", component: FraudPrevention },
@@ -69,5 +73,6 @@ export const routes: Routes = [
   },
   { path: "404", component: Home }, // Redireciona para Home no 404 (ajuste conforme necessário)
   { path: "**", redirectTo: "404" }, // Wildcard para rotas não encontradas
+
 
 ];
