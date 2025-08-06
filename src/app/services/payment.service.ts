@@ -33,7 +33,7 @@ export class PaymentService {
     return of(this.paymentMethods).pipe(delay(300));
   }
 
-  processPayment(booking: IBooking, paymentMethod: IPaymentMethod): Observable<{ success: boolean; transactionId?: string; error?: string }> {
+  processPayment(booking: IBooking): Observable<{ success: boolean; transactionId?: string; error?: string }> {
     // simula processamento de pagamento
     return of(null).pipe(
       delay(2000),
