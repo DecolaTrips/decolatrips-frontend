@@ -1,6 +1,7 @@
 <div class="min-h-screen flex">
   <!-- lado esquerdo - imagem  -->
-  <div class="hidden md:flex w-1/2 relative" style="background-image: url('https://thearrivalstore.com/wp-content/uploads/2016/10/iStock_74131929_LARGE.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <div class="hidden md:flex w-1/2 relative"
+    style="background-image: url('https://thearrivalstore.com/wp-content/uploads/2016/10/iStock_74131929_LARGE.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
   </div>
 
   <!-- lado direito - formulario  -->
@@ -8,7 +9,7 @@
     <div class="w-full max-w-md min-h-full flex flex-col justify-center py-4">
       <!-- Logo -->
       <div class="text-center mb-2">
-        <div class="flex items-center justify-center mb-4">
+        <div class="flex items-center justify-center mb-4 cursor-pointer" (click)="goToHome()">
           <img src="images/decola-trips-logo.png" alt="Decola Trips Logo" class="h-24 w-auto">
         </div>
       </div>
@@ -19,9 +20,7 @@
       </h2>
 
       <!-- formulario -->
-      <app-register-form
-        [isLoading]="isLoading"
-        (submitForm)="onSubmitForm($event)" >
+      <app-register-form [isLoading]="isLoading" (submitForm)="onSubmitForm($event)">
       </app-register-form>
 
       <!-- link para login -->
