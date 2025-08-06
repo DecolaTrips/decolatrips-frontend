@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { PaginationComponent } from "../../components/pagination-component/pagination-component";
 import { FilterComponent } from "../../components/filter-component/filter-component";
 import { CommonModule } from '@angular/common';
-import { TravelPackageForm } from '../../../travel-package-form/travel-package-form';
 import { TravelPackageService } from '../../../../services/TravelPackageService';
 import { TravelPackagePreview } from '../../../../models/travel-package-preview';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-packages',
-  imports: [PaginationComponent, FilterComponent,CommonModule],
+  imports: [PaginationComponent, FilterComponent,CommonModule,RouterModule],
   templateUrl: './packages.html',
   styleUrl: './packages.css'
 })
@@ -64,7 +63,6 @@ onPageChange(page: number) {
 goToCreate() {
     this.router.navigate(['/admin/packages/create']);
   }
-
 
 
 }
