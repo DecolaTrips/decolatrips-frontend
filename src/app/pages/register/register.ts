@@ -32,7 +32,7 @@ export class RegisterComponent {
         
         console.log('Registration successful', response);
         alert('Conta criada com sucesso! Faça login para continuar.');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
         
       },
       error: (error) => {
