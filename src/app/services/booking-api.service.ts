@@ -64,18 +64,34 @@ export class BookingApiService {
   /**
    * Validate and apply coupon code
    */
-  applyCoupon(couponCode: string, currentTotal: number): Observable<{success: boolean, discount: number, message: string}> {
-    this.loadingSubject.next(true);
-    
-    // TODO: Replace with actual API call
-    // return this.http.post<{success: boolean, discount: number, message: string}>(
-    //   `${this.API_BASE_URL}/coupons/validate`, 
-    //   { code: couponCode, total: currentTotal }
-    // );
-    
-    // Mock implementation
-    return this.getMockCouponValidation(couponCode, currentTotal);
-  }
+ applyCoupon(couponCode: string, currentTotal: number): Observable<{ success: boolean, discount: number, message: string }> {
+  this.loadingSubject.next(true);
+
+  return new Observable(observer => {
+    this.http.get<any>(`${this.API_BASE_URL}/payments/validate-coupon`, {
+      params: { code: couponCode }
+    }).subscribe({
+      next: (response) => {
+        observer.next({
+          success: true,
+          discount: response.discount || 0,
+          message: response.message || 'Cupom aplicado com sucesso'
+        });
+        this.completeLoading();
+        observer.complete();
+      },
+      error: (error) => {
+        observer.next({
+          success: false,
+          discount: 0,
+          message: error.error?.message || 'Código de cupom inválido'
+        });
+        this.completeLoading();
+        observer.complete();
+      }
+    });
+  });
+}
 
   /**
    * Mock implementation - remove this when your API is ready
@@ -126,31 +142,7 @@ export class BookingApiService {
     );
   }
 
-  private getMockCouponValidation(couponCode: string, currentTotal: number): Observable<{success: boolean, discount: number, message: string}> {
-    const validCoupons = {
-      'desconto10': { discount: 100, message: 'Cupom aplicado com sucesso! Desconto de R$ 100,00' },
-      'welcome20': { discount: currentTotal * 0.1, message: 'Cupom de boas-vindas! 10% de desconto aplicado' },
-      'save50': { discount: 50, message: 'Cupom aplicado! Desconto de R$ 50,00' }
-    };
-
-    const coupon = validCoupons[couponCode.toLowerCase() as keyof typeof validCoupons];
-    
-    return of({
-      success: !!coupon,
-      discount: coupon?.discount || 0,
-      message: coupon?.message || 'Código de cupom inválido'
-    }).pipe(
-      delay(1000),
-      catchError(() => {
-        this.loadingSubject.next(false);
-        return of({
-          success: false,
-          discount: 0,
-          message: 'Erro ao validar cupom'
-        });
-      })
-    );
-  }
+  
 
   private calculateFlightPrice(destination: string, direction: 'ida' | 'volta'): number {
     const basePrice = direction === 'ida' ? 1500 : 2000;
