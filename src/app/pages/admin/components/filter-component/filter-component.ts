@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './filter-component.css'
 })
 export class FilterComponent {
-
+  filterCount: number = 0; // Example count, replace with actual logic if needed
 }
