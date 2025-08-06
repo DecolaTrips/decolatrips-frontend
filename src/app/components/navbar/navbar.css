@@ -1,0 +1,109 @@
+/* Enhanced navbar styles */
+nav {
+  transition: all 0.3s ease;
+}
+
+/* Text shadow for better readability on background images */
+nav a,
+nav button {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Smooth hover effects */
+nav a {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Custom select dropdown styling */
+select {
+  background-image: none;
+  padding-right: 2rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus,
+select:focus {
+  outline: 2px solid rgba(251, 146, 60, 0.8);
+  outline-offset: 2px;
+}
+
+/* Logo hover effect */
+nav img {
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+}
+
+nav img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+/* Login button enhancement */
+.login-btn {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+/* Mobile menu animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive navigation - explicit mobile/desktop behavior */
+.desktop-nav {
+  display: none;
+}
+
+.mobile-menu-button {
+  display: flex;
+}
+
+.mobile-menu {
+  display: block;
+}
+
+/* Desktop styles - show desktop nav, hide mobile */
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex !important;
+  }
+  
+  .mobile-menu-button {
+    display: none !important;
+  }
+  
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Mobile styles - hide desktop nav, show mobile */
+@media (max-width: 767px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  
+  .mobile-menu-button {
+    display: flex !important;
+  }
+  
+  .mobile-menu {
+    display: block !important;
+  }
+}

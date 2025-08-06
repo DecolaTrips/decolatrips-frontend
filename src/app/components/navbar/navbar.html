@@ -1,112 +1,88 @@
-<nav class="md:top-3 absolute md:bg-transparent z-50 w-screen h-screen md:w-full md:h-fit"
-  [class]="isMobileMenuOpen ? 'bg-white scrollbar-hide' : 'bg-transparent'">
-  <div class="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8">
-
-    <div class="flex h-16 items-center justify-between">
-
-      <div class="flex justify-between items-center w-full md:hidden">
-        <img src="public/logo_preto_mini.png" alt="" class="h-8 w-auto md:hidden" style="height: 24px;" />
-
-        <!-- Mobile menu button-->
-        <button type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen"
-          aria-controls="mobile-menu"
-          class="relative inline-flex items-center justify-center rounded-md p-2 hover:bg-[#ffffff29] focus:ring-2  focus:outline-hidden focus:ring-inset"
-          [class]="isMobileMenuOpen ? ' text-black' : 'text-white'">
-          <span class="absolute -inset-0.5"></span>
-          <span class="sr-only">Open main menu</span>
-          <!-- Icon when menu is closed -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
-            aria-hidden="true" [class]="isMobileMenuOpen ? 'hidden size-6' : 'block md:hidden size-6'">
-            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <!-- Icon when menu is open -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
-            aria-hidden="true" [class]="isMobileMenuOpen ? 'block size-6' : 'hidden size-6'">
-            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-
-      </div>
-      <!-- Logo à esquerda - agora oculta em mobile sempre -->
-      <div class="hidden md:flex shrink-0 items-center">
-        <a href="/home">
-          <img src="public/logo_branco.png" alt="Decola Trips" class="h-8 w-auto" style="max-width: 94px; height: auto;" />
+<nav class="absolute top-0 w-full z-50 bg-transparent">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a routerLink="/home">
+          <img class="h-8 w-auto" src="public/logo_branco.png" alt="Decola Trips" />
         </a>
       </div>
-      <!-- Menu centralizado -->
-      <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2">
-        <div class="flex space-x-8">
-          <div>
-            <a href="/emalta" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
-              Em Alta
-            </a>
-          </div>
-          <div
-            class="rounded-md py-1 px-3 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
-            <select class="text-white px-2 py-1 rounded-md bg-transparent">
-              <option class="text-black bg-white">Categorias</option>
-              <option value="aventura" class="text-black bg-white">Aventura</option>
-              <option value="praia" class="text-black bg-white">Praia</option>
-              <option value="cultura" class="text-black bg-white">Cultura</option>
-              <option value="gastronomia" class="text-black bg-white">Gastronomia</option>
-            </select>
-          </div>
-          <div>
-            <a href="/destinos/nacionais" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
-              Destinos Nacionais
-            </a>
-          </div>
-          <div>
-            <a href="/destinos/internacionais" class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
-              Destinos Internacionais
-            </a>
-          </div>
+
+      <!-- Desktop Navigation -->
+      <div class="desktop-nav items-center space-x-8">
+        <a routerLink="/emalta" class="text-white hover:text-orange-300 px-3 py-2 text-sm font-medium transition-colors duration-200">
+          Em Alta
+        </a>
+        
+        <div class="relative">
+          <select (change)="onCategoryChange($event)" class="text-white bg-transparent border-none focus:ring-0 text-sm font-medium cursor-pointer hover:text-orange-300 transition-colors duration-200 appearance-none pr-8">
+            <option value="" class="text-black bg-white">Categorias</option>
+            <option value="aventura" class="text-black bg-white">Aventura</option>
+            <option value="praia" class="text-black bg-white">Praia</option>
+            <option value="cultura" class="text-black bg-white">Cultura</option>
+            <option value="gastronomia" class="text-black bg-white">Gastronomia</option>
+          </select>
+          <svg class="absolute right-0 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
         </div>
-        <div class="w-3xl"></div>
+        
+        <a routerLink="/destinos/nacionais" class="text-white hover:text-orange-300 px-3 py-2 text-sm font-medium transition-colors duration-200">
+          Destinos Nacionais
+        </a>
+        
+        <a routerLink="/destinos/internacionais" class="text-white hover:text-orange-300 px-3 py-2 text-sm font-medium transition-colors duration-200">
+          Destinos Internacionais
+        </a>
       </div>
-      <!-- Login à direita -->
-      <div class="flex items-center">
-        <div class="hidden md:flex items-center">
-          <a routerLink="/login"
-            class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
-            Entre ou Cadastre-se
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Mobile menu, show/hide based on menu state -->
-  <div id="mobile-menu" [class]="isMobileMenuOpen ? 'md:hidden' : 'hidden md:hidden'">
 
-    <div class="space-y-1 px-2 pt-2 pb-3 text-black">
-
-      <a href="/home" (click)="closeMobileMenu()" aria-current="page"
-        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
-        Página Inicial
-      </a>
-
-      <a href="/emalta" (click)="closeMobileMenu()" aria-current="page"
-        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
-        Em Alta
-      </a>
-      <a href="/categorias" (click)="closeMobileMenu()"
-        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary hover:text-white">
-        Categorias
-      </a>
-      <a href="/destinos/nacionais" (click)="closeMobileMenu()"
-        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
-        Destinos Nacionais
-      </a>
-      <a href="/destinos/internacionais" (click)="closeMobileMenu()"
-        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
-        Destinos Internacionais
-      </a>
-      <!-- Mobile login button -->
-      <div class="pt-4 pb-3 border-t border-gray-200">
-        <a href="#" (click)="closeMobileMenu()"
-          class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
+      <!-- Login Button (Desktop) -->
+      <div class="desktop-nav">
+        <a routerLink="/login" class="text-white border-2 border-white/70 hover:bg-white hover:text-black px-6 py-2 rounded-full text-sm font-medium transition-all duration-300">
           Entre ou Cadastre-se
         </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="mobile-menu-button">
+        <button 
+          type="button" 
+          (click)="toggleMobileMenu()"
+          class="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/20 focus:outline-none transition-colors duration-200"
+          [attr.aria-expanded]="isMobileMenuOpen">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path *ngIf="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path *ngIf="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isMobileMenuOpen" class="mobile-menu mt-2">
+      <div class="bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/20 overflow-hidden">
+        <div class="px-2 py-3 space-y-1">
+          <a routerLink="/home" (click)="closeMobileMenu()" class="block px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg text-base font-medium transition-all duration-200">
+            Página Inicial
+          </a>
+          <a routerLink="/emalta" (click)="closeMobileMenu()" class="block px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg text-base font-medium transition-all duration-200">
+            Em Alta
+          </a>
+          <a routerLink="/categorias" (click)="closeMobileMenu()" class="block px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg text-base font-medium transition-all duration-200">
+            Categorias
+          </a>
+          <a routerLink="/destinos/nacionais" (click)="closeMobileMenu()" class="block px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg text-base font-medium transition-all duration-200">
+            Destinos Nacionais
+          </a>
+          <a routerLink="/destinos/internacionais" (click)="closeMobileMenu()" class="block px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-600 rounded-lg text-base font-medium transition-all duration-200">
+            Destinos Internacionais
+          </a>
+          <div class="border-t border-gray-200 pt-3 mt-3">
+            <a routerLink="/login" (click)="closeMobileMenu()" class="block px-4 py-3 text-center bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-base font-semibold transition-all duration-200">
+              Entre ou Cadastre-se
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
