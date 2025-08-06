@@ -14,6 +14,9 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
 })
 export class LoginComponent {
   isLoading = false;
+  goToHome() {
+    this.router.navigate(['/home']); // ou ['/'] se sua home for a rota raiz
+  }
 
   constructor(
     private service: AuthService,

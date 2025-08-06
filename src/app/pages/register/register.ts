@@ -11,15 +11,18 @@ import { RegisterFormComponent } from '../../components/register-form/register-f
   imports: [CommonModule, RouterModule, RegisterFormComponent],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
+  
 })
 export class RegisterComponent {
   isLoading = false;
-
+  goToHome() {
+    this.router.navigate(['/home']); // ou ['/'] se sua home for a rota raiz
+  }
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
-
+  
   onSubmitForm(formData: any) {
     this.isLoading = true;
     console.log('Dados do formulário:', formData);
