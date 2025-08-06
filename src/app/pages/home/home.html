@@ -1,23 +1,38 @@
 <app-navbar></app-navbar>
-<div class="min-h-[500px] flex flex-col justify-center items-center" style="background-image: url('fundo_porto.png'); background-size: cover; background-position: center;">
-    <div class="flex flex-col gap-8 w-full max-w-3xl mt-20 p-6">
-      <h1 class="text-white text-4xl md:text-6xl font-semibold text-left">Encontre seu pacote de viagem</h1>
-      <app-searchbar></app-searchbar>
-    </div>
+
+<!-- Seção com vídeo de fundo -->
+<div class="relative min-h-[600px] flex flex-col justify-center items-center overflow-hidden">
+  <!-- Vídeo de fundo -->
+  <video autoplay loop muted playsinline class="absolute z-0 w-full min-w-full min-h-full object-cover">
+    <source src="videos/montanha.mp4" type="video/mp4">
+    <!-- Fallback caso o vídeo não carregue -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('fundo_porto.png');"></div>
+  </video>
+  
+  <!-- Overlay escuro para melhor contraste do texto -->
+
+  
+  <!-- Conteúdo principal -->
+  <div class="flex flex-col gap-8 w-full max-w-3xl mt-20 p-6 relative z-20">
+    <h1 class="text-white text-4xl md:text-6xl font-semibold text-left">Encontre seu pacote de viagem</h1>
+    <app-searchbar></app-searchbar>
+  </div>
 </div>
+
+<!-- Restante do conteúdo -->
 <div>
-    <div class="flex flex-col bg-white w-full p-8 items-center">
-      <div class="flex flex-col gap-6 w-fit">
-        <h1 class="text-3xl font-bold">Melhores pacotes para você!</h1>
-        <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
-            @for (item of item.content; track $index) {
-              @if (item.images && item.images.length > 0) {
-                <app-package-card [travelPackageId]="item.id" [photoCover]="item.images[0].urlImg" [title]="item.title" [price]="item.valorBase" [days]="item.durationDays"></app-package-card>
-              }
+  <div class="flex flex-col bg-white w-full p-8 items-center">
+    <div class="flex flex-col gap-6 w-fit">
+      <h1 class="text-3xl font-bold">Melhores pacotes para você!</h1>
+      <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
+          @for (item of item.content; track $index) {
+            @if (item.images && item.images.length > 0) {
+              <app-package-card [travelPackageId]="item.id" [photoCover]="item.images[0].urlImg" [title]="item.title" [price]="item.valorBase" [days]="item.durationDays"></app-package-card>
             }
-        </div>
+          }
       </div>
     </div>
-
-    <app-footer></app-footer>
+  </div>
 </div>
+
+<app-footer></app-footer>
