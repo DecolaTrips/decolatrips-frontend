@@ -16,11 +16,18 @@ export class AuthService {
         return this.http.post(`${this.route}/login`, user);
   }
 
-  register(user: RegisterUser): Observable<boolean> {
-    // simulação chamada de API
-    console.log('Register attempt:', user);
-    return of(true);
-  }
+  register(user: RegisterUser): Observable<any> {
+    const registerData = {
+    username: user.username,
+    email: user.email,
+    cpf: user.cpf, 
+    password: user.password,
+    confirmPassword: user.confirmPassword
+  };
+  return this.http.post(`${this.route}/register`, registerData, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+}
 
   forgotPassword(email: string): Observable<any> {
     return this.http.post(`${this.route}/password/forgot`, null, { params: { email: email } })
