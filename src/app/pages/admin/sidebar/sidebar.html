@@ -1,43 +1,19 @@
 <div class="bg-[#1E1E1E] text-white h-screen w-[172px] flex flex-col justify-between fixed">
-  <!-- Logo e itens de navegação -->
   <div>
     <div class="text-center">
       <img src="assets/images/Group2.png" alt="Decola Trips" style="width: 78px; height: 40.56px; margin-top: 31px; margin-left: 47px;">
     </div>
-    <nav class="mt-10">
-      <!-- Container dos botões com 148px de largura encostado na lateral direita -->
-      <div class="w-[148px] ml-auto mr-0">
+    <nav class="mt-10 overflow-clip">
+      <div class="w-full ml-4 text-sm">
         <ul>
-          <li class="mb-3">
-            <a routerLink="/admin/dashboard" class="flex items-center p-5 h-[32px] rounded-lg hover:bg-gray-800" routerLinkActive="bg-[#FA8015]">
-              <span class="material-icons mr-2">dashboard</span>
-              dashboard
-            </a>
-          </li>
-          <li class="mb-3">
-            <a routerLink="/admin/packages" class="flex items-center p-5 h-[32px] rounded-lg hover:bg-gray-800" routerLinkActive="bg-[#FA8015]">
-              <span class="material-icons mr-2">local_airport</span>
-              Pacotes
-            </a>
-          </li>
-          <li class="mb-3">
-            <a routerLink="/admin/finance" class="flex items-center p-5 h-[32px] rounded-lg hover:bg-gray-800" routerLinkActive="bg-[#FA8015]">
-              <span class="material-icons mr-2">monetization_on</span>
-              Financeiro
-            </a>
-          </li>
-          <li class="mb-3">
-            <a routerLink="/admin/users" class="flex items-center p-5 h-[32px] rounded-lg hover:bg-gray-800" routerLinkActive="bg-[#FA8015]">
-              <span class="material-icons mr-2">people</span>
-              Usuarios
-            </a>
-          </li>
-          <li class="mb-3">
-            <a routerLink="/admin/reviews" class="flex items-center p-5 h-[32px] rounded-lg hover:bg-gray-800" routerLinkActive="bg-[#FA8015]">
-              <span class="material-icons mr-2">forum</span>
-              Avaliações
-            </a>
-          </li>
+          @for (item of sidebarItems; track $index) {
+            <li class="mb-3">
+              <a [routerLink]="item.route" class="flex items-center gap-2 pl-3 py-4 h-9 rounded-l-md" routerLinkActive="bg-[#FA8015]">
+                <span class="material-icons">{{ item.icon }}</span>
+                {{ item.name }}
+              </a>
+            </li>
+          }
         </ul>
       </div>
     </nav>
