@@ -5,7 +5,6 @@ import { Categorias } from './pages/categorias/categorias';
 import { Admin } from './pages/admin/admin/admin';
 import { Dashboard } from './pages/admin/sidebar/dashboard/dashboard';
 import { Packages } from './pages/admin/sidebar/packages/packages';
-import { Finance } from './pages/admin/sidebar/finance/finance';
 import { Users } from './pages/admin/sidebar/users/users';
 import { Reviews } from './pages/admin/sidebar/reviews/reviews';
 import { DestinosInternacionais } from './pages/destinos-internacionais/destinos-internacionais';
@@ -26,53 +25,52 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password';
 
 export const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "home", component: Home },
-  { path: "package/:id", component: PackageDetail },
-  { path: "categorias", component: Categorias },
-  { path: "checkout", component: CheckoutComponent },
-  { path: "dados-pessoais", component: DadosPessoaisComponent },
-  { path: "destinos/internacionais", component: DestinosInternacionais },
-  { path: "destinos/nacionais", component: DestinosNacionais },
-  { path: "emalta", component: EmAlta },
-  { path: "faqs", component: Faqs },
-  { path: "sobrenos", component: Sobrenos },
-  { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "forgot-password", component: ForgotPasswordComponent },
-  { path: "reset-password", component: ResetPasswordComponent },
-  { path: "meus-pacotes", component: MyPackagesComponent },
-  { path: "terms", component: Terms },
-  { path: "fraud-prevention", component: FraudPrevention },
-  { path: "privacy-policy", component: PrivacyPolicy },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: Home },
+  { path: 'package/:id', component: PackageDetail },
+  { path: 'categorias', component: Categorias },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'dados-pessoais', component: DadosPessoaisComponent },
+  { path: 'destinos/internacionais', component: DestinosInternacionais },
+  { path: 'destinos/nacionais', component: DestinosNacionais },
+  { path: 'emalta', component: EmAlta },
+  { path: 'faqs', component: Faqs },
+  { path: 'sobrenos', component: Sobrenos },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'meus-pacotes', component: MyPackagesComponent },
+  { path: 'terms', component: Terms },
+  { path: 'fraud-prevention', component: FraudPrevention },
+  { path: 'privacy-policy', component: PrivacyPolicy },
+
   {
-    path: "admin",
+    path: 'admin',
     component: Admin,
     children: [
-      { path: "dashboard", component: Dashboard },
-      { path: "packages", component: Packages },
+      { path: 'dashboard', component: Dashboard },
+      { path: 'packages', component: Packages },
       {
-        path: "packages/create",
+        path: 'packages/create',
         loadComponent: () =>
           import('./pages/travel-package-form/travel-package-form').then(
             (m) => m.TravelPackageForm
           ),
       },
       {
-        path: "packages/create/:id",
+        path: 'packages/create/:id',
         loadComponent: () =>
           import('./pages/travel-package-form/travel-package-form').then(
             (m) => m.TravelPackageForm
           ),
       },
-      { path: "finance", component: Finance },
-      { path: "users", component: Users },
-      { path: "reviews", component: Reviews },
-      { path: "", redirectTo: "/admin/packages", pathMatch: "full" },
+      { path: 'users', component: Users },
+      { path: 'reviews', component: Reviews },
+      { path: '', redirectTo: '/admin/packages', pathMatch: 'full' },
     ],
   },
-  { path: "404", component: Home }, // Redireciona para Home no 404 (ajuste conforme necessário)
-  { path: "**", redirectTo: "404" }, // Wildcard para rotas não encontradas
 
-
+  { path: '404', component: Home }, // Ajuste conforme necessidade
+  { path: '**', redirectTo: '404' },
 ];
