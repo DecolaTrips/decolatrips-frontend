@@ -11,17 +11,13 @@ import { AvailabilityService } from '../../services/availabilityService';
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   providers: [FormBuilder],
   templateUrl: './travel-package-form.html',
-  styleUrls: ['./travel-package-form.css']
 })
 
 export class TravelPackageForm implements OnInit {
-
   packages: any[] = [];
   form: FormGroup;
   packageId: number | null = null;
-
-  
-  
+  activeTab: number = 1;
 
   constructor(
      private fb: FormBuilder ,
@@ -29,7 +25,7 @@ export class TravelPackageForm implements OnInit {
      private availabilityService: AvailabilityService,
      private router: Router,
      private route: ActivatedRoute) {
-    
+
       this.form = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -62,7 +58,7 @@ export class TravelPackageForm implements OnInit {
       }
     });
   }
- 
+
 submit() {
   if (this.form.valid) {
     const dto = this.form.value;
@@ -155,7 +151,7 @@ addAvailability(): void {
 removeAvailability(index: number): void {
   this.availabilityForm.removeAt(index);
 }
-activeSection: string = 'view'; 
+activeSection: string = 'view';
 
 loadPackage(id: number): void {
   this.travelPackageService.getPackageById(id).subscribe({

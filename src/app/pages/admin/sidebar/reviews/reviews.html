@@ -1,1 +1,33 @@
-<p>reviews works!</p>
+<div class="bg-gray-100 p-6 rounded-lg shadow-md h-screen flex flex-col">
+  <h2 class="text-2xl font-bold mb-6">
+    Reviews
+  </h2>
+
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-2">
+      <app-filter-component></app-filter-component>
+
+      <div class="flex items-center justify-center h-10 px-4 bg-gray-50 rounded-lg border border-gray-300">
+        <h2>
+          Total: <span>{{ totalElements }}</span>
+        </h2>
+      </div>
+
+      <div class="flex items-center">
+        <input
+          type="text"
+          placeholder="Pesquisar"
+          #searchInput
+          class="bg-gray-50 border border-gray-300 rounded-l-lg h-10 w-64 px-3"
+          autocomplete="new-password"
+        />
+        <button
+          class="material-icons text-white bg-black h-10 w-10 rounded-r-lg"
+        >
+          search
+        </button>
+      </div>
+    </div>
+</div>
+
+<app-table [columns]="columns" [data]="tableData"></app-table>
