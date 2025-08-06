@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay, map } from 'rxjs';
 import { IPaymentMethod } from '../models/payment-method.interface';
 import { IBooking } from '../models/booking.interface';
-import { HttpClient } from '@angular/common/http';
-
 
 @Injectable({
   providedIn: 'root'
