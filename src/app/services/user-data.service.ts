@@ -24,7 +24,7 @@ export class UserDataService {
   private readonly API_BASE_URL = `${environment.apiUrl}${environment.endpoints.users}`;
   
   // mudar para true quando for usar a api
-  private readonly USE_API = false;
+  private readonly USE_API = true;
   
   constructor(private http: HttpClient) {}
 
