@@ -16,21 +16,46 @@ export class LoginComponent {
   isLoading = false;
 
   constructor(
-    private authService: AuthService,
+    private service: AuthService,
     private router: Router
-  ) {}
+  ) { }
+
+  goToHome() {
+    this.router.navigate(['/home']); // ou ['/'] se sua home for a rota raiz
+  }
+
+  // redirecionar apos login
+  //adicionar logica condicional para pagina de admin ou usuario
+  changePageWithLogin(): void {
+  const roles = JSON.parse(localStorage.getItem("roles") || '[]');
+
+  if (roles.includes("ROLE_ADMIN")) {
+    this.router.navigate(['/admin/dashboard']);
+  } else if (roles.includes("ROLE_CLIENTE")) {
+    this.router.navigate(['/user/home']);
+  } else {
+    // Redireciona para uma página padrão, caso a role não seja reconhecida
+    this.router.navigate(['/home']);
+  }
+}
 
   onSubmitForm(formData: any) {
     this.isLoading = true;
-    const user: User = formData;
-    
-    this.authService.login(user).subscribe({
-      next: (success) => {
+
+    const loginData = {
+      email: formData.email,
+      password: formData.password
+    };
+
+    this.service.login(loginData).subscribe({
+      next: (response) => {
         this.isLoading = false;
-        if (success) {
-          console.log('Login successful');
-          // redirecionar para dashboard ou pag principal
-        }
+        localStorage.setItem("jwt", response.token);
+        localStorage.setItem("username", response.username);
+        localStorage.setItem("email", response.email);
+        localStorage.setItem("roles", JSON.stringify(response.roles));
+
+        this.changePageWithLogin();
       },
       error: (error) => {
         this.isLoading = false;

@@ -1,39 +1,28 @@
 <div class="bg-gray-100 p-6 rounded-lg shadow-md h-screen flex flex-col">
-  <!-- Barra superior com filtro, título, pesquisa e botões -->
-  <div class="flex items-center justify-between mb-4">
-    <div class="flex items-center space-x-4">
-      <app-filter-component></app-filter-component>
-      <h2 class="border border-gray-300 rounded-lg p-2 pl-4 pr-4 bg-gray-50 text-lg">
-         Pacotes: <span>{{ totalElements }}</span>
-      </h2>
+  <h2 class="text-2xl font-bold mb-6">
+    Pacotes
+  </h2>
 
-      <!-- Campo de pesquisa -->
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-2">
+      <app-filter-component></app-filter-component>
+
+      <div class="flex items-center justify-center h-10 px-4 bg-gray-50 rounded-lg border border-gray-300">
+        <h2>
+          Total: <span>{{ totalElements }}</span>
+        </h2>
+      </div>
+
       <div class="flex items-center">
-        <input type="text" placeholder="Pesquisar" class="border border-gray-300 rounded-lg p-2 w-64" />
-        <button class="bg-gray-800 text-white p-2 rounded-lg ml-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4" />
-          </svg>
+        <input type="text" placeholder="Pesquisar" class="bg-gray-50 border border-gray-300 rounded-l-lg h-10 w-64 px-3" />
+        <button class="material-icons text-white bg-black h-10 w-10 rounded-r-lg">
+          search
         </button>
       </div>
     </div>
 
-    <div class="flex space-x-4">
-      <!-- Botão calendário -->
-      <button class="bg-black text-white w-12 h-12 rounded-lg flex items-center justify-center hover:bg-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M8 7V3m8 4V3m-9 8h10m-12 4h14m-14 4h14M3 10h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      </button>
-
-      <!-- Botão adicionar pacote -->
-      <button
-    (click)="goToCreate()"
-      class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800"
-    >
-      <span class="text-white font-medium">Adicionar Pacote</span>
+    <button (click)="goToCreate()" class="bg-black text-white w-40 h-10 rounded-md hover:bg-gray-800 cursor-pointer">
+      Adicionar Pacote
     </button>
     </div>
   </div>
@@ -83,8 +72,16 @@
   </table>
 </div>
 
-  <!-- Paginação -->
- <div class="pagination">
+<div class="overflow-auto">
+  <app-table
+    [columns]="columns"
+    [data]="tableData"
+    (edit)="editPackage($event)"
+    (delete)="deletePackage($event.id)"
+  ></app-table>
+</div>
+
+<div class="pagination">
   <app-pagination-component
     [currentPage]="currentPage"
     [totalPages]="totalPages"

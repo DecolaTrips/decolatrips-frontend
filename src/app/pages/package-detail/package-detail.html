@@ -1,0 +1,129 @@
+<app-navbar></app-navbar>
+
+<header
+  class="min-h-screen w-full flex items-center justify-center"
+  [ngStyle]="{ 'background-image': 'url(' + item.images[0].urlImg + ')', 'background-size': 'cover', 'background-position': 'top' }"
+>
+  <div class="relative z-10 text-center">
+    <p class="text-white text-2xl">{{ item.place }}</p>
+    <h1 class="text-white text-6xl">{{ item.title }}</h1>
+  </div>
+
+  <div class="absolute inset-0 bg-black opacity-20"></div>
+
+</header>
+
+
+<main>
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-6">
+      <h2 class="text-2xl font-bold">Descrição</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <p>{{ item.description }}</p>
+  </section>
+
+  @if (item.images && item.images.length > 1) {
+    <section class="container mx-auto p-4">
+      <div class="flex items-center mb-8">
+        <h2 class="text-2xl font-bold">Destaques da Viagem</h2>
+        <hr class="flex-1 border-gray-300 mx-4 0">
+      </div>
+      <div class="flex flex-col gap-4">
+        <app-swiper-container>
+          @for (image of item.images; track $index) {
+            @if ($index > 0) {
+              <swiper-slide>
+                <app-package-highlight-card
+                  [imageUrl]="image.urlImg"
+                  [description]="image.descriptionImg"
+                ></app-package-highlight-card>
+              </swiper-slide>
+            }
+          }
+        </app-swiper-container>
+      </div>
+    </section>
+  }
+
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-4">
+      <h2 class="text-2xl font-bold">Datas e Preços</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    @if (item.availabilities && item.availabilities.length === 0) {
+
+      <p class="text-secondary-light">Ainda não há datas disponíveis para este pacote</p>
+    } @else {
+      <table class="min-w-full table-auto border border-gray-200">
+        <thead>
+          <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-700">
+            <th class="px-4 py-2 border-b">Período</th>
+            <th class="px-4 py-2 border-b">Preço por pessoa</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (availability of item.availabilities; track $index) {
+            <tr class="hover:bg-primary-light text-sm text-gray-800">
+              <td class="px-4 py-2">
+                De {{ availability.dateIn | date: 'dd/MM/yyyy' }} até {{ availability.dateOut | date: 'dd/MM/yyyy' }}
+              </td>
+              <td class="px-4 py-2">R${{ availability.price }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-4">
+      <h2 class="text-2xl font-bold">Informações Adicionais</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <ul class="list-disc gap-4 flex flex-col">
+      <li><app-info-card title="O que esta incluso">
+        <ul class="space-y-1 text-gray-700">
+          <li>Passagens aéreas de ida e volta</li>
+          <li>Hospedagem em hotel 3 ou 4 estrelas (dependendo da opção escolhida)</li>
+          <li>Café da manhã incluso todos os dias</li>
+          <li>Traslados entre aeroporto e hotel</li>
+          <li>Passeios e atividades guiadas conforme o itinerário</li>
+          <li>Seguro viagem</li>
+          <li>Suporte 24h durante toda a viagem</li>
+        </ul>
+      </app-info-card></li>
+      <li><app-info-card title="Requisitos">
+        <ul class="space-y-1 text-gray-700">
+          <li>Documento de identificação válido (RG ou passaporte, conforme o destino)</li>
+          <li>Visto e/ou vacinas obrigatórias exigidas pelo país de destino (quando aplicável)</li>
+          <li>Ter pelo menos 18 anos ou estar acompanhado por um responsável legal</li>
+          <li>Realizar o pagamento completo do pacote até a data limite informada</li>
+          <li>Apresentar comprovante de reserva no momento do embarque</li>
+        </ul>
+      </app-info-card></li>
+    </ul>
+  </section>
+
+  <section class="container mx-auto p-4">
+    <a href="pdfs/DestinoEgito.pdf" download="">
+      <div class="w-full h-32 flex border border-gray-400 items-center justify-center hover:cursor-pointer hover:bg-gray-200">
+        Clique aqui para baixar o itinerario da viagem
+      </div>
+    </a>
+  </section>
+
+  <section class="container mx-auto p-4">
+    <app-google-maps [place]="item.place"></app-google-maps>
+  </section>
+
+  <section class="container mx-auto p-4">
+    <div class="flex items-center my-4">
+      <h2 class="text-2xl font-bold">Avaliações dos viajantes</h2>
+      <hr class="flex-1 border-gray-300 mx-4 0">
+    </div>
+    <app-rating>
+
+    </app-rating>
+  </section>
+</main>

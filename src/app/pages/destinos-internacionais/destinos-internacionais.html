@@ -1,6 +1,34 @@
-<div style="background-image: url('fundo.png'); background-size: cover; height: 100vh;">
-    <app-navbar></app-navbar>
-    <br/>
-    <h1 class="flex items-center justify-center text-white text-2xl">Destinos Internacionais</h1>
-    <app-footer></app-footer>
+<app-navbar></app-navbar>
+<div class="relative min-h-[600px] flex flex-col justify-center items-center overflow-hidden">
+    <video autoplay loop muted playsinline class="absolute z-0 w-full min-w-full min-h-full object-cover">
+        <source src="videos/jordania.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="flex flex-col gap-8 w-full max-w-3xl mt-20 mb-20 p-6 relative z-20">
+        <h1 class="text-white text-4xl md:text-6xl font-semibold text-left">
+            Explore o mundo a fora!
+        </h1>
+    </div>
 </div>
+<div>
+    <div class="flex flex-col bg-white w-full p-8 items-center">
+        <div class="flex flex-col gap-6 w-fit">
+            <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
+                <app-package-card photoCover="cards/india.png" title="Índia em 7 Dias" price="5.200" days="7"
+                    nights="6"></app-package-card>
+                <app-package-card photoCover="cards/veneza.png" title="Itália Clássica: Roma e Veneza" price="7.280"
+                    days="12" nights="11"></app-package-card>
+                <app-package-card photoCover="cards/hawai.png" title="Dois no Paraíso" price="6.500" days="15"
+                    nights="14"></app-package-card>
+                <app-package-card photoCover="cards/toquio.png" title="Uma viagem por Tóquio, Japão" price="4.250"
+                    days="8" nights="7"></app-package-card>
+                <app-package-card photoCover="cards/disney.png" title="Mundo Mágico" price="7.000" days="10"
+                    nights="9"></app-package-card>
+                <app-package-card photoCover="cards/bali.png" title="Cores de Bali" price="4.250" days="8"
+                    nights="7"></app-package-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

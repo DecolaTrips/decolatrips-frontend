@@ -1,0 +1,144 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Botão Voltar -->
+    <div class="mb-8">
+      <a 
+        href="/home"
+        class="inline-flex items-center text-primary hover:underline transition duration-200">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Voltar para a página inicial
+      </a>
+    </div>
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl mb-4">
+        Termos e Condições
+      </h1>
+      <p class="text-xl text-gray-600">
+        Última atualização: {{lastUpdated}}
+      </p>
+      <div class="mt-4 border-t-2 border-primary w-24 mx-auto"></div>
+    </div>
+
+    <!-- Conteúdo dos Termos -->
+    <div class="bg-white shadow-md rounded-lg p-6 sm:p-8">
+      <div class="prose prose-lg max-w-none text-gray-600">
+        <!-- Seção 1 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+            Aceitação dos Termos
+          </h2>
+          <p class="mb-4">
+            Ao utilizar os serviços da <span class="font-semibold text-primary">Decola Trips</span>, você concorda com estes Termos e Condições. Estes termos constituem um acordo legal entre você e a Decola Trips.
+          </p>
+        </div>
+
+        <!-- Seção 2 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+            Serviços Oferecidos
+          </h2>
+          <p class="mb-4">
+            A Decola Trips atua como intermediária na comercialização de pacotes turísticos, conectando clientes a fornecedores de serviços de viagem.
+          </p>
+          <ul class="list-disc pl-6 space-y-2 mb-4">
+            <li>Pacotes de viagens nacionais e internacionais</li>
+            <li>Reservas de hospedagem</li>
+            <li>Passagens aéreas e terrestres</li>
+            <li>Seguros viagem</li>
+            <li>Roteiros personalizados</li>
+          </ul>
+        </div>
+
+        <!-- Seção 3 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+            Reservas e Pagamentos
+          </h2>
+          <p class="mb-4">
+            <span class="font-semibold">3.1</span> Todas as reservas estão sujeitas à disponibilidade e confirmação por parte dos fornecedores.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">3.2</span> Os preços podem variar sem aviso prévio até a efetivação do pagamento.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">3.3</span> Aceitamos pagamentos via cartão de crédito, PIX e boleto bancário.
+          </p>
+        </div>
+
+        <!-- Seção 4 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">4</span>
+            Cancelamentos e Reembolsos
+          </h2>
+          <p class="mb-4">
+            <span class="font-semibold">4.1</span> As políticas de cancelamento variam conforme o fornecedor e serão informadas no momento da reserva.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">4.2</span> Taxas administrativas podem ser aplicadas em caso de cancelamento.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">4.3</span> Em caso de cancelamento por parte da Decola Trips ou fornecedores, serão oferecidas alternativas ou reembolso integral.
+          </p>
+        </div>
+
+        <!-- Seção 5 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">5</span>
+            Responsabilidades
+          </h2>
+          <p class="mb-4">
+            <span class="font-semibold">5.1</span> A Decola Trips não se responsabiliza por eventos fora de seu controle como condições climáticas, greves ou problemas políticos.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">5.2</span> É responsabilidade do cliente verificar requisitos de viagem como vistos, vacinas e documentos necessários.
+          </p>
+        </div>
+
+        <!-- Seção 6 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">6</span>
+            Privacidade e Dados
+          </h2>
+          <p class="mb-4">
+            Nossa <a routerLink="/politica-de-privacidade" class="text-primary-600 hover:underline">Política de Privacidade</a> explica como coletamos e usamos suas informações pessoais.
+          </p>
+        </div>
+
+        <!-- Seção 7 -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-primary-light text-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">7</span>
+            Disposições Gerais
+          </h2>
+          <p class="mb-4">
+            <span class="font-semibold">7.1</span> Estes termos estão sujeitos à legislação brasileira.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">7.2</span> A Decola Trips reserva-se o direito de alterar estes termos a qualquer momento, com publicação atualizada em nosso site.
+          </p>
+          <p class="mb-4">
+            <span class="font-semibold">7.3</span> Dúvidas podem ser encaminhadas para <span class="text-primary-600">contato&#64;decolatrips.com.br</span>.
+          </p>
+        </div>
+
+        <!-- Aceitação -->
+        <div class="bg-primary-light rounded-lg p-6 mt-12">
+          <h3 class="text-lg font-medium text-gray-900 mb-3">Declaração de Aceitação</h3>
+          <p class="text-gray-700">
+            Ao utilizar nossos serviços, você declara que leu, compreendeu e concordou com estes Termos e Condições, bem como com nossa Política de Privacidade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

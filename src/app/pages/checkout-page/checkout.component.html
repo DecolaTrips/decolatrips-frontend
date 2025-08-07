@@ -1,0 +1,82 @@
+<div class="min-h-screen flex flex-col">
+  <app-navbar></app-navbar>
+
+  <main class="flex-1 bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Finalizar Reserva</h1>
+        <p class="mt-2 text-sm text-gray-600">
+          Complete os dados abaixo para finalizar sua reserva de viagem
+        </p>
+      </div>
+
+      <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
+        
+        <!-- formulário principal -->
+        <div class="lg:col-span-7">
+          <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
+            
+            <!-- viajante responsável -->
+            <app-traveler-form
+              [traveler]="checkoutService.mainTraveler()"
+              (travelerChange)="onMainTravelerChange($event)"
+            ></app-traveler-form>
+
+            <!-- outros viajantes -->
+            <app-other-travelers
+              [travelers]="checkoutService.otherTravelers()"
+              [allowAddRemove]="!travelersSetFromSearch()"
+              (travelersChange)="onOtherTravelersChange($event)"
+            ></app-other-travelers>
+
+            <!-- solicitação especial -->
+            <app-special-request
+              [request]="checkoutService.specialRequest()"
+              (requestChange)="onSpecialRequestChange($event)"
+            ></app-special-request>
+
+            <!-- métodos de pagamento -->
+            <!-- <app-payment-methods
+              [selectedPaymentMethod]="checkoutService.selectedPaymentMethod()"
+              (paymentMethodChange)="onPaymentMethodChange($event)"
+              (continuePayment)="onContinuePayment()"
+            ></app-payment-methods> -->
+
+            <!-- <app-mercadopago-payment [amount]="10000"></app-mercadopago-payment> -->
+
+            <!-- Mercado Pago Payment Brick -->
+            <div *ngIf="paymentAmount() > 0">
+              <app-mercadopago-payment 
+                [amount]="paymentAmount()"
+                [traveler]="checkoutService.mainTraveler()"
+                (paymentSuccess)="onPaymentSuccess($event)"
+                (paymentError)="onPaymentError($event)">
+              </app-mercadopago-payment>
+            </div>
+          </div>
+        </div>
+
+        <!-- resumo do pedido -->
+        <div class="lg:col-span-5">
+          <app-booking-summary
+            [baseValues]="bookingValues"
+            [appliedDiscount]="checkoutService.appliedDiscount()"
+            [paymentDiscount]="paymentDiscount()"
+            [travelers]="checkoutService.totalTravelers()"
+            [isFormValid]="checkoutService.isFormValid()"
+            [isProcessing]="isProcessingBooking()"
+            [searchData]="bookingSearchData()"
+            [autoRefresh]="true"
+            (finalizeBookingRequest)="onFinalizeBooking()"
+            (pricingUpdated)="onPricingUpdated($event)"
+          ></app-booking-summary>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-auto">
+    <app-footer></app-footer>
+  </footer>
+</div>
