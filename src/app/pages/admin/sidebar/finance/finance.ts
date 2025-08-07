@@ -11,14 +11,13 @@ import { TravelPackageService } from '../../../../services/TravelPackageService'
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './finance.html',
-  styleUrls:['./finance.css']
+  styleUrls: ['./finance.css']
 })
-export class Finance implements OnInit{
-
-   form: FormGroup;
+export class Finance implements OnInit {
+  form: FormGroup;
   selectedFile: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
-  pacotes: any[] = []; 
+  pacotes: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,8 +32,8 @@ export class Finance implements OnInit{
 
   ngOnInit(): void {
     this.travelPackageService.getAllTravelPackages().subscribe((data: any) => {
-  this.pacotes = data.content; 
-});
+      this.pacotes = data.content;
+    });
   }
 
   onFileChange(event: any): void {
@@ -48,22 +47,22 @@ export class Finance implements OnInit{
   }
 
   submitForm(): void {
-  if (this.form.valid && this.selectedFile) {
-    const packageId = this.form.get('packageId')?.value;
-    const description = this.form.get('description')?.value;
+    if (this.form.valid && this.selectedFile) {
+      const packageId = this.form.get('packageId')?.value;
+      const description = this.form.get('description')?.value;
 
-    this.imageService.uploadImage(packageId, this.selectedFile, description).subscribe({
-      next: () => {
-        alert('Imagem enviada com sucesso.');
+      this.imageService.uploadImage(packageId, this.selectedFile, description).subscribe({
+        next: () => {
+          alert('Imagem enviada com sucesso.');
 
-        // Limpa formulário
-        this.form.reset();
-        this.selectedFile = null;
-        this.previewUrl = null;
-      },
-      error: (err) => console.error('Erro ao enviar imagem:', err)
-    });
+          // Limpa formulário
+          this.form.reset();
+          this.selectedFile = null;
+          this.previewUrl = null;
+        },
+        error: (err) => console.error('Erro ao enviar imagem:', err)
+      });
+    }
   }
-}
 }
 
