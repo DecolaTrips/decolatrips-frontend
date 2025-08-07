@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User, RegisterUser } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -36,5 +37,5 @@ export class AuthService {
   resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
     return this.http.post(`${this.route}/password/reset?token=${token}`, { newPassword, confirmPassword })
   }
-
+  
 }

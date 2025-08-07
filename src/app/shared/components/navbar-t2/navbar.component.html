@@ -86,7 +86,7 @@
                 (clickOutside)="closeProfileMenu()">
                 <a 
                   *ngFor="let item of profileMenuItems"
-                  [href]="item.href"
+                  (click)="menuRedirect(item)"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
                   {{ item.name }}
                 </a>

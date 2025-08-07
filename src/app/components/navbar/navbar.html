@@ -1,9 +1,7 @@
 <nav class="md:top-3 absolute md:bg-transparent z-50 w-full h-screen md:w-full md:h-fit"
   [class]="isMobileMenuOpen ? 'bg-white scrollbar-hide' : 'bg-transparent'">
   <div class="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8">
-
     <div class="flex h-16 items-center justify-between">
-
       <div class="flex justify-between items-center w-full md:hidden">
         <img src="public/logo_preto_mini.png" alt="" class="h-8 w-auto md:hidden" style="height: 24px;" />
 
@@ -25,8 +23,8 @@
             <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
-
       </div>
+
       <!-- Logo à esquerda - agora oculta em mobile sempre -->
       <div class="hidden md:flex w-full">
         <div class="hidden md:flex shrink-0 items-center mr-4">
@@ -43,16 +41,6 @@
                 Em Alta
               </a>
             </div>
-            <!-- <div
-              class="rounded-md py-2 px-5 flex items-center space-x-2 hover:bg-primary text-base font-medium text-white whitespace-nowrap">
-              <select class="text-white rounded-md bg-transparent">
-                <option class="text-black bg-white">Categorias</option>
-                <option value="aventura" class="text-black bg-white">Aventura</option>
-                <option value="praia" class="text-black bg-white">Praia</option>
-                <option value="cultura" class="text-black bg-white">Cultura</option>
-                <option value="gastronomia" class="text-black bg-white">Gastronomia</option>
-              </select>
-            </div> -->
             <div>
               <a routerLink="/destinos/nacionais"
                 class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-[#ffffff33] text-base font-medium text-white whitespace-nowrap">
@@ -68,27 +56,31 @@
           </div>
 
           <div class="hidden md:flex items-center">
-            <a routerLink="/login"
-              class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
-              Entre ou Cadastre-se
-            </a>
+            <ng-container *ngIf="!isLogged; else loggedInTemplate">
+              <a routerLink="/login"
+                class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
+                Entre ou Cadastre-se
+              </a>
+            </ng-container>
+            <ng-template #loggedInTemplate>
+              <a routerLink="/dados-pessoais"
+                class="rounded-md px-3 py-2 text-sm font-small text-white hover:bg-primary hover:text-white border-1 border-solid border-white hover:border-transparent">
+                Olá, {{ username }}
+              </a>
+            </ng-template>
           </div>
         </div>
       </div>
-      <!-- Login à direita -->
-
     </div>
   </div>
+
   <!-- Mobile menu, show/hide based on menu state -->
   <div id="mobile-menu" [class]="isMobileMenuOpen ? 'md:hidden' : 'hidden md:hidden'">
-
     <div class="space-y-1 px-2 pt-2 pb-3 text-black">
-
       <a routerLink="/home" (click)="closeMobileMenu()" aria-current="page"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Página Inicial
       </a>
-
       <a routerLink="/emalta" (click)="closeMobileMenu()" aria-current="page"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Em Alta
@@ -101,12 +93,21 @@
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Destinos Internacionais
       </a>
+
       <!-- Mobile login button -->
       <div class="pt-4 pb-3 border-t border-gray-200">
-        <a routerLink="/login" (click)="closeMobileMenu()"
-          class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
-          Entre ou Cadastre-se
-        </a>
+        <ng-container *ngIf="!isLogged; else mobileLoggedInTemplate">
+          <a routerLink="/login" (click)="closeMobileMenu()"
+            class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
+            Entre ou Cadastre-se
+          </a>
+        </ng-container>
+        <ng-template #mobileLoggedInTemplate>
+          <a routerLink="/dados-pessoais" (click)="closeMobileMenu()"
+            class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
+            Olá, {{ username }}
+          </a>
+        </ng-template>
       </div>
     </div>
   </div>

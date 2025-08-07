@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   isProfileMenuOpen = false;
   userInitials = 'JJ'; // Junior Jonas
   currentRoute = '';
-  
+
   navigationItems = [
     { name: 'Todos os Pacotes', href: '/todos-pacotes' },
     { name: 'Meus Pacotes', href: '/meus-pacotes' },
@@ -34,12 +34,12 @@ export class NavbarComponent implements OnInit {
   ];
 
   profileMenuItems = [
-    { name: 'Seu Perfil', href: '#' },
-    { name: 'Configurações', href: '#' },
-    { name: 'Sair', href: '#' }
+    { name: 'Seu Perfil', href: '/dados-pessoais' },
+    { name: 'Configurações', href: '/configuracoes' },
+    { name: 'Sair', href: '/' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.router.events
@@ -47,12 +47,29 @@ export class NavbarComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         this.currentRoute = event.url;
       });
-    
+
     this.currentRoute = this.router.url;
   }
 
   isCurrentRoute(href: string): boolean {
     return this.currentRoute === href;
+  }
+
+  logout() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    localStorage.removeItem('roles');
+
+    this.router.navigate(['/']);
+  }
+
+  menuRedirect(item: any): void {
+    if (item.name === 'Sair') {
+      this.logout();
+    } else {
+      this.router.navigate([item.href]);
+    }
   }
 
   toggleMobileMenu(): void {
