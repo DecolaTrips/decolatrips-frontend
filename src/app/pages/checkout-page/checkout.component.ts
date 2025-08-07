@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 // Components
 import { TravelerFormComponent } from '../../components/traveler-form/traveler-form.component';
@@ -33,7 +33,8 @@ import { AvailabilityService } from '../../services/availabilityService';
     BookingSummaryComponent,
     NavbarComponent,
     MercadopagoPaymentComponent,
-    Footer
+    Footer,
+    RouterModule
   ],
   templateUrl: './checkout.component.html'
 })
@@ -57,7 +58,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   constructor(
     readonly checkoutService: CheckoutService,
     private paymentService: PaymentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -185,6 +187,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
             console.log('Reserva Confirmada!', `Sua reserva foi finalizada com sucesso. ID da transação: ${result.transactionId}`);
             this.checkoutService.clearCheckoutData();
             this.resetForm();
+            this.router.navigate(['/meus-pacotes']);
           } else {
             console.error('Falha no Pagamento', result.error || 'Ocorreu um erro ao processar o pagamento.');
           }
