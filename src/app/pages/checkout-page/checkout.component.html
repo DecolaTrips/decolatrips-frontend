@@ -46,7 +46,7 @@
             <!-- <app-mercadopago-payment [amount]="10000"></app-mercadopago-payment> -->
 
             <!-- Mercado Pago Payment Brick -->
-            <div>
+            <div *ngIf="paymentAmount() > 0">
               <app-mercadopago-payment 
                 [amount]="paymentAmount()"
                 [traveler]="checkoutService.mainTraveler()"

@@ -56,7 +56,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
     // Auto-refresh pricing if search data is provided
     if (this.autoRefresh && this.searchData) {
       this.refreshPricing();
-      
+
     }
   }
 
@@ -68,7 +68,6 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
   refreshPricing(discount: number = 0): void {
     if (!this.searchData) return;
 
-    console.log(discount);
     console.log('Refreshing pricing with search data:', this.searchData);
 
     this.availabilityService.getAvailabilitiesById(this.searchData.packageId, this.searchData.availabilityId)
@@ -78,11 +77,14 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
           passagemIda: data.flights[0].flightPrice,
           passagemVolta: data.flights[1].flightPrice,
           servicos: data.price,
-          discount: discount,
           baseTotal: data.price + data.flights[0].flightPrice + data.flights[1].flightPrice,
-          finalTotal: data.price + data.flights[0].flightPrice + data.flights[1].flightPrice + 2189367
+          finalTotal: (data.price + data.flights[0].flightPrice + data.flights[1].flightPrice) * this.travelers,
         };
 
+        if (discount > 0) {
+          responseData.discount = discount;
+          responseData.finalTotal -= (responseData.finalTotal * discount / 100);
+        }
 
         this.flight.set({
           departure: data.flights[0],
@@ -127,8 +129,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
     this.couponMessage = null;
 
     // Use API service for coupon validation
-    const currentTotal = this.getTotal();
-    this.bookingApiService.applyCoupon(this.couponCode, currentTotal)
+    this.bookingApiService.applyCoupon(this.couponCode, this.apiPricing()!.finalTotal)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
@@ -139,6 +140,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
 
           if (response.success) {
             this.appliedDiscount = response.discountPercent;
+            this.refreshPricing(this.appliedDiscount);
           }
 
           this.isApplying = false;
