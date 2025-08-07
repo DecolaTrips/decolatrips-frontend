@@ -27,9 +27,17 @@ export class LoginComponent {
   // redirecionar apos login
   //adicionar logica condicional para pagina de admin ou usuario
   changePageWithLogin(): void {
+  const roles = JSON.parse(localStorage.getItem("roles") || '[]');
+
+  if (roles.includes("ROLE_ADMIN")) {
+    this.router.navigate(['/admin/dashboard']);
+  } else if (roles.includes("ROLE_CLIENTE")) {
+    this.router.navigate(['/user/home']);
+  } else {
+    // Redireciona para uma página padrão, caso a role não seja reconhecida
     this.router.navigate(['/home']);
   }
-
+}
 
   onSubmitForm(formData: any) {
     this.isLoading = true;
@@ -43,7 +51,10 @@ export class LoginComponent {
       next: (response) => {
         this.isLoading = false;
         localStorage.setItem("jwt", response.token);
-        localStorage.setItem("email", loginData.email);
+        localStorage.setItem("username", response.username);
+        localStorage.setItem("email", response.email);
+        localStorage.setItem("roles", JSON.stringify(response.roles));
+
         this.changePageWithLogin();
       },
       error: (error) => {
