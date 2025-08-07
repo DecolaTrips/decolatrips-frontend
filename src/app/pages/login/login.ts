@@ -32,7 +32,7 @@ export class LoginComponent {
   if (roles.includes("ROLE_ADMIN")) {
     this.router.navigate(['/admin/dashboard']);
   } else if (roles.includes("ROLE_CLIENTE")) {
-    this.router.navigate(['/user/home']);
+    this.router.navigate(['/home']);
   } else {
     // Redireciona para uma página padrão, caso a role não seja reconhecida
     this.router.navigate(['/home']);

@@ -1,0 +1,48 @@
+<h2 class="text-2xl font-semibold mb-4 text-gray-800">
+  Cadastre detalhes do pacote
+</h2>
+<form [formGroup]="form" (ngSubmit)="submitForm()" class="space-y-4">
+
+  <!-- Dropdown de pacotes -->
+  <select formControlName="packageId" class="border p-2 rounded w-full">
+    <option value="">Selecione um pacote</option>
+    <option *ngFor="let pacote of pacotes" [value]="pacote.id">
+      {{ pacote.title }}
+    </option>
+  </select>
+
+  <!-- Botão de Upload customizado -->
+  <label for="file-upload" 
+  class="inline-block text-white px-3 py-2 rounded cursor-pointer hover:bg-orange-600 transition"
+  style="background-color: #FA8015;">
+  Selecionar Imagem
+</label>
+  <!-- Input real de arquivo escondido -->
+  <input
+    id="file-upload"
+    type="file"
+    (change)="onFileChange($event)"
+    class="hidden"
+  />
+
+  <!-- Nome do arquivo -->
+  <p *ngIf="selectedFile" class="text- text-gray-700 mt-1">
+    Arquivo selecionado: {{ selectedFile.name }}
+  </p>
+
+  <!-- Preview -->
+  <div *ngIf="previewUrl" class="mt-4">
+    <p class="font-semibold">Preview:</p>
+    <img [src]="previewUrl" alt="Preview" class="max-w-xs rounded border" />
+  </div>
+
+  <!-- Descrição -->
+  <input type="text" formControlName="description" class="border p-2 w-full rounded" placeholder="Descrição da imagem" />
+
+  <!-- Botão de envio -->
+  <button type="submit" [disabled]="form.invalid || !selectedFile" 
+  class="text-white px-4 py-2 rounded bg-[#1E1E1E] disabled:opacity-50 disabled:cursor-not-allowed">
+    Enviar Imagem
+</button>
+
+</form>

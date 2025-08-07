@@ -1,35 +1,42 @@
 <form class="w-full flex items-center justify-center mb-8" (ngSubmit)="onSubmit()">
-    <div class="flex items-center justify-center mt-4 bg-white w-full max-w-3xl px-2 py-1 rounded-lg">
+    <div class="flex flex-col md:flex-row items-center justify-center mt-4 bg-white w-full max-w-3xl px-2 py-1 rounded-lg gap-2">
+        <!-- Campo de Destino -->
         <input type="text" placeholder="Destino" [(ngModel)]="destination" name="destination"
-            class="w-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-600" />
+            class="w-full md:w-auto flex-grow px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-600" />
 
-        <!-- Separador mais visível -->
-        <div class="h-10 w-1 bg-gray-300 mx-2 rounded-full"></div>
+        <!-- Separador - visível apenas em telas maiores -->
+        <div class="hidden md:block h-10 w-1 bg-gray-300 mx-2 rounded-full"></div>
 
-        <!--Adultos-->
-        <div class="flex items-center space-x-2">
-            <div class="text-gray-600 py-2 px-2">
-                Adultos
+        <div class="hidden h-2 w-1 bg-gray-300 mx-10 rounded-full md:hidden"></div>
+
+        <!-- Controles de Passageiros -->
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+            <!-- Adultos -->
+            <div class="flex items-center space-x-2">
+                <div class="text-gray-600 py-2 px-2 whitespace-nowrap">
+                    Adultos
+                </div>
+                <div class="flex items-center">
+                    <input type="number" [(ngModel)]="adults" name="adults" min="1" max="10"
+                        class="w-10 h-10 text-center border-0 bg-transparent rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-gray-600">
+                </div>
             </div>
-            <div class="flex items-center">
-                <input type="number" [(ngModel)]="adults" name="adults" min="1" max="10"
-                    class="w-10 h-10 text-center border-0 bg-transparent rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-gray-600">
+
+            <!-- Crianças -->
+            <div class="flex items-center space-x-2">
+                <div class="text-gray-600 py-2 px-2 whitespace-nowrap">
+                    Crianças
+                </div>
+                <div class="flex items-center">
+                    <input type="number" [(ngModel)]="children" name="children" min="0" max="10"
+                        class="w-10 h-10 text-center border-0 bg-transparent rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-gray-600">
+                </div>
             </div>
         </div>
 
-        <!--Crianças-->
-        <div class="flex items-center space-x-2">
-            <div class="text-gray-600 py-2 px-2">
-                Crianças
-            </div>
-            <div class="flex items-center">
-                <input type="number" [(ngModel)]="children" name="children" min="0" max="10"
-                    class="w-10 h-10 text-center border-0 bg-transparent rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-gray-600">
-            </div>
-        </div>
-
+        <!-- Botão de Busca -->
         <button type="submit"
-            class="h-10 ml-2 px-4 py-1 bg-primary text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-1 focus:ring-primary">
+            class="w-full md:w-auto h-10 mt-2 md:mt-0 md:ml-2 px-4 py-1 bg-primary text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-1 focus:ring-primary whitespace-nowrap">
             Buscar
         </button>
     </div>

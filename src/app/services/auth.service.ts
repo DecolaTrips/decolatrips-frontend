@@ -38,4 +38,4 @@ export class AuthService {
     return this.http.post(`${this.route}/password/reset?token=${token}`, { newPassword, confirmPassword })
   }
   
-}
+} 

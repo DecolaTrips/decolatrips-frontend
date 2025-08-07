@@ -1,1 +1,59 @@
-<p>dashboard works!</p>
+
+<!-- dashboard.component.html -->
+<div class="p-6 min-h-screen bg-gray-50">
+  <h1 class="text-2xl font-bold mb-6">Indicadores Atuais</h1>
+
+
+  <!-- Cards de Métricas -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <div class="bg-white rounded-xl shadow p-4">
+    <h2 class="text-sm font-semibold text-gray-500">Pacotes</h2>
+    <p class="text-2xl font-bold text-orange-300">{{ totalPackages }}</p>
+  </div>
+  <div class="bg-white rounded-xl shadow p-4">
+    <h2 class="text-sm font-semibold text-gray-500">Reservas</h2>
+    <p class="text-2xl font-bold text-orange-300">{{ totalBookings }}</p>
+  </div>
+  <div class="bg-white rounded-xl shadow p-4">
+    <h2 class="text-sm font-semibold text-gray-500">Viajantes</h2>
+    <p class="text-2xl font-bold text-orange-300">{{ totalUsers }}</p>
+  </div>
+  <div class="bg-white rounded-xl shadow p-4">
+    <h2 class="text-sm font-semibold text-gray-500">Receita</h2>
+    <p class="text-2xl font-bold text-orange-300">R$ {{ totalRevenue | number:'1.0-2' }}</p>
+  </div>
+</div>
+
+
+  <!-- Gráficos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white p-4 rounded-xl shadow h-[250px]">
+      <canvas baseChart
+              class="w-full h-full"
+              [data]="barChartData"
+              [options]="chartOptions"
+              [type]="'bar'"></canvas>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow h-[250px]">
+      <canvas baseChart
+              class="w-full h-full"
+              [data]="lineChartData"
+              [options]="chartOptions"
+              [type]="'line'"></canvas>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow h-[300px]">
+      <canvas baseChart
+              class="w-full h-full"
+              [data]="pieChartData"
+              [options]="chartOptions"
+              [type]="'pie'"></canvas>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow h-[300px]">
+      <canvas baseChart
+              class="w-full h-full"
+              [data]="doughnutChartData"
+              [options]="chartOptions"
+              [type]="'doughnut'"></canvas>
+    </div>
+  </div>
+</div>
