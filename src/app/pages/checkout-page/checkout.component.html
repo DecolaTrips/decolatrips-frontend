@@ -26,7 +26,8 @@
             <!-- outros viajantes -->
             <app-other-travelers
               [travelers]="checkoutService.otherTravelers()"
-              [allowAddRemove]="!travelersSetFromSearch()"
+              [allowAddRemove]="true"
+              [maxTravelers]="5"
               (travelersChange)="onOtherTravelersChange($event)"
             ></app-other-travelers>
 

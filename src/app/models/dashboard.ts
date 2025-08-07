@@ -10,7 +10,7 @@ export interface TravelPackageDistribution {
 }
 
 export interface ReservationDistribution {
-  Confirmado: number;
+  Confirmada: number;
   Cancelado: number;
   Pendente: number;
 }

@@ -13,6 +13,7 @@ import { ITraveler } from '../../models/traveler.interface';
 export class OtherTravelersComponent {
   @Input() travelers: ITraveler[] = [];
   @Input() allowAddRemove: boolean = true; // New input to control add/remove functionality
+  @Input() maxTravelers: number = 10; // Maximum number of travelers (including main traveler)
   @Output() travelersChange = new EventEmitter<ITraveler[]>();
 
   // expandir formulario
@@ -31,6 +32,12 @@ export class OtherTravelersComponent {
   }
 
   addTraveler(): void {
+    // Check if we've reached the maximum limit (maxTravelers - 1 because main traveler is separate)
+    if (this.travelers.length >= (this.maxTravelers - 1)) {
+      console.warn(`Maximum number of travelers reached (${this.maxTravelers})`);
+      return;
+    }
+
     const newTraveler: ITraveler = {
       id: Date.now(),
       name: '',
@@ -41,6 +48,10 @@ export class OtherTravelersComponent {
     };
     this.travelers.push(newTraveler);
     this.onTravelersChange();
+  }
+
+  canAddMoreTravelers(): boolean {
+    return this.travelers.length < (this.maxTravelers - 1);
   }
 
   removeTraveler(index: number): void {

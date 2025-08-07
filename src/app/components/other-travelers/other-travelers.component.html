@@ -1,4 +1,12 @@
 <div class="flex flex-col gap-4">
+      <!-- Header with traveler count info -->
+      <div *ngIf="allowAddRemove" class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-gray-900">Outros Viajantes</h3>
+        <span class="text-sm text-gray-600">
+          {{ travelers.length + 1 }} de {{ maxTravelers }} viajantes
+        </span>
+      </div>
+      
       <div class="mt-4 mb-4 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
         <div class="traveler-card p-6 transition-colors duration-200" *ngFor="let traveler of travelers; let i = index">
           <!-- Traveler Header -->
@@ -70,12 +78,13 @@
         
         <!-- Add New Traveler Card -->
         <div 
-          *ngIf="allowAddRemove"
+          *ngIf="allowAddRemove && canAddMoreTravelers()"
           class="traveler-card add-card border-dashed cursor-pointer flex items-center justify-center min-h-[120px] p-6 transition-colors duration-200" 
           (click)="addTraveler()">
           <div class="text-center" style="color: var(--color-text-secondary);">
             <span class="text-4xl block mb-2">+</span>
             <p class="m-0 font-medium">Adicionar viajante</p>
+            <p class="m-0 text-xs mt-1">Máximo {{ maxTravelers }} pessoas</p>
           </div>
         </div>
       </div>
