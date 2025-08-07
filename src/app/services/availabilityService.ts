@@ -8,13 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class AvailabilityService {
 
- private apiUrl = 'http://localhost:8080/api/travel-packages' ;
+  private apiUrl = 'http://localhost:8080/api/travel-packages';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Criar novas disponibilidades
   createAvailabilities(packageId: number, availabilities: AvailabilityCreate[]): Observable<any> {
     return this.http.post(`${this.apiUrl}/${packageId}/availabilities`, availabilities);
+  }
+
+  getAvailabilitiesById(packageId: number, availabilityId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${packageId}/availabilities/${availabilityId}`);
   }
 
   // Buscar todas por pacote

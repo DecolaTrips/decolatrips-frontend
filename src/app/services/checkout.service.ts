@@ -74,8 +74,7 @@ export class CheckoutService {
   createBooking(baseValues: IBookingValues): IBooking {
     const subtotal = baseValues.passagemIda +
       baseValues.passagemVolta +
-      baseValues.hotel +
-      baseValues.taxas;
+      baseValues.servicos;
 
     return {
       mainTraveler: this._mainTraveler(),
