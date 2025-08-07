@@ -60,6 +60,12 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnChanges(): void {
+    if (this.autoRefresh && this.searchData) {
+      this.refreshPricing();
+    }
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -78,7 +84,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
           passagemVolta: data.flights[1].flightPrice,
           servicos: data.price,
           baseTotal: data.price + data.flights[0].flightPrice + data.flights[1].flightPrice,
-          finalTotal: (data.price + data.flights[0].flightPrice + data.flights[1].flightPrice) * this.travelers,
+          finalTotal: (data.price + data.flights[0].flightPrice + data.flights[1].flightPrice) * this.searchData!.travelers,
         };
 
         if (discount > 0) {
