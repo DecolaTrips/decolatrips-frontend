@@ -2,15 +2,14 @@ import { Component } from '@angular/core';
 import { PaginationComponent } from "../../components/pagination-component/pagination-component";
 import { FilterComponent } from "../../components/filter-component/filter-component";
 import { CommonModule } from '@angular/common';
-import { TravelPackageForm } from '../../../travel-package-form/travel-package-form';
 import { TravelPackageService } from '../../../../services/TravelPackageService';
 import { TravelPackagePreview } from '../../../../models/travel-package-preview';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TableComponent } from "../../../../components/table-component/table-component";
 
 @Component({
   selector: 'app-packages',
-  imports: [PaginationComponent, FilterComponent, CommonModule, TableComponent],
+  imports: [PaginationComponent, FilterComponent, CommonModule, TableComponent, RouterModule],
   templateUrl: './packages.html',
   styleUrl: './packages.css'
 })
@@ -80,6 +79,7 @@ export class Packages {
   goToCreate() {
     this.router.navigate(['/admin/packages/create']);
   }
+
 
 }
 

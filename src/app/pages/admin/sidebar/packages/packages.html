@@ -24,6 +24,52 @@
     <button (click)="goToCreate()" class="bg-black text-white w-40 h-10 rounded-md hover:bg-gray-800 cursor-pointer">
       Adicionar Pacote
     </button>
+    </div>
+  </div>
+
+ <!-- Tabela de pacotes -->
+<div class="overflow-auto">
+  <table class="w-full border-collapse bg-white rounded-lg shadow-md">
+    <thead>
+      <tr class="bg-gray-200 text-left">
+        <th class="p-4">Id do Pacote</th>
+        <th class="p-4">Destino</th>
+        <th class="p-4">Nome do pacote</th>
+        <th class="p-4">Valor por pessoa</th>
+        <th class="p-4">País</th>
+        <th class="p-4">Última Alteração</th>
+        <th class="p-4">Ações</th> <!-- NOVO -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pacote of packages" class="hover:bg-gray-100">
+        <td class="p-4">#{{ pacote.id }}</td>
+        <td class="p-4">{{ pacote.place }}</td>
+        <td class="p-4">{{ pacote.title }}</td>
+        <td class="p-4">R$ {{ pacote.valorBase | number:'1.2-2' }}</td>
+        <td class="p-4">{{ pacote.country }}</td>
+        <td class="p-4">{{ pacote.updatedAt ? (pacote.updatedAt | date: 'dd/MM/yyyy') : '-' }}</td>
+        
+        <!-- Botões -->
+        <td class="p-4 flex space-x-2">
+          <button
+            (click)="editPackage(pacote.id)"
+            class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded-md transition"
+          >
+            Editar
+          </button>
+          <button
+            (click)="deletePackage(pacote.id)"
+            class="bg-black text-white px-6 py-3 rounded-lg flex items-center hover:bg-gray-800"
+          >
+            Excluir
+          </button>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="overflow-auto">
