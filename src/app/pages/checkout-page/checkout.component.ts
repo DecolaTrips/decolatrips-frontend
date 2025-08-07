@@ -65,6 +65,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadPaymentMethods();
     this.initializeFromUrlParams();
+    window.scrollTo(0, 0);
   }
 
   private initializeFromUrlParams(): void {

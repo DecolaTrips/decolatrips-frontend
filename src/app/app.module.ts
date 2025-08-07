@@ -19,7 +19,6 @@ import { Dashboard } from './pages/admin/sidebar/dashboard/dashboard';
     AppComponent,
     Dashboard,
     NgChartsModule
-    
   ],
   providers: [],
   bootstrap: []

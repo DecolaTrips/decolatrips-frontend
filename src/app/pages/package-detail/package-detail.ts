@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { InfoCard } from '../../components/info-card/info-card';
 import { PackageHighlightCard } from '../../components/package-highlight-card/package-highlight-card';
 import { Rating } from '../../components/rating/rating';
@@ -20,6 +20,8 @@ export class PackageDetail {
   imageUrl: string = 'https://media.discordapp.net/attachments/1395018497578238014/1399776956026720356/image_85_2.png?ex=688a3b60&is=6888e9e0&hm=348df4b2eac802c53645ce4bc1570e91dd786860f029ca18bde7a1d5a5c95a05&=&format=webp&quality=lossless&width=1296&height=721';
   item: any;
 
+  showButton: boolean = false;
+
   constructor(private packageService: PackageService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
@@ -31,6 +33,18 @@ export class PackageDetail {
       },
       error: (err) => this.router.navigate(['/404'])
 
+    });
+    window.scrollTo(0, 0);
+  }
+
+  makeReservations(reservationId: number) {
+    this.router.navigate(['/checkout'], {
+      queryParams: {
+        travelers: 1,
+        availabilityId: reservationId,
+        packageId: this.item.id,
+        packageTitle: this.item.title
+      }
     });
   }
 }
