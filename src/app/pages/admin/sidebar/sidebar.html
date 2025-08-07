@@ -20,8 +20,16 @@
   </div>
 
   <!-- Informações do usuário -->
-  <div class="p-6 text-center border-t border-gray-700">
-    <p class="text-lg font-bold">Junior Jonas</p>
-    <p class="text-sm text-gray-400">admin</p>
+  <div class="text-center border-t border-gray-700">
+    <div class="py-2">
+      <p class="text-lg font-bold">{{ username }}</p>
+      @if(userRoles?.includes('ROLE_ADMIN')) {
+        <p class="text-sm text-gray-400">ADMIN</p>
+      }
+    </div>
+
+    <div class="flex justify-center items-center py-6 border-t border-gray-700 pt-4">
+      <button class="text-red-400 font-bold cursor-pointer" (click)="logout()">Sair</button>
+    </div>
   </div>
 </div>

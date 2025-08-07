@@ -22,16 +22,14 @@ export class Navbar implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Verifica o estado inicial
     this.updateAuthState();
-    
+
     // Se inscreve para mudanças futuras
-   
+
   }
 
   private updateAuthState(): void {
     this.username = localStorage.getItem("username");
     this.isLogged = !!localStorage.getItem('jwt');
-
-    console.log('Auth state updated:', { isLogged: this.isLogged, username: this.username });
   }
 
   toggleMobileMenu() {
