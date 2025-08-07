@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
 
   <main class="flex-1 bg-gray-50 py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="checkout">
       <!-- header -->
       <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900">Finalizar Reserva</h1>
@@ -12,11 +12,11 @@
       </div>
 
       <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
-        
+
         <!-- formulário principal -->
         <div class="lg:col-span-7">
           <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
-            
+
             <!-- viajante responsável -->
             <app-traveler-form
               [traveler]="checkoutService.mainTraveler()"
@@ -47,7 +47,7 @@
 
             <!-- Mercado Pago Payment Brick -->
             <div *ngIf="paymentAmount() > 0">
-              <app-mercadopago-payment 
+              <app-mercadopago-payment
                 [amount]="paymentAmount()"
                 [traveler]="checkoutService.mainTraveler()"
                 (paymentSuccess)="onPaymentSuccess($event)"
