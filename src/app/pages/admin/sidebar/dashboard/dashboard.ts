@@ -42,7 +42,7 @@ export class Dashboard implements OnInit {
     datasets: []
   };
   doughnutChartData: ChartData<'doughnut'> = {
-    labels: ['Confirmado', 'Cancelado', 'Pendente'],
+    labels: ['Confirmada', 'Cancelado', 'Pendente'],
     datasets: []
   };
 
@@ -90,9 +90,9 @@ export class Dashboard implements OnInit {
 
     this.dashboardService.getReservationDistribution().subscribe(data => {
       this.doughnutChartData = {
-        labels: ['Confirmado', 'Cancelado', 'Pendente'],
+        labels: ['Confirmada', 'Cancelado', 'Pendente'],
         datasets: [{
-          data: [data['Confirmado'], data['Cancelado'], data['Pendente']],
+          data: [data['Confirmada'], data['Cancelado'], data['Pendente']],
           backgroundColor: ['#F59E0B', '#EF4444', '#1E1E1E']
         }]
       };
