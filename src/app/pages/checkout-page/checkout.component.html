@@ -60,7 +60,7 @@
         <!-- resumo do pedido -->
         <div class="lg:col-span-5">
           <app-booking-summary
-            [baseValues]="baseValues"
+            [baseValues]="bookingValues"
             [appliedDiscount]="checkoutService.appliedDiscount()"
             [paymentDiscount]="paymentDiscount()"
             [travelers]="checkoutService.totalTravelers()"

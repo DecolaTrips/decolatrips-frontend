@@ -20,6 +20,7 @@ import { PaymentService } from '../../services/payment.service';
 import { ITraveler } from '../../models/traveler.interface';
 import { IPaymentMethod } from '../../models/payment-method.interface';
 import { IBookingValues } from '../../models/booking-values.interface';
+import { AvailabilityService } from '../../services/availabilityService';
 
 @Component({
   selector: 'app-checkout',
@@ -47,11 +48,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   readonly travelersSetFromSearch = signal<boolean>(false); // Track if travelers were set from URL params
   readonly bookingSearchData = signal<any>(null); // Store search data for booking summary
 
-  readonly baseValues: IBookingValues = {
-    passagemIda: 1999.00,
-    passagemVolta: 2999.00,
-    hotel: 14000.00,
-    taxas: 700.00
+  bookingValues: IBookingValues = {
+    passagemIda: 0,
+    passagemVolta: 0,
+    servicos: 0
   };
 
   constructor(
@@ -67,48 +67,46 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   private initializeFromUrlParams(): void {
     this.route.queryParams.subscribe(params => {
-      const adults = parseInt(params['adults']) || 1;
-      const children = parseInt(params['children']) || 0;
-      const destination = params['destination'] || '';
-      
+      const travelersCount = parseInt(params['travelers']) || 1;
+      const packageTitle = params['packageTitle'] || '';
+      const availabilityId = parseInt(params['availabilityId']) || -1;
+      const packageId = parseInt(params['packageId']) || -1;
+
       this.travelersSetFromSearch.set(true);
-      
-      const totalTravelers = adults + children;
-      const otherTravelersCount = Math.max(0, totalTravelers - 1);
-      
-      console.log('URL Params:', { adults, children, destination, totalTravelers, otherTravelersCount });
-      
-      const packageTitle = params['packageTitle'];
-      const packagePrice = params['packagePrice'];
-      
-      // Store search data for booking summary API calls
-      if (destination || packageTitle) {
-        const searchData = {
-          destination: destination,
-          adults: adults,
-          children: children,
-          packageId: params['packageId'],
-          packageTitle: packageTitle || destination,
-          departureDate: params['departureDate'],
-          returnDate: params['returnDate']
-        };
-        this.bookingSearchData.set(searchData);
+
+      console.log('URL Params:', { packageId: packageId, travelers: travelersCount, availabilityId: availabilityId });
+
+      if (availabilityId === -1) {
+        console.warn('Availability ID not found in URL params');
+        return;
       }
-      
+
+      if (packageId === -1) {
+        console.warn('Package ID not found in URL params');
+        return;
+      }
+
+      const otherTravelersCount = Math.max(0, travelersCount - 1);
+
+      const searchData = {
+        travelers: travelersCount,
+        availabilityId: availabilityId,
+        packageId: packageId,
+        packageTitle: packageTitle
+      };
+
+      this.bookingSearchData.set(searchData);
+
       if (otherTravelersCount > 0) {
-        this.initializeOtherTravelers(adults, children);
-      }
-      
-      if (packageTitle) {
-        console.log('Selected package:', { packageTitle, packagePrice });
+        this.initializeOtherTravelers(travelersCount);
       }
     });
   }
 
-  private initializeOtherTravelers(adults: number, children: number): void {
+  private initializeOtherTravelers(adults: number): void {
     const travelers: ITraveler[] = [];
     let travelerId = Date.now();
-    
+
     const additionalAdults = Math.max(0, adults - 1);
     for (let i = 0; i < additionalAdults; i++) {
       travelers.push({
@@ -117,21 +115,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         email: '',
         document: '',
         phone: '',
-        type: 'adult' 
+        type: 'adult'
       } as ITraveler);
     }
-    
-    for (let i = 0; i < children; i++) {
-      travelers.push({
-        id: travelerId++,
-        name: '',
-        email: '',
-        document: '',
-        phone: '',
-        type: 'child'
-      } as ITraveler);
-    }
-    
+
     this.checkoutService.updateOtherTravelers(travelers);
   }
 
@@ -192,7 +179,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 
     this.isProcessingBooking.set(true);
-    const booking = this.checkoutService.createBooking(this.baseValues);
+    const booking = this.checkoutService.createBooking(this.bookingValues);
 
     this.paymentService.processPayment(booking)
       .pipe(takeUntil(this.destroy$))

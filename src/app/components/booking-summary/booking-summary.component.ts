@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { IBookingValues } from '../../models/booking-values.interface';
 import { ICouponMessage } from '../../models/coupon.interface';
-import { BookingApiService, BookingSummaryData, BookingPricing } from '../../services/booking-api.service';
+import { BookingApiService, BookingSummaryData, BookingPricing, ICurrentFlight } from '../../services/booking-api.service';
+import { AvailabilityService } from '../../services/availabilityService';
 
 @Component({
   selector: 'app-booking-summary',
@@ -21,7 +22,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
   @Input() travelers: number = 1;
   @Input() isFormValid: boolean = false;
   @Input() isProcessing: boolean = false;
-  
+
   // New inputs for API integration
   @Input() searchData: BookingSummaryData | null = null;
   @Input() autoRefresh: boolean = true; // Whether to auto-refresh pricing when inputs change
@@ -33,13 +34,18 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
   readonly isLoadingPricing = signal<boolean>(false);
   readonly apiPricing = signal<BookingPricing | null>(null);
   readonly packageDetails = signal<any>(null);
+  readonly flight = signal<ICurrentFlight>(
+    {
+      departure: { id: 0, airline: '', flightNumber: '', departureDatetime: '', arrivalDatetime: '', originAirport: '', destinationAirport: '', flightClass: '', flightPrice: 0 },
+      arrival: { id: 0, airline: '', flightNumber: '', departureDatetime: '', arrivalDatetime: '', originAirport: '', destinationAirport: '', flightClass: '', flightPrice: 0 }
+    });
 
   // cupom
   couponCode: string = '';
   couponMessage: ICouponMessage | null = null;
   isApplying: boolean = false;
 
-  constructor(private bookingApiService: BookingApiService) {}
+  constructor(private bookingApiService: BookingApiService, private availabilityService: AvailabilityService) { }
 
   ngOnInit(): void {
     // Subscribe to API loading state
@@ -50,6 +56,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
     // Auto-refresh pricing if search data is provided
     if (this.autoRefresh && this.searchData) {
       this.refreshPricing();
+      
     }
   }
 
@@ -58,25 +65,31 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  /**
-   * Refresh pricing from API based on current search data
-   */
-  refreshPricing(): void {
+  refreshPricing(discount: number = 0): void {
     if (!this.searchData) return;
 
-    this.bookingApiService.getBookingPricing(this.searchData)
+    console.log(discount);
+    console.log('Refreshing pricing with search data:', this.searchData);
+
+    this.availabilityService.getAvailabilitiesById(this.searchData.packageId, this.searchData.availabilityId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.apiPricing.set(response.data);
-            this.packageDetails.set(response.packageDetails);
-            this.pricingUpdated.emit(response.data);
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching pricing:', error);
-        }
+      .subscribe(data => {
+        let responseData: BookingPricing = {
+          passagemIda: data.flights[0].flightPrice,
+          passagemVolta: data.flights[1].flightPrice,
+          servicos: data.price,
+          discount: discount,
+          baseTotal: data.price + data.flights[0].flightPrice + data.flights[1].flightPrice,
+          finalTotal: data.price + data.flights[0].flightPrice + data.flights[1].flightPrice + 2189367
+        };
+
+
+        this.flight.set({
+          departure: data.flights[0],
+          arrival: data.flights[1]
+        })
+        this.apiPricing.set(responseData);
+        this.pricingUpdated.emit(responseData);
       });
   }
 
@@ -89,8 +102,7 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
       return {
         passagemIda: apiData.passagemIda,
         passagemVolta: apiData.passagemVolta,
-        hotel: apiData.hotel,
-        taxas: apiData.taxas
+        servicos: apiData.servicos,
       };
     }
     return this.baseValues;
@@ -98,17 +110,19 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
 
   getTotal(): number {
     const pricing = this.getCurrentPricing();
-    const baseTotal = pricing.passagemIda + 
-                     pricing.passagemVolta + 
-                     pricing.hotel + 
-                     pricing.taxas;
-    
-    return baseTotal - this.appliedDiscount - this.paymentDiscount;
+    let baseTotal = (pricing.passagemIda +
+      pricing.passagemVolta +
+      pricing.servicos) * this.travelers;
+
+    if (this.appliedDiscount > 0) {
+      baseTotal = baseTotal - (baseTotal * this.appliedDiscount / 100);
+    }
+    return baseTotal;
   }
 
   applyCoupon(): void {
     if (!this.couponCode.trim()) return;
-    
+
     this.isApplying = true;
     this.couponMessage = null;
 
@@ -122,12 +136,11 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
             text: response.message,
             success: response.success
           };
-          
+
           if (response.success) {
-            // You can emit this discount to parent component if needed
-            // this.discountApplied.emit(response.discount);
+            this.appliedDiscount = response.discountPercent;
           }
-          
+
           this.isApplying = false;
         },
         error: (error) => {
@@ -148,12 +161,12 @@ export class BookingSummaryComponent implements OnInit, OnDestroy {
       };
       return;
     }
-    
+
     this.finalizeBookingRequest.emit();
   }
 
   showCancellationPolicy(): void {
     // alerta do cancelamento de quartos
- alert('Política de Cancelamento:\n\n• Cancelamento gratuito até 24h antes do check-in\n• Cancelamento com taxa de 50% entre 24h e 12h antes do check-in\n• Não há reembolso para cancelamentos com menos de 12h');
+    alert('Política de Cancelamento:\n\n• Cancelamento gratuito até 24h antes do check-in\n• Cancelamento com taxa de 50% entre 24h e 12h antes do check-in\n• Não há reembolso para cancelamentos com menos de 12h');
   }
 }
