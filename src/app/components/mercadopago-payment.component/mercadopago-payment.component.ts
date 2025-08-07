@@ -14,9 +14,19 @@ export class MercadopagoPaymentComponent implements OnInit, AfterViewInit, OnDes
   @Output() paymentSuccess = new EventEmitter<any>();
   @Output() paymentError = new EventEmitter<any>();
 
+  private doChange: boolean = false;
+
   constructor() { }
 
   async ngAfterViewInit(): Promise<void> {
+    this.createBrick();
+  }
+
+  private async createBrick(): Promise<void> {
+    if ((window as any).paymentBrickController) {
+      (window as any).paymentBrickController.unmount();
+    }
+
     const mp = new MercadoPago('TEST-ad6c3444-fb18-4edc-8c18-4ac36c0c7620', {
       locale: 'pt-BR'
     });
@@ -25,7 +35,7 @@ export class MercadopagoPaymentComponent implements OnInit, AfterViewInit, OnDes
 
     const settings = {
       initialization: {
-        amount: this.amount, // Use the input amount
+        amount: this.amount,
         preferenceId: '<PREFERENCE_ID>',
         payer: {
           firstName: this.traveler?.firstName || '',
@@ -88,7 +98,9 @@ export class MercadopagoPaymentComponent implements OnInit, AfterViewInit, OnDes
       }
     };
 
-    await bricksBuilder.create('payment', 'paymentBrick_container', settings);
+    const brick = await bricksBuilder.create('payment', 'paymentBrick_container', settings);
+    (window as any).paymentBrickController = brick;
+    this.doChange = true;
   }
 
   ngOnInit(): void { }
@@ -96,6 +108,12 @@ export class MercadopagoPaymentComponent implements OnInit, AfterViewInit, OnDes
   ngOnDestroy(): void {
     if ((window as any).paymentBrickController) {
       (window as any).paymentBrickController.unmount();
+    }
+  }
+
+  ngOnChanges(): void {
+    if (this.amount > 0 && this.doChange) {
+      this.createBrick();
     }
   }
 }

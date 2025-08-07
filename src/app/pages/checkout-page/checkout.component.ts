@@ -44,7 +44,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   readonly paymentDiscount = signal<number>(0);
   readonly isProcessingBooking = signal<boolean>(false);
   readonly showBrick = signal<boolean>(true);
-  readonly paymentAmount = signal<number>(19698);
+  readonly paymentAmount = signal<number>(0);
   readonly travelersSetFromSearch = signal<boolean>(false); // Track if travelers were set from URL params
   readonly bookingSearchData = signal<any>(null); // Store search data for booking summary
 
@@ -155,9 +155,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   onPricingUpdated(pricing: any): void {
-    // Handle updated pricing from API
     console.log('Pricing updated from API:', pricing);
-    // You can update the paymentAmount or other relevant signals here
     this.paymentAmount.set(pricing.finalTotal);
   }
 
@@ -176,8 +174,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   onFinalizeBooking(): void {
-
-
     this.isProcessingBooking.set(true);
     const booking = this.checkoutService.createBooking(this.bookingValues);
 
