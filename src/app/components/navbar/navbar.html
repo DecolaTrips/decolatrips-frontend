@@ -30,7 +30,7 @@
       <!-- Logo à esquerda - agora oculta em mobile sempre -->
       <div class="hidden md:flex w-full">
         <div class="hidden md:flex shrink-0 items-center mr-4">
-          <a href="/home">
+          <a routerLink="/home">
             <img src="logo_branco.png" alt="Decola Trips" class="h-8 w-auto" style="max-width: 94px; height: auto;" />
           </a>
         </div>
@@ -38,7 +38,7 @@
         <div class="flex justify-between items-center w-full">
           <div class="flex">
             <div>
-              <a href="/emalta"
+              <a routerLink="/emalta"
                 class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-[#ffffff33] text-base font-medium text-white whitespace-nowrap">
                 Em Alta
               </a>
@@ -54,13 +54,13 @@
               </select>
             </div> -->
             <div>
-              <a href="/destinos/nacionais"
+              <a routerLink="/destinos/nacionais"
                 class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-[#ffffff33] text-base font-medium text-white whitespace-nowrap">
                 Destinos Nacionais
               </a>
             </div>
             <div>
-              <a href="/destinos/internacionais"
+              <a routerLink="/destinos/internacionais"
                 class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-[#ffffff33] text-base font-medium text-white whitespace-nowrap">
                 Destinos Internacionais
               </a>
@@ -84,30 +84,26 @@
 
     <div class="space-y-1 px-2 pt-2 pb-3 text-black">
 
-      <a href="/home" (click)="closeMobileMenu()" aria-current="page"
+      <a routerLink="/home" (click)="closeMobileMenu()" aria-current="page"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Página Inicial
       </a>
 
-      <a href="/emalta" (click)="closeMobileMenu()" aria-current="page"
+      <a routerLink="/emalta" (click)="closeMobileMenu()" aria-current="page"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Em Alta
       </a>
-      <a href="/categorias" (click)="closeMobileMenu()"
-        class="block rounded-md px-3 py-2 text-base font-medium  hover:bg-primary hover:text-white">
-        Categorias
-      </a>
-      <a href="/destinos/nacionais" (click)="closeMobileMenu()"
+      <a routerLink="/destinos/nacionais" (click)="closeMobileMenu()"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Destinos Nacionais
       </a>
-      <a href="/destinos/internacionais" (click)="closeMobileMenu()"
+      <a routerLink="/destinos/internacionais" (click)="closeMobileMenu()"
         class="block rounded-md px-3 py-2 text-base font-medium hover:bg-primary hover:text-white">
         Destinos Internacionais
       </a>
       <!-- Mobile login button -->
       <div class="pt-4 pb-3 border-t border-gray-200">
-        <a href="#" (click)="closeMobileMenu()"
+        <a routerLink="/login" (click)="closeMobileMenu()"
           class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-primary">
           Entre ou Cadastre-se
         </a>
