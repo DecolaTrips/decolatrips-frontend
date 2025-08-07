@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
 import { Footer } from "../../components/footer/footer";
 import { Searchbar } from "../../components/searchbar/searchbar";
@@ -11,19 +11,33 @@ import { PackageService } from "../../services/packageService";
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
-  item: any;
+export class Home implements AfterViewInit, OnInit {
+  @ViewChild('homeVideo') homeVideo!: ElementRef<HTMLVideoElement>;
+  packageData: any;
 
-  constructor(private packageService: PackageService) {}
+  constructor(private packageService: PackageService) { }
 
   ngOnInit() {
     this.packageService.getAllPackages().subscribe({
       next: (res) => {
-        this.item = res;
-        console.log(`All Packages:`, this.item);
+        this.packageData = res;
+        console.log(`All Packages:`, this.packageData);
       },
       error: (err) => console.error(err)
     });
   }
 
+  ngAfterViewInit(): void {
+    const videoEl = this.homeVideo.nativeElement;
+
+    // Ensure video is muted for autoplay compliance
+    videoEl.muted = true;
+
+    // Simple autoplay attempt
+    videoEl.play().catch(error => {
+      console.warn('Video autoplay failed:', error);
+    });
+  }
 }
+
+
