@@ -1,71 +1,61 @@
 <nav class="bg-gray-800">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-16 items-center justify-between">
-          <!--  menu button -->
-          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <button 
-              type="button" 
-              (click)="toggleMobileMenu()"
-              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-none focus:ring-inset"
-              [attr.aria-expanded]="isMobileMenuOpen">
-              <span class="absolute -inset-0.5"></span>
-              <span class="sr-only">Open main menu</span>
-              <!-- hamburger -->
-              <svg 
-                *ngIf="!isMobileMenuOpen"
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.5" 
-                aria-hidden="true" 
-                class="size-6">
-                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <svg 
-                *ngIf="isMobileMenuOpen"
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="1.5" 
-                aria-hidden="true" 
-                class="size-6">
-                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
+  <div class="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex justify-between items-center w-full md:hidden">
+        <img src="public/logo_branco_min.png" alt="" class="h-8 w-auto md:hidden" style="height: 24px;" />
+
+        <!-- Mobile menu button-->
+        <button type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="isMobileMenuOpen"
+          aria-controls="mobile-menu"
+          class="relative inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-700 focus:ring-2 focus:outline-hidden focus:ring-inset"
+          [class]="isMobileMenuOpen ? 'text-white' : 'text-gray-400'">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <!-- Icon when menu is closed -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" [class]="isMobileMenuOpen ? 'hidden size-6' : 'block md:hidden size-6'">
+            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <!-- Icon when menu is open -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" [class]="isMobileMenuOpen ? 'block size-6' : 'hidden size-6'">
+            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Logo à esquerda - agora oculta em mobile sempre -->
+      <div class="hidden md:flex w-full">
+        <div class="hidden md:flex shrink-0 items-center mr-4">
+          <a routerLink="/home">
+            <img src="logo_branco.png" alt="Decola Trips" class="h-8 w-auto" style="max-width: 94px; height: auto;" />
+          </a>
+        </div>
+
+        <div class="flex justify-between items-center w-full">
+          <div class="flex">
+            <div>
+              <a routerLink="/emalta"
+                class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-gray-700 text-base font-medium text-white whitespace-nowrap">
+                Em Alta
+              </a>
+            </div>
+            <div>
+              <a routerLink="/destinos/nacionais"
+                class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-gray-700 text-base font-medium text-white whitespace-nowrap">
+                Destinos Nacionais
+              </a>
+            </div>
+            <div>
+              <a routerLink="/destinos/internacionais"
+                class="rounded-md px-5 py-2 flex items-center space-x-2 hover:bg-gray-700 text-base font-medium text-white whitespace-nowrap">
+                Destinos Internacionais
+              </a>
+            </div>
           </div>
 
-          <div class="flex flex-1 items-center">
-            <!-- logo -->
-            <div class="flex shrink-0 items-center sm:flex-none flex-1 justify-center sm:justify-start sm:w-24">
-              <div class="flex items-center space-x-2">
-                <img 
-                  src="logo_branco.png" 
-                  alt="Decola Trips" 
-                  class="h-8 w-auto"
-                />
-              </div>
-            </div>
-
-            <!-- desktop navigation  -->
-            <div class="hidden sm:flex flex-1 justify-center">
-              <div class="flex space-x-8">
-                <a 
-                  *ngFor="let item of navigationItems" 
-                  [routerLink]="item.href"
-                  [class]="isCurrentRoute(item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-                  class="rounded-md px-6 py-2 text-sm font-medium transition-colors duration-200"
-                  [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null">
-                  {{ item.name }}
-                </a>
-              </div>
-            </div>
-
-            <div class="hidden sm:flex shrink-0 items-center justify-end w-24"></div>
-          </div>
-
-          <!-- notificacoes e profile -->
-          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-           <!-- profile dropdown -->
+          <div class="hidden md:flex items-center">
+            <!-- Profile dropdown -->
             <div class="relative ml-3">
               <button 
                 type="button"
@@ -87,7 +77,7 @@
                 <a 
                   *ngFor="let item of profileMenuItems"
                   (click)="menuRedirect(item)"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
                   {{ item.name }}
                 </a>
               </div>
@@ -95,22 +85,38 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- menu -->
-      <div 
-        *ngIf="isMobileMenuOpen" 
-        class="sm:hidden"
-        id="mobile-menu">
-        <div class="space-y-1 px-2 pt-2 pb-3">
-          <a 
-            *ngFor="let item of navigationItems"
-            [routerLink]="item.href"
-            [class]="isCurrentRoute(item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-            class="block rounded-md px-3 py-2 text-base font-medium transition-colors duration-200"
-            [attr.aria-current]="isCurrentRoute(item.href) ? 'page' : null"
-            (click)="closeMobileMenu()">
-            {{ item.name }}
-          </a>
-        </div>
+  <!-- Mobile menu, show/hide based on menu state -->
+  <div id="mobile-menu" [class]="isMobileMenuOpen ? 'md:hidden' : 'hidden md:hidden'">
+    <div class="space-y-1 px-2 pt-2 pb-3 text-white bg-gray-800">
+      <a routerLink="/home" (click)="closeMobileMenu()" aria-current="page"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">
+        Página Inicial
+      </a>
+      <a routerLink="/emalta" (click)="closeMobileMenu()" aria-current="page"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">
+        Em Alta
+      </a>
+      <a routerLink="/destinos/nacionais" (click)="closeMobileMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">
+        Destinos Nacionais
+      </a>
+      <a routerLink="/destinos/internacionais" (click)="closeMobileMenu()"
+        class="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white">
+        Destinos Internacionais
+      </a>
+
+      <!-- Mobile profile menu items -->
+      <div class="pt-4 pb-3 border-t border-gray-600">
+        <a 
+          *ngFor="let item of profileMenuItems"
+          (click)="menuRedirect(item); closeMobileMenu()"
+          class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 cursor-pointer">
+          {{ item.name }}
+        </a>
       </div>
-    </nav>
+    </div>
+  </div>
+</nav>
