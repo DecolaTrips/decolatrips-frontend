@@ -70,7 +70,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   private initializeFromUrlParams(): void {
     this.route.queryParams.subscribe(params => {
-      const travelersCount = parseInt(params['travelers']) || 1;
+      const travelersCount = Math.min(parseInt(params['travelers']) || 1, 5); // Cap at 5 travelers max
       const packageTitle = params['packageTitle'] || '';
       const availabilityId = parseInt(params['availabilityId']) || -1;
       const packageId = parseInt(params['packageId']) || -1;
@@ -151,6 +151,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   onOtherTravelersChange(travelers: ITraveler[]): void {
     this.checkoutService.updateOtherTravelers(travelers);
+    
+    // Update search data with new traveler count if it exists
+    const currentSearchData = this.bookingSearchData();
+    if (currentSearchData) {
+      const updatedSearchData = {
+        ...currentSearchData,
+        travelers: travelers.length + 1 // +1 for main traveler
+      };
+      this.bookingSearchData.set(updatedSearchData);
+    }
   }
 
   onSpecialRequestChange(request: string): void {
