@@ -23,6 +23,7 @@ import { FraudPrevention } from './pages/fraud-prevention/fraud-prevention';
 import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password';
+import { Erro404 } from './pages/erro404/erro404';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -71,6 +72,6 @@ export const routes: Routes = [
     ],
   },
 
-  { path: '404', component: Home }, // Ajuste conforme necessidade
+  { path: '404', component: Erro404 }, // Ajuste conforme necessidade
   { path: '**', redirectTo: '404' },
 ];
