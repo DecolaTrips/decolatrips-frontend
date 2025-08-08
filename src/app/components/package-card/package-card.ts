@@ -19,7 +19,7 @@ export class PackageCard {
   title: string = "";
 
   @Input()
-  price: string = "";
+  price: number = 0;
 
   @Input()
   days: string = "2";
@@ -33,6 +33,13 @@ export class PackageCard {
     }
   }
 
-  constructor() {}
+  formatCurrency(value: number): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  }
+
+  constructor() { }
 
 }

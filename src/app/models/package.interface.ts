@@ -1,3 +1,6 @@
+import { PackageMedia } from "./package-media";
+import { ReservationTraveler } from "./reservation.model";
+
 export interface Product {
   id: number;
   name: string;
@@ -8,13 +11,13 @@ export interface Product {
 }
 
 export interface BookedPackage {
-  id: number;
-  destination: string;
-  travelers: number;
-  price: number;
-  image: string;
-  status: 'confirmed' | 'pending' | 'cancelled';
-  bookingDate: Date;
-  travelDate: Date;
-  paymentMethod: string;
+  idReservation: number;
+  travelPackageTitle: string;
+  travelers: ReservationTraveler[];
+  totalValor: number;
+  travelPackageImageUrl: PackageMedia;
+  status: 'Confirmada' | 'Pendente' | 'Cancelado';
+  dateIn: Date;
+  dateOut: Date;
+  dateReservation: Date;
 }
