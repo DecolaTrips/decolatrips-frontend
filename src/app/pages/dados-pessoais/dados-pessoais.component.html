@@ -129,24 +129,12 @@
             <p *ngIf="formErrors['name']" class="text-xs mt-1" style="color: var(--color-error);">{{ formErrors['name'] }}</p>
           </div>
 
-          <!-- data de nascimento -->
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);">Data de nascimento</label>
-            <input 
-              type="date"
-              [(ngModel)]="userData.birthDate"
-              [readonly]="!isEditing"
-              [class]="isEditing ? 'form-input' : 'form-input-readonly'"
-              class="w-full p-3 border rounded-md text-sm transition-colors duration-200 focus:outline-none">
-            <p *ngIf="formErrors['birthDate']" class="text-xs mt-1" style="color: var(--color-error);">{{ formErrors['birthDate'] }}</p>
-          </div>
-
           <!-- cpf -->
           <div>
             <label class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);">CPF</label>
             <input 
               type="text"
-              [(ngModel)]="userData.document"
+              [(ngModel)]="userData.cpf"
               (input)="onDocumentChange($event)"
               [readonly]="!isEditing"
               [class]="isEditing ? 'form-input' : 'form-input-readonly'"
@@ -173,13 +161,13 @@
             <label class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);">Telefone</label>
             <input 
               type="tel"
-              [(ngModel)]="userData.phone"
+              [(ngModel)]="userData.telephone"
               (input)="onPhoneChange($event)"
               [readonly]="!isEditing"
               [class]="isEditing ? 'form-input' : 'form-input-readonly'"
               class="w-full p-3 border rounded-md text-sm transition-colors duration-200 focus:outline-none"
-              placeholder="+55 12 99999-9999">
-            <p *ngIf="formErrors['phone']" class="text-xs mt-1" style="color: var(--color-error);">{{ formErrors['phone'] }}</p>
+              placeholder="Formato: +55 12 99999-9999">
+            <p *ngIf="formErrors['telephone']" class="text-xs mt-1" style="color: var(--color-error);">{{ formErrors['telephone'] }}</p>
           </div>
         </div>
 

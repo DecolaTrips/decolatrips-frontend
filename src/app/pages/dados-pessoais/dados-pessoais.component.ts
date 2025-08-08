@@ -15,12 +15,12 @@ import { Subscription } from 'rxjs';
 })
 export class DadosPessoaisComponent implements OnInit, OnDestroy {
   userData: IUserData = {
-    id: 1,
+    idUser: 1,
     name: '',
     email: '',
-    document: '',
-    phone: '',
-    birthDate: ''
+    cpf: '',
+    birthDate: '',
+    username: '',
   };
 
   // status 
@@ -37,7 +37,7 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private userDataService: UserDataService) {}
+  constructor(private userDataService: UserDataService) { }
 
   ngOnInit(): void {
     this.loadUserData();
@@ -50,10 +50,13 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
   loadUserData(): void {
     this.isLoading = true;
     this.clearMessages();
-    
+
     const subscription = this.userDataService.getUserData().subscribe({
       next: (data) => {
-        this.userData = data;
+        this.userData = {
+          ...data,
+          name: localStorage.getItem('username') || data.name,
+        };
         this.originalUserData = { ...data };
         this.isLoading = false;
       },
@@ -63,7 +66,7 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     });
-    
+
     this.subscription.add(subscription);
   }
 
@@ -86,15 +89,13 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
 
   saveUserData(): void {
     const validation = this.userDataService.validateUserData(this.userData);
-    
+
     if (!validation.isValid) {
       this.formErrors = {};
       validation.errors.forEach(error => {
         if (error.includes('Nome')) this.formErrors['name'] = error;
         if (error.includes('Email')) this.formErrors['email'] = error;
-        if (error.includes('CPF')) this.formErrors['document'] = error;
-        if (error.includes('Telefone')) this.formErrors['phone'] = error;
-        if (error.includes('Data de nascimento')) this.formErrors['birthDate'] = error;
+        if (error.includes('CPF')) this.formErrors['cpf'] = error;
       });
       return;
     }
@@ -111,7 +112,7 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
           this.isSaving = false;
           this.successMessage = response.message || 'Dados salvos com sucesso!';
           this.formErrors = {};
-          
+
           // fecha mensagem de sucesso depois de 5s
           setTimeout(() => {
             this.successMessage = '';
@@ -125,7 +126,7 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
         console.error('Error saving user data:', error);
         this.errorMessage = 'Erro ao salvar os dados. Tente novamente.';
         this.isSaving = false;
-        
+
         // fecha mensagem de erro depois de 5s
         setTimeout(() => {
           this.errorMessage = '';
@@ -138,21 +139,21 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
 
   onDocumentChange(event: any): void {
     const formattedDocument = this.userDataService.formatDocument(event.target.value);
-    this.userData.document = formattedDocument;
-    
+    this.userData.cpf = formattedDocument;
+
     // arruma documento enquanto usuario digita
-    if (this.formErrors['document']) {
-      delete this.formErrors['document'];
+    if (this.formErrors['cpf']) {
+      delete this.formErrors['cpf'];
     }
   }
 
   onPhoneChange(event: any): void {
     const formattedPhone = this.userDataService.formatPhone(event.target.value);
-    this.userData.phone = formattedPhone;
-    
+    this.userData.telephone = formattedPhone;
+
     // arruma erro no telefone
-    if (this.formErrors['phone']) {
-      delete this.formErrors['phone'];
+    if (this.formErrors['telephone']) {
+      delete this.formErrors['telephone'];
     }
   }
 
