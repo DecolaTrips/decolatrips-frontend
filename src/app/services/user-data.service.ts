@@ -20,83 +20,24 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class UserDataService {
-  private readonly STORAGE_KEY = 'userData';
   private readonly API_BASE_URL = `${environment.apiUrl}${environment.endpoints.users}`;
   
-  // mudar para true quando for usar a api
   private readonly USE_API = true;
   
   constructor(private http: HttpClient) {}
 
   getUserData(): Observable<IUserData> {
-    if (this.USE_API) {
-      return this.getUserDataFromAPI();
+    if (!this.isUserAuthenticated()) {
+      return throwError(() => new Error('Usuário não está logado'));
     }
-    
-    return this.getUserDataFromStorage();
+    return this.getUserDataFromAPI();
   }
 
   updateUserData(userData: IUserData): Observable<ApiResponse<IUserData>> {
-    if (this.USE_API) {
-      return this.updateUserDataViaAPI(userData);
-    }
-    
-    return this.updateUserDataInStorage(userData);
+    return this.updateUserDataViaAPI(userData);
   }
 
-  private getUserDataFromStorage(): Observable<IUserData> {
-    try {
-      const storedData = localStorage.getItem(this.STORAGE_KEY);
-      
-      if (storedData) {
-        const userData = JSON.parse(storedData);
-        return of(userData).pipe(delay(300)); 
-      } else {
-        const defaultData: IUserData = {
-          id: 1,
-          name: 'Junior Aquino de Jonas',
-          email: 'junioraquinojonas68@email.com',
-          document: '000.000.000-00',
-          phone: '+55 12 99999-9999',
-          birthDate: '1968-10-16'
-        };
-        return of(defaultData).pipe(delay(300));
-      }
-    } catch (error) {
-      console.error('Error loading user data:', error);
-      return throwError(() => new Error('Erro ao carregar dados do usuário'));
-    }
-  }
 
-// simulacao da api
-  private updateUserDataInStorage(userData: IUserData): Observable<ApiResponse<IUserData>> {
-    try {
-      return of(userData).pipe(
-        delay(800), 
-        map(data => {
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
-          
-          return {
-            success: true,
-            data: data,
-            message: 'Dados atualizados com sucesso!'
-          };
-        }),
-        catchError(error => {
-          console.error('Error saving user data:', error);
-          return of({
-            success: false,
-            message: 'Erro ao salvar dados do usuário',
-            errors: [error.message]
-          });
-        })
-      );
-    } catch (error) {
-      return throwError(() => new Error('Erro ao salvar dados do usuário'));
-    }
-  }
-
-  // pra quando tiver usando a api
   private getUserDataFromAPI(): Observable<IUserData> {
     const userId = this.getCurrentUserId(); 
     
@@ -109,7 +50,14 @@ export class UserDataService {
         }
       }),
       catchError(error => {
-        console.error('API Error:', error);
+        console.error('API Error ao buscar dados do usuário:', error);
+        if (error.status === 401) {
+          throw new Error('Usuário não autenticado');
+        } else if (error.status === 404) {
+          throw new Error('Usuário não encontrado');
+        } else if (error.status === 500) {
+          throw new Error('Erro interno do servidor');
+        }
         return throwError(() => new Error('Erro ao carregar dados do usuário'));
       })
     );
@@ -118,14 +66,53 @@ export class UserDataService {
   private updateUserDataViaAPI(userData: IUserData): Observable<ApiResponse<IUserData>> {
     return this.http.put<ApiResponse<IUserData>>(`${this.API_BASE_URL}/${userData.id}`, userData).pipe(
       catchError(error => {
-        console.error('API Error:', error);
+        console.error('API Error ao atualizar dados do usuário:', error);
+        if (error.status === 401) {
+          return throwError(() => new Error('Usuário não autenticado'));
+        } else if (error.status === 403) {
+          return throwError(() => new Error('Permissão negada para atualizar dados'));
+        } else if (error.status === 404) {
+          return throwError(() => new Error('Usuário não encontrado'));
+        } else if (error.status === 422) {
+          return throwError(() => new Error('Dados inválidos fornecidos'));
+        } else if (error.status === 500) {
+          return throwError(() => new Error('Erro interno do servidor'));
+        }
         return throwError(() => new Error('Erro ao salvar dados do usuário'));
       })
     );
   }
 
   private getCurrentUserId(): number {
+    const userDataFromToken = localStorage.getItem('jwt');
+    if (userDataFromToken) {
+      try {
+        const payload = JSON.parse(atob(userDataFromToken.split('.')[1]));
+        return payload.userId || payload.sub || 1; 
+      } catch (error) {
+        console.error('Error decoding JWT:', error);
+      }
+    }
+    
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        return user.id || 1;
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+      }
+    }
+    
+    console.warn('No user ID found, using default ID 1');
     return 1;
+  }
+
+  private isUserAuthenticated(): boolean {
+    const jwt = localStorage.getItem('jwt');
+    const currentUser = localStorage.getItem('currentUser');
+    
+    return !!(jwt || currentUser);
   }
 
   validateUserData(userData: IUserData): { isValid: boolean; errors: string[] } {
@@ -223,27 +210,9 @@ export class UserDataService {
 
   // pra uso com a api
   clearUserData(): Observable<ApiResponse<null>> {
-    if (this.USE_API) {
-      return this.http.post<ApiResponse<null>>(`${environment.apiUrl}/auth/logout`, {}).pipe(
-        map(() => {
-          localStorage.removeItem(this.STORAGE_KEY);
-          return { success: true, message: 'Logout realizado com sucesso' };
-        }),
-        catchError(() => {
-          localStorage.removeItem(this.STORAGE_KEY); // Clear local data anyway
-          return of({ success: true, message: 'Dados limpos localmente' });
-        })
-      );
-    }
-    
-    try {
-      localStorage.removeItem(this.STORAGE_KEY);
-      return of({
-        success: true,
-        message: 'Dados limpos com sucesso'
-      }).pipe(delay(300));
-    } catch (error) {
-      return throwError(() => new Error('Erro ao limpar dados do usuário'));
-    }
+    return this.http.post<ApiResponse<null>>(`${environment.apiUrl}${environment.endpoints.auth}/logout`, {}).pipe(
+      map(() => ({ success: true, message: 'Logout realizado com sucesso' })),
+      catchError(() => of({ success: false, message: 'Erro ao limpar dados do usuário' }))
+    );
   }
 }
