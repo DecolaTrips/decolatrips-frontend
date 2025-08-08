@@ -85,7 +85,7 @@ export class DadosPessoaisComponent implements OnInit, OnDestroy {
   }
 
   saveUserData(): void {
-    const validation = this.userDataService.validateUserData(this.userData);
+    const validation = this.userDataService.validateUserDataOptional(this.userData);
     
     if (!validation.isValid) {
       this.formErrors = {};
