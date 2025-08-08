@@ -32,6 +32,17 @@
         class="bg-white text-black px-6 rounded-r-md h-10 hover:bg-gray-200 transition">
         Disponibilidade
       </button>
+      <button
+  (click)="adicionarDetalhe()"
+  [ngClass]="{
+    'bg-black text-white': activeTab === 4,
+    'bg-white text-black hover:bg-gray-200': activeTab !== 4
+  }"
+  class="bg-white text-black px-6 rounded-md h-10 hover:bg-gray-200 transition">
+  Detalhes do Pacote
+</button>
+
+
     </div>
 
     <button  (click)="submit()" class="bg-black text-white px-6 rounded-md h-10 transition">

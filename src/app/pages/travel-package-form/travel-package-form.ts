@@ -192,5 +192,9 @@ loadPackage(id: number): void {
     }
   });
 }
+
+adicionarDetalhe() {
+  this.router.navigate(['admin/package-details-upload']);
+  }
 }
 
