@@ -52,6 +52,7 @@ export class LoginComponent {
         this.isLoading = false;
         localStorage.setItem("jwt", response.token);
         localStorage.setItem("username", response.username);
+        localStorage.setItem("userId", response.userId);
         localStorage.setItem("email", response.email);
         localStorage.setItem("roles", JSON.stringify(response.roles));
 

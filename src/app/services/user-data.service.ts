@@ -4,9 +4,17 @@ import { delay, map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ITraveler } from '../models/traveler.interface';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
-export interface IUserData extends ITraveler {
+export interface IUserData {
   birthDate: string;
+  idUser: number;
+  name: string;
+  email: string;
+  cpf: string;
+  username: string;
+  passport?: string;
+  telephone?: string;
 }
 
 export interface ApiResponse<T> {
@@ -21,10 +29,10 @@ export interface ApiResponse<T> {
 })
 export class UserDataService {
   private readonly API_BASE_URL = `${environment.apiUrl}${environment.endpoints.users}`;
-  
+
   private readonly USE_API = true;
-  
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
 
   getUserData(): Observable<IUserData> {
     if (!this.isUserAuthenticated()) {
@@ -39,14 +47,16 @@ export class UserDataService {
 
 
   private getUserDataFromAPI(): Observable<IUserData> {
-    const userId = this.getCurrentUserId(); 
-    
-    return this.http.get<ApiResponse<IUserData>>(`${this.API_BASE_URL}/${userId}`).pipe(
+    const userId = localStorage.getItem('userId');
+
+    let url = `${this.API_BASE_URL}/${userId}`
+
+    return this.http.get<IUserData>(url).pipe(
       map(response => {
-        if (response.success && response.data) {
-          return response.data;
+        if (response.idUser) {
+          return response;
         } else {
-          throw new Error(response.message || 'Erro ao carregar dados do usuário');
+          throw new Error('Erro ao carregar dados do usuário');
         }
       }),
       catchError(error => {
@@ -64,7 +74,7 @@ export class UserDataService {
   }
 
   private updateUserDataViaAPI(userData: IUserData): Observable<ApiResponse<IUserData>> {
-    return this.http.put<ApiResponse<IUserData>>(`${this.API_BASE_URL}/${userData.id}`, userData).pipe(
+    return this.http.put<ApiResponse<IUserData>>(`${this.API_BASE_URL}/${userData.idUser}`, userData).pipe(
       catchError(error => {
         console.error('API Error ao atualizar dados do usuário:', error);
         if (error.status === 401) {
@@ -83,35 +93,10 @@ export class UserDataService {
     );
   }
 
-  private getCurrentUserId(): number {
-    const userDataFromToken = localStorage.getItem('jwt');
-    if (userDataFromToken) {
-      try {
-        const payload = JSON.parse(atob(userDataFromToken.split('.')[1]));
-        return payload.userId || payload.sub || 1; 
-      } catch (error) {
-        console.error('Error decoding JWT:', error);
-      }
-    }
-    
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser);
-        return user.id || 1;
-      } catch (error) {
-        console.error('Error parsing stored user:', error);
-      }
-    }
-    
-    console.warn('No user ID found, using default ID 1');
-    return 1;
-  }
-
   private isUserAuthenticated(): boolean {
     const jwt = localStorage.getItem('jwt');
     const currentUser = localStorage.getItem('currentUser');
-    
+
     return !!(jwt || currentUser);
   }
 
@@ -128,13 +113,13 @@ export class UserDataService {
       errors.push('Email inválido');
     }
 
-    if (!userData.document?.trim()) {
+    if (!userData.cpf?.trim()) {
       errors.push('CPF é obrigatório');
-    } else if (!this.isValidCPF(userData.document)) {
+    } else if (!this.isValidCPF(userData.cpf)) {
       errors.push('CPF inválido');
     }
 
-    if (!userData.phone?.trim()) {
+    if (!userData.telephone?.trim()) {
       errors.push('Telefone é obrigatório');
     }
 
@@ -144,7 +129,7 @@ export class UserDataService {
       const birthDate = new Date(userData.birthDate);
       const today = new Date();
       const age = today.getFullYear() - birthDate.getFullYear();
-      
+
       if (age < 18 || age > 120) {
         errors.push('Data de nascimento inválida');
       }
@@ -185,7 +170,7 @@ export class UserDataService {
 
   formatDocument(value: string): string {
     if (!value) return '';
-    
+
     const numbers = value.replace(/\D/g, '');
     if (numbers.length <= 11) {
       return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -195,7 +180,7 @@ export class UserDataService {
 
   formatPhone(value: string): string {
     if (!value) return '';
-    
+
     const numbers = value.replace(/\D/g, '');
     if (numbers.length <= 13) {
       return numbers.replace(/(\d{2})(\d{2})(\d{5})(\d{4})/, '+$1 $2 $3-$4');
@@ -210,12 +195,12 @@ export class UserDataService {
 
   private isValidCPF(cpf: string): boolean {
     const numbers = cpf.replace(/\D/g, '');
-    
+
     if (numbers.length !== 11) return false;
-    
+
     // pra ver se todos os digitos sao os mesmos
     if (/^(\d)\1{10}$/.test(numbers)) return false;
-    
+
     let sum = 0;
     for (let i = 0; i < 9; i++) {
       sum += parseInt(numbers.charAt(i)) * (10 - i);
@@ -223,7 +208,7 @@ export class UserDataService {
     let remainder = 11 - (sum % 11);
     if (remainder === 10 || remainder === 11) remainder = 0;
     if (remainder !== parseInt(numbers.charAt(9))) return false;
-    
+
     sum = 0;
     for (let i = 0; i < 10; i++) {
       sum += parseInt(numbers.charAt(i)) * (11 - i);
@@ -231,7 +216,7 @@ export class UserDataService {
     remainder = 11 - (sum % 11);
     if (remainder === 10 || remainder === 11) remainder = 0;
     if (remainder !== parseInt(numbers.charAt(10))) return false;
-    
+
     return true;
   }
 
