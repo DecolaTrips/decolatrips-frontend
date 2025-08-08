@@ -21,6 +21,8 @@ import { ITraveler } from '../../models/traveler.interface';
 import { IPaymentMethod } from '../../models/payment-method.interface';
 import { IBookingValues } from '../../models/booking-values.interface';
 import { AvailabilityService } from '../../services/availabilityService';
+import { ReservationService } from '../../services/reservation.service';
+import { ReservationTraveler } from '../../models/reservation.model';
 
 @Component({
   selector: 'app-checkout',
@@ -59,6 +61,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     readonly checkoutService: CheckoutService,
     private paymentService: PaymentService,
     private route: ActivatedRoute,
+    private reservationService: ReservationService,
     private router: Router
   ) { }
 
@@ -151,7 +154,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   onOtherTravelersChange(travelers: ITraveler[]): void {
     this.checkoutService.updateOtherTravelers(travelers);
-    
+
     // Update search data with new traveler count if it exists
     const currentSearchData = this.bookingSearchData();
     if (currentSearchData) {
@@ -188,26 +191,33 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   onFinalizeBooking(): void {
     this.isProcessingBooking.set(true);
-    const booking = this.checkoutService.createBooking(this.bookingValues);
+    console.log('Finalizando reserva...');
 
-    this.paymentService.processPayment(booking)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (result) => {
-          if (result.success) {
-            console.log('Reserva Confirmada!', `Sua reserva foi finalizada com sucesso. ID da transação: ${result.transactionId}`);
-            this.checkoutService.clearCheckoutData();
-            this.resetForm();
-            this.router.navigate(['/meus-pacotes']);
-          } else {
-            console.error('Falha no Pagamento', result.error || 'Ocorreu um erro ao processar o pagamento.');
-          }
-          this.isProcessingBooking.set(false);
-        },
-        error: () => {
-          console.error('Erro no Sistema', 'Ocorreu um erro interno. Tente novamente mais tarde.');
-          this.isProcessingBooking.set(false);
-        }
-      });
+    let travelers = [this.checkoutService.mainTraveler(), ...this.checkoutService.otherTravelers()]
+
+    let reservationTravelers = travelers.map(traveler => ({
+      travelerName: traveler.name,
+      iddDocument: traveler.document,
+      telephone: traveler.phone,
+      email: traveler.email
+    } as ReservationTraveler));
+
+    this.reservationService.createReservation({
+      clientId: parseInt(localStorage.getItem('userId') || '0'),
+      availabilityId: this.bookingSearchData().availabilityId,
+      travelers: reservationTravelers || [],
+      price: this.paymentAmount(),
+    }).subscribe({
+      next: (response) => {
+        console.log('Reserva criada com sucesso', response);
+        this.isProcessingBooking.set(false);
+        this.router.navigate(['/meus-pacotes']);
+        this.checkoutService.clearCheckoutData()
+      },
+      error: (error) => {
+        console.error('Erro ao criar reserva', error);
+        this.isProcessingBooking.set(false);
+      }
+    });
   }
 }
