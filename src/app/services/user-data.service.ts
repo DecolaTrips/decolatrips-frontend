@@ -141,33 +141,6 @@ export class UserDataService {
     };
   }
 
-  validateUserDataOptional(userData: IUserData): { isValid: boolean; errors: string[] } {
-    const errors: string[] = [];
-
-    if (userData.email?.trim() && !this.isValidEmail(userData.email)) {
-      errors.push('Email inválido');
-    }
-
-    if (userData.document?.trim() && !this.isValidCPF(userData.document)) {
-      errors.push('CPF inválido');
-    }
-
-    if (userData.birthDate) {
-      const birthDate = new Date(userData.birthDate);
-      const today = new Date();
-      const age = today.getFullYear() - birthDate.getFullYear();
-      
-      if (age < 18 || age > 120) {
-        errors.push('Data de nascimento inválida');
-      }
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors
-    };
-  }
-
   formatDocument(value: string): string {
     if (!value) return '';
 
