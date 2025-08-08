@@ -1,10 +1,12 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api', // não sei a url certa 
+  apiUrl: 'http://localhost:8080/api',
   endpoints: {
     users: '/users',
     auth: '/auth',
-    
+    packages: '/travel-packages',
+    dashboard: '/dashboard',
+    userPackages: '/user-packages'
   },
   appName: 'DecolaTrips',
   version: '1.0.0'
