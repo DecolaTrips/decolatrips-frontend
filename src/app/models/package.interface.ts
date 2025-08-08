@@ -15,7 +15,7 @@ export interface BookedPackage {
   travelPackageTitle: string;
   travelers: ReservationTraveler[];
   totalValor: number;
-  travelPackageImageUrl: PackageMedia;
+  travelPackageImageUrl: PackageMedia[];
   status: 'Confirmada' | 'Pendente' | 'Cancelado';
   dateIn: Date;
   dateOut: Date;

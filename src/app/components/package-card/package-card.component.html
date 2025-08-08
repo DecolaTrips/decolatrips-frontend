@@ -6,7 +6,7 @@
     style="background: var(--color-surface); border-radius: var(--border-radius-md);">
     <!-- imagem -->
     <div class="aspect-video w-full overflow-hidden">
-      <img [src]="'http://localhost:8080/files' + package.travelPackageImageUrl.urlImg"
+      <img [src]="'http://localhost:8080/files' + (package.travelPackageImageUrl.length > 0 ? package.travelPackageImageUrl[0].urlImg : '')"
         [alt]="'Pacote para ' + package.travelPackageTitle" class="h-full w-full object-cover object-center"
         loading="lazy" />
     </div>
