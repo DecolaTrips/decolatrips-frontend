@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { InfoCard } from '../../components/info-card/info-card';
 import { PackageHighlightCard } from '../../components/package-highlight-card/package-highlight-card';
 import { Rating } from '../../components/rating/rating';
@@ -22,19 +22,35 @@ export class PackageDetail {
 
   showButton: boolean = false;
 
-  constructor(private packageService: PackageService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private packageService: PackageService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.packageService.getPackageById(id).subscribe({
       next: (res) => {
         this.item = res,
-        console.log(`Package Details:`, this.item);
+          console.log(`Package Details:`, this.item);
       },
       error: (err) => this.router.navigate(['/404'])
 
     });
     window.scrollTo(0, 0);
+  }
+
+  getLowerAvailabilityPrice(availabilities: any[]): number {
+    if (!availabilities || availabilities.length === 0) {
+      return 0;
+    }
+    const prices = availabilities.map(a => a.price);
+    const minPrice = Math.min(...prices);
+    return minPrice;
+  }
+
+  formatCurrency(value: number): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
   }
 
   makeReservations(reservationId: number) {

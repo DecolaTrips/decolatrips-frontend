@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <header class="relative min-h-[86vh] w-full flex items-center justify-center mb-2"
-  [ngStyle]="{ 'background-image': 'url(' + item.images[0].urlImg + ')', 'background-size': 'cover', 'background-position': 'top' }">
+  [ngStyle]="{ 'background-image': 'url(' + item.images[0].urlImg + ')', 'background-size': 'cover',  'background-position': 'top'}">
   <div class="relative z-10 text-center">
     <p class="text-white text-2xl">{{ item.place }}</p>
     <h1 class="text-white text-6xl">{{ item.title }}</h1>
@@ -18,7 +18,7 @@
       <div class="border-l-1 border-gray-300 h-8"></div>
 
       <div class="flex flex-col items-center"> <!-- Container novo para agrupar preço e span -->
-        <p>R$ {{ item.valorBase }} <span class="text-base text-primary">/ pessoa</span></p>
+        <p>{{ formatCurrency(getLowerAvailabilityPrice(item.availabilities)) }} <span class="text-base text-primary">/ pessoa</span></p>
 
         <div class="flex flex-row">
           <img src="warning.svg" alt="warning" class="h-4">
@@ -83,7 +83,7 @@
             <th class="px-4 py-2 flex flex-col w-full max-w-[300px]"> <!-- Ajuste o max-w conforme necessário -->
               <span class="block">Preço por pessoa</span>
               <span class="text-xs text-gray-600 font-normal break-words whitespace-normal block">
-                (O valor da passagem só será disponível na reserva do pacote, por ser sujeito a alterações)
+                (O valor da passagem só será disponível na reserva do pacote, pode estar sujeito a alterações)
               </span>
             </th>
           </div>
@@ -96,7 +96,7 @@
           <td class="px-4 py-4">
             De {{ availability.dateIn | date: 'dd/MM/yyyy' }} até {{ availability.dateOut | date: 'dd/MM/yyyy' }}
           </td>
-          <td class="px-4 py-1">R${{ availability.price }}</td>
+          <td class="px-4 py-1">{{ formatCurrency(availability.price) }}</td>
           <td class="px-4 py-1 text-center">
             <button class="block bg-primary text-white w-full py-1 rounded-xs cursor-pointer"
               (click)="makeReservations(availability.id)">Reservar Periodo</button>

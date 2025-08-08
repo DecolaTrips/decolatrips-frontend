@@ -10,12 +10,13 @@
         <p class="mt-2 text-gray-600">Gerencie e acompanhe suas viagens reservadas</p>
       </div>
 
-      <app-package-card 
-        mode="my-packages"
-        [bookedPackages]="userPackages"
-        (viewDetails)="onViewPackageDetails($event)"
-        (contactSupport)="onContactSupport($event)">
-      </app-package-card>
+      @if (userPackages && userPackages.length > 0) {
+         <app-package-card 
+          mode="my-packages"
+          [bookedPackages]="userPackages"
+          (viewDetails)="onViewPackageDetails($event)">
+        </app-package-card>
+      }
 
       <!-- estado vazio -->
       <div *ngIf="userPackages.length === 0" class="text-center py-16">

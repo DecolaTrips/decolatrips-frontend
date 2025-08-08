@@ -3,7 +3,8 @@ import { Observable, of } from 'rxjs';
 import { User, RegisterUser } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { Reservation } from '../models/reservation.model';
+import { CreateReservationDTO } from '../models/reservation.model';
+import { BookedPackage } from '../models/package.interface';
 
 
 @Injectable({
@@ -14,7 +15,11 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
-  createReservation(reservation: Reservation): Observable<any> {
+  createReservation(reservation: CreateReservationDTO): Observable<any> {
     return this.http.post(`${this.route}/reservations`, reservation);
+  }
+
+  getReservationByUserId(userId: number): Observable<BookedPackage[]> {
+    return this.http.get<BookedPackage[]>(`${this.route}/users/${userId}/reservations`);
   }
 } 

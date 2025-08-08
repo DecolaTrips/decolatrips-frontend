@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product, BookedPackage } from '../../models/package.interface';
+import { PackageMedia } from '../../models/package-media';
 
 @Component({
   selector: 'app-package-card',
@@ -13,16 +14,29 @@ export class PackageCardComponent {
   @Input() products: Product[] = [];
   @Input() bookedPackages: BookedPackage[] = [];
   @Input() mode: 'catalog' | 'my-packages' = 'catalog';
-  
+
   @Output() productClick = new EventEmitter<Product>();
   @Output() viewDetails = new EventEmitter<number>();
   @Output() downloadVoucher = new EventEmitter<number>();
   @Output() contactSupport = new EventEmitter<number>();
 
+  ngOnInit() {
+    console.log(this.bookedPackages);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['bookedPackages']) {
+      this.bookedPackages = [...changes['bookedPackages'].currentValue];
+    }
+  }
 
   onProductClick(product: Product): void {
     console.log('Produto clicado:', product);
     this.productClick.emit(product);
+  }
+
+  getImageUrl(travelPackageImage: PackageMedia): string {
+    return travelPackageImage ? "assets" + travelPackageImage.urlImg : '';
   }
 
   onViewDetails(packageId: number): void {
@@ -52,11 +66,11 @@ export class PackageCardComponent {
 
   getStatusClass(status: string): string {
     switch (status) {
-      case 'confirmed':
+      case 'Confirmada':
         return 'bg-green-100 text-green-800';
-      case 'pending':
+      case 'Pendente':
         return 'bg-yellow-100 text-yellow-800';
-      case 'cancelled':
+      case 'Cancelado':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';

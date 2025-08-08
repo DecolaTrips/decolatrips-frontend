@@ -1,45 +1,14 @@
-<!-- catalogo -->
-<div *ngIf="mode === 'catalog'" class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="sr-only">Produtos</h2>
-
-    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-      <a 
-        *ngFor="let product of products" 
-        [href]="product.link || '#'" 
-        class="group cursor-pointer"
-        (click)="onProductClick(product)"
-      >
-        <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-200">
-          <img 
-            [src]="product.image" 
-            [alt]="product.alt" 
-            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300 xl:aspect-7/8"
-            loading="lazy"
-          />
-        </div>
-        <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
-        <p class="mt-1 text-lg font-medium text-gray-900">
-          {{ product.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-        </p>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- pacotes adiquiridos -->
-<div *ngIf="mode === 'my-packages'" class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-  <div *ngFor="let package of bookedPackages" 
-       class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
-       style="background: var(--color-surface); border-radius: var(--border-radius-md);">
+<!-- pacotes adquiridos -->
+<div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+  @for (package of bookedPackages; track $index) {
+  <div
+    class="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+    style="background: var(--color-surface); border-radius: var(--border-radius-md);">
     <!-- imagem -->
     <div class="aspect-video w-full overflow-hidden">
-      <img 
-        [src]="package.image" 
-        [alt]="'Pacote para ' + package.destination"
-        class="h-full w-full object-cover object-center"
-        loading="lazy"
-      />
+      <img [src]="'http://localhost:8080/files' + package.travelPackageImageUrl.urlImg"
+        [alt]="'Pacote para ' + package.travelPackageTitle" class="h-full w-full object-cover object-center"
+        loading="lazy" />
     </div>
 
     <!-- package content -->
@@ -47,31 +16,27 @@
       <div class="flex items-start justify-between mb-4">
         <div>
           <h3 class="text-lg font-semibold text-gray-900">
-            Destino → {{ package.destination }}
+            Destino → {{ package.travelPackageTitle }}
           </h3>
           <p class="text-sm text-gray-600 mt-1">
-            {{ package.travelers }} Viajantes
+            {{ package.travelers.length }} Viajante{{ package.travelers.length === 1 ? '' : 's' }}
           </p>
         </div>
         <span class="inline-block px-3 py-1 rounded-full text-sm font-medium"
-              [ngClass]="getStatusClasses(package.status)">
-          {{ getStatusText(package.status) }}
+          [ngClass]="getStatusClasses(package.status)">
+          {{ package.status }}
         </span>
       </div>
 
       <!-- detalhes do pacote -->
       <div class="space-y-2 mb-4">
         <div class="flex justify-between text-sm">
-          <span class="text-gray-600">Método de Pagamento:</span>
-          <span class="font-medium">{{ package.paymentMethod }}</span>
+          <span class="text-gray-600">Data da Ida:</span>
+          <span class="font-medium">{{ package.dateIn | date: 'dd/MM/yyyy' }}</span>
         </div>
         <div class="flex justify-between text-sm">
-          <span class="text-gray-600">Data da Reserva:</span>
-          <span class="font-medium">{{ formatDate(package.bookingDate) }}</span>
-        </div>
-        <div class="flex justify-between text-sm">
-          <span class="text-gray-600">Data da Viagem:</span>
-          <span class="font-medium">{{ formatDate(package.travelDate) }}</span>
+          <span class="text-gray-600">Data da Volta:</span>
+          <span class="font-medium">{{ package.dateOut | date: 'dd/MM/yyyy' }}</span>
         </div>
       </div>
 
@@ -80,26 +45,27 @@
         <div class="flex justify-between items-center">
           <span class="text-gray-600">Total:</span>
           <span class="text-xl font-bold text-gray-900">
-            {{ formatCurrency(package.price) }}
+            {{ formatCurrency(package.totalValor) }}
           </span>
         </div>
       </div>
 
       <!-- botoes -->
       <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
-        <button 
+        <button
           class="flex-1 text-white border-none px-4 py-2 text-sm font-medium cursor-pointer transition-colors duration-200 hover:opacity-90"
           style="background-color: var(--color-primary); border-radius: var(--border-radius-sm);"
-          (click)="onViewDetails(package.id)">
+          (click)="onViewDetails(package.idReservation)">
           Mais detalhes
         </button>
-        <button 
+        <button
           class="flex-1 bg-transparent border px-4 py-2 text-sm font-medium cursor-pointer transition-all duration-200 hover:bg-gray-50"
           style="color: var(--color-text-secondary); border-color: var(--color-border); border-radius: var(--border-radius-sm);"
-          (click)="onContactSupport(package.id)">
+          (click)="onContactSupport(package.idReservation)">
           Suporte
         </button>
       </div>
     </div>
   </div>
+  }
 </div>
