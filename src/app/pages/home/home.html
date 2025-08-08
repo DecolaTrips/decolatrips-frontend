@@ -25,6 +25,7 @@
         <div class="grid package-list-responsive-grid-col md:grid-cols-3 xl:grid-cols-4 gap-5">
             @for (item of packageData.content; track $index) {
               @if (item.images && item.images.length > 0) {
+                <div> caiu aqui </div>
                 <app-package-card [travelPackageId]="item.id" [photoCover]="item.images[0].urlImg" [title]="item.title" [price]="item.valorBase" [days]="item.durationDays"></app-package-card>
               }
             }
