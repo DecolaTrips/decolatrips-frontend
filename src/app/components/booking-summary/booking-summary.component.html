@@ -21,7 +21,7 @@
           <span class="text-xs text-gray-500">⇄</span>
           <span class="text-sm text-gray-700">{{ flight().departure.destinationAirport }}</span>
         </div>
-        <div class="text-xs text-gray-500 mt-1">Ida: {{ flight().departure.arrivalDatetime }}</div>
+        <div class="text-xs text-gray-500 mt-1">Ida: {{ flight().departure.arrivalDatetime | date:'dd/MM/yyyy' }}</div>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
           <span class="text-xs text-gray-500">⇄</span>
           <span class="text-sm text-gray-700">{{ flight().arrival.destinationAirport }}</span>
         </div>
-        <div class="text-xs text-gray-500 mt-1">Volta: {{ flight().arrival.arrivalDatetime }}</div>
+        <div class="text-xs text-gray-500 mt-1">Volta: {{ flight().arrival.arrivalDatetime | date:'dd/MM/yyyy' }}</div>
       </div>
     </div>
   </div>
