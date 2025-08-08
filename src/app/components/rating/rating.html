@@ -1,8 +1,8 @@
 <div class="flex flex-col md:flex-row gap-4">
   <div class="md:w-1/3 ">
     <h2 class="text-4xl text-yellow-500 mb-2">
-      @for (i of fullStars; track i) { <span class="inline-block text-yellow-500">★</span> }
-      @for (i of emptyStars; track i) { <span class="inline-block text-gray-300">☆</span> }
+      @for (i of fullStars; track $index) { <span class="inline-block text-yellow-500">★</span> }
+      @for (i of emptyStars; track $index) { <span class="inline-block text-gray-300">☆</span> }
     </h2>
     <div class="px-1">
       <p class="text-text-secondary">
@@ -23,7 +23,7 @@
     }
     @for (comment of comments; track $index) {
       <app-rating-comment-card
-        [name]="comment.name"
+        [name]="comment.travelerName"
         [rating]="comment.rating"
         [comment]="comment.comment"
       ></app-rating-comment-card>
