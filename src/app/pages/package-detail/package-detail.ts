@@ -18,7 +18,7 @@ import { Navbar } from "../../components/navbar/navbar";
 })
 export class PackageDetail {
   imageUrl: string = 'https://media.discordapp.net/attachments/1395018497578238014/1399776956026720356/image_85_2.png?ex=688a3b60&is=6888e9e0&hm=348df4b2eac802c53645ce4bc1570e91dd786860f029ca18bde7a1d5a5c95a05&=&format=webp&quality=lossless&width=1296&height=721';
-  item: any;
+  item: any = null;
 
   showButton: boolean = false;
 
@@ -29,7 +29,7 @@ export class PackageDetail {
     this.packageService.getPackageById(id).subscribe({
       next: (res) => {
         this.item = res,
-          console.log(`Package Details:`, this.item);
+        console.log(`Package Details: X`, this.item);
       },
       error: (err) => this.router.navigate(['/404'])
 
@@ -63,4 +63,6 @@ export class PackageDetail {
       }
     });
   }
+
+  
 }
