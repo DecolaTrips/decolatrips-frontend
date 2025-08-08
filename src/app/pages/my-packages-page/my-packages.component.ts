@@ -5,7 +5,7 @@ import { NavbarComponent } from '../../shared/components/navbar-t2/navbar.compon
 import { PackageCardComponent } from '../../components/package-card/package-card.component';
 import { Footer } from '../../components/footer/footer';
 import { BookedPackage } from '../../models/package.interface';
-import { UserPackagesService } from '../../services/user-packages.service';
+import { ReservationService } from '../../services/reservation.service';
 
 @Component({
   selector: 'app-my-packages',
@@ -29,7 +29,7 @@ export class MyPackagesComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
 
-  constructor(private userPackagesService: UserPackagesService) { }
+  constructor(private reservationPackage: ReservationService) { }
 
   ngOnInit(): void {
     this.loadUserPackages();
@@ -38,8 +38,10 @@ export class MyPackagesComponent implements OnInit {
   loadUserPackages(): void {
     this.isLoading = true;
     this.error = null;
-    
-    this.userPackagesService.getUserPackages().subscribe({
+
+    let userId = localStorage.getItem('userId');
+
+    this.reservationPackage.getReservationByUserId(Number(userId)).subscribe({
       next: (packages) => {
         this.userPackages = packages;
         this.isLoading = false;
@@ -54,24 +56,5 @@ export class MyPackagesComponent implements OnInit {
 
   onViewPackageDetails(packageId: number): void {
     console.log('Visualizar detalhes do pacote:', packageId);
-  
-  }
-  
-  onContactSupport(packageId: number): void {
-    console.log('Contatar suporte para pacote:', packageId);
-    
-    this.userPackagesService.contactSupport(packageId).subscribe({
-      next: (response) => {
-        if (response.success) {
-          alert(`Ticket de suporte criado: ${response.ticketId}\n${response.message}`);
-        } else {
-          alert('Erro ao contatar suporte: ' + response.message);
-        }
-      },
-      error: (error) => {
-        console.error('Error contacting support:', error);
-        alert('Erro ao contatar suporte. Tente novamente.');
-      }
-    });
   }
 }

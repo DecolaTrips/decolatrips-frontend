@@ -1,8 +1,7 @@
 export interface PackageMedia {
-   
   id?: number;
   idTravelPackage?: number;
-  nameImg: string;
+  nameImg?: string;
   descriptionImg?: string;
   urlImg: string;
 }

@@ -1,6 +1,6 @@
 import { ITraveler } from "./traveler.interface";
 
-export interface Reservation {
+export interface CreateReservationDTO {
     clientId: number;
     availabilityId: number;
     travelers: ReservationTraveler[];
