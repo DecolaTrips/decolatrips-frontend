@@ -7,15 +7,27 @@
     <h1 class="text-white text-6xl">{{ item.title }}</h1>
   </div>
 
-  <div class="h-[86vh] absolute inset-0 bg-black opacity-20"></div>
-
+  <div class="h-[86vh] absolute inset-0 bg-black opacity-20">
+  </div>
   <div
     class="mx-4 flex px-2 py-2 items-center rounded-sm max-w-[1000px] w-fit -bottom-4.5 absolute h-14 bg-white shadow-xl shadow-[#44444411] border border-[#D9D9D9]">
+
     <div
       class="flex gap-2 md:gap-4 h-full w-full items-center justify-center text-base md:text-xl font-semibold text-secondary-light">
       <p>{{ item.durationDays }} dias / {{ item.durationDays - 1 }} noites</p>
       <div class="border-l-1 border-gray-300 h-8"></div>
-      <p>R$ {{ item.valorBase }} <span class="text-base text-primary">/ pessoa</span></p>
+
+      <div class="flex flex-col items-center"> <!-- Container novo para agrupar preço e span -->
+        <p>R$ {{ item.valorBase }} <span class="text-base text-primary">/ pessoa</span></p>
+
+        <div class="flex flex-row">
+          <img src="warning.svg" alt="warning" class="h-4">
+          <span class="text-xs font-normal text-blue-400">
+            Esse preço não inclui as passagens aéreas
+          </span>
+        </div>
+        
+      </div>
     </div>
     <button class="w-48 h-full bg-primary text-white rounded-md hover:bg-primary-dark transition-colors cursor-pointer">
       <a href="/package/{{ item.id }}#reservar">Comprar Pacote</a>
@@ -67,7 +79,14 @@
       <thead>
         <tr class="bg-gray-100 text-left text-lg font-semibold text-gray-700">
           <th class="px-4 py-2 border-b">Período</th>
-          <th class="px-4 py-2 border-b">Preço por pessoa</th>
+          <div class="flex items-row border-b">
+            <th class="px-4 py-2 flex flex-col w-full max-w-[300px]"> <!-- Ajuste o max-w conforme necessário -->
+              <span class="block">Preço por pessoa</span>
+              <span class="text-xs text-gray-600 font-normal break-words whitespace-normal block">
+                (O valor da passagem só será disponível na reserva do pacote, por ser sujeito a alterações)
+              </span>
+            </th>
+          </div>
           <th class="px-4 py-2 border-b"></th>
         </tr>
       </thead>
